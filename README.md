@@ -1,6 +1,6 @@
 # Rectangle
 
-A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired Window manager for Windows powered by AutoHotkey.
+A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager for Windows powered by AutoHotkey.
 
 ## Prerequisites
 
