@@ -95,7 +95,7 @@ LeftOneThird()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate the width of one third of the monitor.
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Set the window position to the left one third of the monitor.
       WinMove l, t, OneThirdWidth, b - t, hWnd
@@ -127,7 +127,7 @@ CenterOneThird()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate the width of one third of the monitor.
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Calculate the horizontal position for centering.
       CenterX := l + ((r - l) / 2) - (OneThirdWidth / 2)
@@ -162,7 +162,7 @@ RightOneThird()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate width of one third of monitor
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Calculate horizontal position for right aligning
       RightX := r - OneThirdWidth
@@ -197,7 +197,7 @@ LeftOneThirdTop()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate the width of one third of the monitor.
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Set the window position to the left one third of the monitor and top half of it.
       WinMove l, t, OneThirdWidth, (b - t) / 2, hWnd
@@ -229,7 +229,7 @@ LeftOneThirdBottom()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate the width of one third of the monitor.
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Set the window position to left one third of monitor and bottom half of it.
       WinMove l, b - (b - t) / 2, OneThirdWidth, (b - t) / 2, hWnd
@@ -261,7 +261,7 @@ RightOneThirdTop()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate width of one third of monitor
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Calculate horizontal position for right aligning
       RightX := r - OneThirdWidth
@@ -296,7 +296,7 @@ RightOneThirdBottom()
     if (x >= l && x + w <= r && y >= t && y + h <= b)
     {
       ; Calculate width of one third of monitor
-      OneThirdWidth := (r - l) / 3
+      OneThirdWidth := Ceil((r - l) / 3)
 
       ; Calculate horizontal position for right aligning
       RightX := r - OneThirdWidth
