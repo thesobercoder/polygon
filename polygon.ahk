@@ -337,6 +337,18 @@ BottomRightSixth()
   }
 }
 
+CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b)
+{
+  if(x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+  {
+    return true
+  }
+  else
+  {
+    return false
+  }
+}
+
 WinGetPosEx(hWindow, &X := "", &Y := "", &Width := "", &Height := "", &Offset_Left := "", &Offset_Top := "", &Offset_Right := "", &Offset_Bottom := "")
 {
   Static RECTPlus, DWMWA_EXTENDED_FRAME_BOUNDS := 9
