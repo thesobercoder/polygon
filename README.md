@@ -16,7 +16,8 @@ To automatically start Polygon on Windows logon -
 - Create a new directory under your home directory, named `.config`.
 - Download the `polygon.ahk` file to this newly created `.config` directory.
 - Create a `startup.cmd` file in the `shell:startup` directory.
-- Fill the content of the `startup.cmd` with the following content.
+- Put the following content in the `startup.cmd` file you created above.
+  
   ```cmd
   @echo off
 
