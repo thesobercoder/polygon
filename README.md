@@ -13,8 +13,8 @@ You need to have AutoHotkey v2 installed.
 
 To automatically start Polygon on Windows logon -
 
-- Create a new directory under your `C:\Users\<username>` directory named `.config`.
-- Download the `polygon.ahk` file to this newly created `.config` directory.
+- Create a new directory under your home `C:\Users\<username>` directory named `.config`.
+- Copy the `polygon.ahk` file to this newly created `.config` directory.
 - Copy the `polygon.cmd` file in the `shell:startup` directory.
 
 If you followed everything correctly, Polygon should start with Windows logon after the next reboot.
