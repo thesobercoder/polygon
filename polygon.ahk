@@ -28,7 +28,6 @@
 ;-- Bottom Right Sixth (CTRL+WIN+b)
 ^#b:: BottomRightSixth()
 
-
 CenterWindow()
 {
   ;-- Get the active window's handle.
