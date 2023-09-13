@@ -74,7 +74,7 @@ CenterWindowWithSize(rw, rh)
   }
 }
 
-LeftOneThird()
+FirstThird()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -106,7 +106,7 @@ LeftOneThird()
   }
 }
 
-CenterOneThird()
+CenterThird()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -141,7 +141,7 @@ CenterOneThird()
   }
 }
 
-RightOneThird()
+LastThird()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -176,7 +176,7 @@ RightOneThird()
   }
 }
 
-LeftOneThirdTop()
+TopLeftSixth()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -200,7 +200,7 @@ LeftOneThirdTop()
       OneThirdWidth := Ceil((r - l) / 3)
 
       ; Set the window position to the left one third of the monitor and top half of it.
-      WinMove l, t, OneThirdWidth, (b - t) / 2, hWnd
+      WinMove l, t, OneThirdWidth, Ceil((b - t) / 2), hWnd
 
       ; Exit the loop since we found the correct monitor.
       break
@@ -208,7 +208,7 @@ LeftOneThirdTop()
   }
 }
 
-LeftOneThirdBottom()
+BottomLeftSixth()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -232,7 +232,7 @@ LeftOneThirdBottom()
       OneThirdWidth := Ceil((r - l) / 3)
 
       ; Set the window position to left one third of monitor and bottom half of it.
-      WinMove l, b - (b - t) / 2, OneThirdWidth, (b - t) / 2, hWnd
+      WinMove l, Ceil(b - (b - t) / 2), OneThirdWidth, Ceil((b - t) / 2), hWnd
 
       ; Exit loop since we found correct monitor
       break
@@ -240,7 +240,7 @@ LeftOneThirdBottom()
   }
 }
 
-RightOneThirdTop()
+TopRightSixth()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -267,7 +267,7 @@ RightOneThirdTop()
       RightX := r - OneThirdWidth
 
       ; Set window position to right one third of monitor and top half of it.
-      WinMove RightX, t, OneThirdWidth, (b - t) / 2, hWnd
+      WinMove RightX, t, OneThirdWidth, Ceil((b - t) / 2), hWnd
 
       ; Exit loop since we found correct monitor
       break
@@ -275,7 +275,7 @@ RightOneThirdTop()
   }
 }
 
-RightOneThirdBottom()
+BottomRightSixth()
 {
   ; Get the number of monitors.
   MonitorCount := MonitorGetCount()
@@ -302,7 +302,7 @@ RightOneThirdBottom()
       RightX := r - OneThirdWidth
 
       ; Set window position to right one third of monitor and bottom half of it.
-      WinMove RightX, b - (b - t) / 2, OneThirdWidth, (b - t) / 2, hWnd
+      WinMove RightX, Ceil(b - (b - t) / 2), OneThirdWidth, Ceil((b - t) / 2), hWnd
 
       ; Exit loop since we found correct monitor
       break
@@ -310,29 +310,29 @@ RightOneThirdBottom()
   }
 }
 
-; Center a window (CTRL+WIN+c)
+; Center (CTRL+WIN+c)
 ^#c:: CenterWindow()
 
-; Center a window with size 1920x1080 (CTRL+WIN+q)
+; Center with 1920x1080 (CTRL+WIN+q)
 ^#q:: CenterWindowWithSize(1920, 1080)
 
-; Left One Third (CTRL+WIN+d)
-^#d:: LeftOneThird()
+; First Third (CTRL+WIN+d)
+^#d:: FirstThird()
 
-; Center One Third (CTRL+WIN+f)
-^#f:: CenterOneThird()
+; Center Third (CTRL+WIN+f)
+^#f:: CenterThird()
 
-; Center One Third (CTRL+WIN+f)
-^#g:: RightOneThird()
+; Last Third (CTRL+WIN+f)
+^#g:: LastThird()
 
-; Left One Third Top (CTRL+WIN+z)
-^#z:: LeftOneThirdTop()
+; Top Left Sixth (CTRL+WIN+z)
+^#z:: TopLeftSixth()
 
-; Left One Third Bottom (CTRL+WIN+z)
-^#x:: LeftOneThirdBottom()
+; Bottom Left Sixth (CTRL+WIN+z)
+^#x:: BottomLeftSixth()
 
-; Right One Third Top (CTRL+WIN+v)
-^#v:: RightOneThirdTop()
+; Top Right Sixth (CTRL+WIN+v)
+^#v:: TopRightSixth()
 
-; Right One Third Bottom (CTRL+WIN+b)
-^#b:: RightOneThirdBottom()
+; Bottom Right Sixth (CTRL+WIN+b)
+^#b:: BottomRightSixth()
