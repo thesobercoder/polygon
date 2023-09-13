@@ -2,6 +2,9 @@
 
 A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager for Windows 10/11 powered by AutoHotkey.
 
+> [!NOTE]
+> Polygon is still a work in progress and aims to have 100% feature compatibility with Rectangle.
+
 ## Prerequisites
 
 You need to have AutoHotkey v2 installed.
