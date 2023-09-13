@@ -8,22 +8,16 @@ You need to have AutoHotkey v2 installed.
 
 ## Installation
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > This guide assumes that you have AutoHotkey executable available in your path.
 
 To automatically start Polygon on Windows logon -
 
-- Create a new directory under your home directory, named `.config`.
+- Create a new directory under your `C:\Users\<username>` directory named `.config`.
 - Download the `polygon.ahk` file to this newly created `.config` directory.
-- Create a `startup.cmd` file in the `shell:startup` directory.
-- Put the following content in the `startup.cmd` file you created above.
-  
-  ```cmd
-  @echo off
+- Copy the `polygon.cmd` file in the `shell:startup` directory.
 
-  :: Start AutoHotkey
-  call powershell.exe "Start-Process -WindowStyle hidden autohotkey.exe ""$HOME\.config\polygon.ahk"""
-  ```
+If you followed everything correctly, Polygon should start with Windows logon after the next reboot.
 
 ## Usage
 
