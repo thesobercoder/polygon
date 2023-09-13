@@ -8,7 +8,7 @@ You need to have AutoHotkey v2 installed.
 
 ## Installation
 
-> :warning: **Note:**
+> [!NOTE]
 > This guide assumes that you have AutoHotkey executable available in your path.
 
 To automatically start Polygon on Windows logon -
