@@ -3,6 +3,14 @@
 #DllLoad Dwmapi.dll
 #DllLoad User32.dll
 
+;-- Context Menu
+A_TrayMenu.Add("Version", ShowVersion)
+
+ShowVersion(*)
+{
+  MsgBox "Version 0.1.0", "Polygon"
+}
+
 ;-- Center (CTRL+WIN+c)
 ^#c:: CenterWindow()
 
