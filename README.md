@@ -28,19 +28,19 @@ Here are the shortcuts available in Polygon.
 
 | Shortcut | Layout |
 |---|---|
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>c</kbd> | Center |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>q</kbd> | Center with 1920x1080 |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>w</kbd> | Center Half |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>r</kbd> | Center Two Third |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>d</kbd> | First Third |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>f</kbd> | Center Third |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>g</kbd> | Last Third |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>z</kbd> | Top Left Sixth |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>x</kbd> | Bottom Left Sixth |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>v</kbd> | Top Right Sixth |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>b</kbd> | Bottom Right Sixth |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>n</kbd> | Top Center Sixth |
-| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>m</kbd> | Bottom Center Sixth |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>c</kbd> | Center |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>q</kbd> | Center with 1920x1080 |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>w</kbd> | Center Half |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>r</kbd> | Center Two Third |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>d</kbd> | First Third |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>f</kbd> | Center Third |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>g</kbd> | Last Third |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>z</kbd> | Top Left Sixth |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>x</kbd> | Bottom Left Sixth |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>v</kbd> | Top Right Sixth |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>b</kbd> | Bottom Right Sixth |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>n</kbd> | Top Center Sixth |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>m</kbd> | Bottom Center Sixth |
 
 ## Known Issues
 
