@@ -30,6 +30,8 @@ Here are the shortcuts available in Polygon.
 |---|---|
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>c</kbd> | Center |
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>q</kbd> | Center with 1920x1080 |
+| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>w</kbd> | Center Half |
+| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>r</kbd> | Center Two Third |
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>d</kbd> | First Third |
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>f</kbd> | Center Third |
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>g</kbd> | Last Third |
