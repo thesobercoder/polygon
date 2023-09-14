@@ -335,7 +335,7 @@ BottomLeftSixth()
       OneThirdWidth := Ceil((r - l) / 3)
 
       ;-- Set the window position to left one third of monitor and bottom half of it.
-      WinMove l - ofl, Ceil((b - ofb) - ((b - ofb) - (t - oft)) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+      WinMove l - ofl, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
 
       ;-- Exit loop since we found correct monitor
       break
@@ -405,7 +405,7 @@ BottomRightSixth()
       RightX := (r - ofr) - OneThirdWidth
 
       ;-- Set window position to right one third of monitor and bottom half of it.
-      WinMove RightX, Ceil((b - ofb) - ((b - ofb) - (t - oft)) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+      WinMove RightX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
 
       ;-- Exit loop since we found correct monitor
       break
