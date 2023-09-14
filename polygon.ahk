@@ -539,7 +539,7 @@ WinGetPosEx(hWindow, &X := "", &Y := "", &Width := "", &Height := "", &Offset_Le
   ;-- Note: Only the first 16 bytes of the RECTPlus structure are used by the
   ;-- DwmGetWindowAttribute and GetWindowRect functions.
   RECTPlus := Buffer(32, 0)
-  DWMRC := DllCall("dwmapi\DwmGetWindowAttribute", PtrType, hWindow, "UInt", DWMWA_EXTENDED_FRAME_BOUNDS, PtrType, RECTPlus, "UInt", 16)
+  DllCall("dwmapi\DwmGetWindowAttribute", PtrType, hWindow, "UInt", DWMWA_EXTENDED_FRAME_BOUNDS, PtrType, RECTPlus, "UInt", 16)
 
   ;-- Populate the output variables
   X := Left := NumGet(RECTPlus, 0, "Int")
