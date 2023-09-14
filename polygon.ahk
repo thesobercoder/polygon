@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0
 #SingleInstance
+#DllLoad Dwmapi.dll
+#DllLoad User32.dll
 
 ;-- Center (CTRL+WIN+c)
 ^#c:: CenterWindow()
