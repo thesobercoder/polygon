@@ -161,7 +161,7 @@ Center16By9()
   }
 }
 
-CenterHalf(*)
+CenterHalf()
 {
   ;-- Get the handle of the active window.
   hWnd := WinExist("A")
