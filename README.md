@@ -7,7 +7,7 @@ A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager
 
 ## Prerequisites
 
-You need to have AutoHotkey v2 installed.
+You need to have [AutoHotkey v2](https://github.com/AutoHotkey/AutoHotkey) installed.
 
 ## Installation
 
