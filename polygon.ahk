@@ -3,6 +3,8 @@
 #DllLoad Dwmapi.dll
 #DllLoad User32.dll
 
+global VERSION := "0.1.0"
+
 ;-- Context Menu
 tray := A_TrayMenu
 tray.Delete()
@@ -35,7 +37,7 @@ Terminate(*)
 
 ShowVersion(*)
 {
-  MsgBox "Version 0.1.0", "Polygon", "iconi"
+  MsgBox "Version " . VERSION, "Polygon", "iconi"
 }
 
 ;-- Center (CTRL+WIN+c)
