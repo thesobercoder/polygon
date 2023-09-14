@@ -4,6 +4,7 @@
 #DllLoad User32.dll
 
 ;-- Context Menu
+A_TrayMenu.Add
 A_TrayMenu.Add("Version", ShowVersion)
 
 ShowVersion(*)
