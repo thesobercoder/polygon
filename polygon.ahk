@@ -24,6 +24,7 @@ ShowHelp(*)
   HelpList.Insert(1, , "Center", "CTRL+WIN+C")
   HelpList.Insert(2, , "Center With 1920 x 1080", "CTRL+WIN+Q")
   HelpList.ModifyCol()
+  HelpList.Opt("+Grid")
   HelpGui.Show()
 }
 
