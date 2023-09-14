@@ -4,12 +4,32 @@
 #DllLoad User32.dll
 
 ;-- Context Menu
-A_TrayMenu.Add
-A_TrayMenu.Add("Version", ShowVersion)
+tray := A_TrayMenu
+tray.Delete()
+tray.Add("Show Shortcuts", ShowShortcuts)
+tray.Add("Version", ShowVersion)
+tray.Add("Restart", Restart)
+tray.Add("Exit", Terminate)
+tray.Default := "Exit"
+
+Restart(*)
+{
+  Reload()
+}
+
+ShowShortcuts(*)
+{
+  MsgBox "Version 0.1.0", "Polygon", "iconi"
+}
+
+Terminate(*)
+{
+  ExitApp(0)
+}
 
 ShowVersion(*)
 {
-  MsgBox "Version 0.1.0", "Polygon"
+  MsgBox "Version 0.1.0", "Polygon", "iconi"
 }
 
 ;-- Center (CTRL+WIN+c)
@@ -128,7 +148,7 @@ CenterWindowWithSize(rw, rh)
   }
 }
 
-CenterHalf()
+CenterHalf(*)
 {
   ;-- Get the handle of the active window.
   hWnd := WinExist("A")
