@@ -29,7 +29,7 @@ Here are the shortcuts available in Polygon.
 | Shortcut | Layout |
 |---|---|
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center with 1920x1080 |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center 16:9 |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third |

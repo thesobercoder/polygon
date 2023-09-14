@@ -5,15 +5,23 @@
 
 global APP_VERSION := "0.1.0"
 global APP_NAME := "Polygon"
+global APP_URL := "https://github.com/thesobercoder/polygon"
+global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
 
 ;-- Context Menu
 tray := A_TrayMenu
 tray.Delete()
 tray.Add("Help", ShowHelp)
 tray.Add("Version", ShowVersion)
+tray.Add("Feedback", SubmitFeedback)
 tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
-tray.Default := "Help"
+tray.Default := "Version"
+
+SubmitFeedback(*)
+{
+  Run APP_FEEDBACK_URL
+}
 
 Restart(*)
 {
@@ -22,13 +30,7 @@ Restart(*)
 
 ShowHelp(*)
 {
-  HelpGui := Gui(, APP_NAME)
-  HelpList := HelpGui.Add("ListView", "w400 h400", ["Command", "Shortcut"])
-  HelpList.Insert(1, , "Center", "CTRL+WIN+C")
-  HelpList.Insert(2, , "Center With 1920x1080", "CTRL+WIN+Q")
-  HelpList.ModifyCol()
-  HelpList.Opt("+Grid")
-  HelpGui.Show()
+  Run APP_URL
 }
 
 Terminate(*)
@@ -42,10 +44,10 @@ ShowVersion(*)
 }
 
 ;-- Center (CTRL+WIN+c)
-^#c:: CenterWindow()
+^#c:: Center()
 
 ;-- Center with 1920x1080 (CTRL+WIN+q)
-^#q:: CenterWindowWithSize(1920, 1080)
+^#q:: Center16By9()
 
 ;-- Center Half (CTRL+WIN+w)
 ^#w:: CenterHalf()
@@ -80,7 +82,7 @@ ShowVersion(*)
 ;-- Bottom Center Sixth (CTRL+WIN+m)
 ^#m:: BottomCenterSixth()
 
-CenterWindow()
+Center()
 {
   ;-- Get the active window's handle.
   hWnd := WinExist("A")
@@ -113,7 +115,7 @@ CenterWindow()
   }
 }
 
-CenterWindowWithSize(rw, rh)
+Center16By9()
 {
   ;-- Get the active window's handle.
   hWnd := WinExist("A")
@@ -132,15 +134,9 @@ CenterWindowWithSize(rw, rh)
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
 
-    ;-- If the desired height is greater than the monitor height then set it to the max monitor height.
-    if (rh >= (b - t)) {
-      rh := (b - t)
-    }
-
-    ;-- If the desired width is greater than the monitor width then set it to the max monitor width.
-    if (rw >= (r - l)) {
-      rw := (r - l)
-    }
+    ;-- Set desired window dimension
+    rh := 1080
+    rw := 1920
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -149,8 +145,16 @@ CenterWindowWithSize(rw, rh)
       centerX := Ceil((l + r) / 2)
       centerY := Ceil((t + b) / 2)
 
-      ;-- Move the active window to the center of the current monitor with desired size.
-      WinMove Ceil(centerX - (rw + ofl + ofr) / 2), Ceil(centerY - (rh + oft + ofb) / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
+      ;-- Check if the desired dimenions are more than the monitor dimensions
+      if (rh >= (b - t) || rw >= (r - l))
+      {
+        WinMaximize hWnd
+      }
+      else
+      {
+        ;-- Move the active window to the center of the current monitor with desired size.
+        WinMove Ceil(centerX - (rw) / 2), Ceil(centerY - (rh) / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
+      }
 
       break
     }
