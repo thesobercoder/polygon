@@ -522,10 +522,7 @@ CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b)
   {
     return true
   }
-  else
-  {
-    return false
-  }
+  return false
 }
 
 WinGetPosEx(hWindow, &X := "", &Y := "", &Width := "", &Height := "", &Offset_Left := "", &Offset_Top := "", &Offset_Right := "", &Offset_Bottom := "")
