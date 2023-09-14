@@ -13,7 +13,7 @@ tray.Add("Help", ShowHelp)
 tray.Add("Version", ShowVersion)
 tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
-tray.Default := "Exit"
+tray.Default := "Help"
 
 Restart(*)
 {
