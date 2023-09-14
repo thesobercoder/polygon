@@ -6,7 +6,7 @@
 ;-- Context Menu
 tray := A_TrayMenu
 tray.Delete()
-tray.Add("Show Shortcuts", ShowShortcuts)
+tray.Add("Help", ShowHelp)
 tray.Add("Version", ShowVersion)
 tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
@@ -17,9 +17,14 @@ Restart(*)
   Reload()
 }
 
-ShowShortcuts(*)
+ShowHelp(*)
 {
-  MsgBox "Version 0.1.0", "Polygon", "iconi"
+  HelpGui := Gui(, "Polygon")
+  HelpList := HelpGui.Add("ListView", "w400 h400", ["Command", "Shortcut"])
+  HelpList.Insert(1, , "Center", "CTRL+WIN+C")
+  HelpList.Insert(2, , "Center With 1920 x 1080", "CTRL+WIN+Q")
+  HelpList.ModifyCol()
+  HelpGui.Show()
 }
 
 Terminate(*)
