@@ -34,6 +34,12 @@
 ;-- Bottom Right Sixth (CTRL+WIN+b)
 ^#b:: BottomRightSixth()
 
+;-- Top Center Sixth (CTRL+WIN+n)
+^#n:: TopCenterSixth()
+
+;-- Bottom Center Sixth (CTRL+WIN+m)
+^#m:: BottomCenterSixth()
+
 CenterWindow()
 {
   ;-- Get the active window's handle.
@@ -408,6 +414,76 @@ BottomRightSixth()
       WinMove RightX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
 
       ;-- Exit loop since we found correct monitor
+      break
+    }
+  }
+}
+
+TopCenterSixth()
+{
+  ;-- Get the number of monitors.
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+
+  ;-- Loop through each monitor to find which one contains the active window.
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor.
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Get the dimensions of the current window.
+    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+    ;-- Check if the active window is within the current monitor.
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width of one third of the monitor.
+      OneThirdWidth := Ceil((r - l) / 3)
+
+      ;-- Calculate the horizontal position for centering.
+      CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
+
+      ;-- Set the window position to top center one sixth of the monitor.
+      WinMove CenterX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+
+      ;-- Exit the loop since we found the correct monitor.
+      break
+    }
+  }
+}
+
+BottomCenterSixth()
+{
+  ;-- Get the number of monitors.
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+
+  ;-- Loop through each monitor to find which one contains the active window.
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor.
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Get the dimensions of the current window.
+    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+    ;-- Check if the active window is within the current monitor.
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width of one third of the monitor.
+      OneThirdWidth := Ceil((r - l) / 3)
+
+      ;-- Calculate the horizontal position for centering.
+      CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
+
+      ;-- Set the window position to bottom center one sixth of the monitor.
+      WinMove CenterX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+
+      ;-- Exit the loop since we found the correct monitor.
       break
     }
   }

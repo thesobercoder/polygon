@@ -39,6 +39,8 @@ Here are the shortcuts available in Polygon.
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>x</kbd> | Bottom Left Sixth |
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>v</kbd> | Top Right Sixth |
 | <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>b</kbd> | Bottom Right Sixth |
+| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>n</kbd> | Top Center Sixth |
+| <kbd>Ctrl</kbd>+<kbd>Win</kbd>+<kbd>m</kbd> | Bottom Center Sixth |
 
 ## Known Issues
 
