@@ -44,12 +44,14 @@ CenterWindow()
 {
   ;-- Get the active window's handle.
   hWnd := WinExist("A")
-
-  ;-- Get the active window's dimensions.
-  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+  if (hWnd <= 0)
+    return
 
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
+
+  ;-- Get the active window's dimensions.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
@@ -75,18 +77,20 @@ CenterWindowWithSize(rw, rh)
 {
   ;-- Get the active window's handle.
   hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
 
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- If the desired height is greater than the monitor height then set it to the max monitor height.
     if (rh >= (b - t)) {
@@ -115,20 +119,22 @@ CenterWindowWithSize(rw, rh)
 
 CenterHalf()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -150,11 +156,16 @@ CenterHalf()
 
 CenterTwoThird()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
@@ -162,8 +173,6 @@ CenterTwoThird()
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
 
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -185,20 +194,22 @@ CenterTwoThird()
 
 FirstThird()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -217,20 +228,22 @@ FirstThird()
 
 CenterThird()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -252,20 +265,22 @@ CenterThird()
 
 LastThird()
 {
+  ;-- Get handle of active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get handle of active window
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains active window
   Loop MonitorCount
   {
     ;-- Get dimensions of current monitor
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if active window is within current monitor
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -287,20 +302,22 @@ LastThird()
 
 TopLeftSixth()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -319,20 +336,22 @@ TopLeftSixth()
 
 BottomLeftSixth()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -351,20 +370,22 @@ BottomLeftSixth()
 
 TopRightSixth()
 {
+  ;-- Get handle of active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get handle of active window
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains active window
   Loop MonitorCount
   {
     ;-- Get dimensions of current monitor
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if active window is within current monitor
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -386,20 +407,22 @@ TopRightSixth()
 
 BottomRightSixth()
 {
+  ;-- Get handle of active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get handle of active window
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains active window
   Loop MonitorCount
   {
     ;-- Get dimensions of current monitor
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if active window is within current monitor
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -421,20 +444,22 @@ BottomRightSixth()
 
 TopCenterSixth()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
@@ -456,20 +481,22 @@ TopCenterSixth()
 
 BottomCenterSixth()
 {
+  ;-- Get the handle of the active window.
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
   ;-- Get the number of monitors.
   MonitorCount := MonitorGetCount()
 
-  ;-- Get the handle of the active window.
-  hWnd := WinExist("A")
+  ;-- Get the dimensions of the current window.
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
   ;-- Loop through each monitor to find which one contains the active window.
   Loop MonitorCount
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Get the dimensions of the current window.
-    WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
