@@ -46,7 +46,7 @@ CenterWindow()
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
 
     ;-- Check if the active window is within the current monitor.
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate the center of the current monitor.
       centerX := Ceil((l + r) / 2)
@@ -76,27 +76,27 @@ CenterWindowWithSize(rw, rh)
     ;-- Get the dimensions of the current window.
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
+    ;-- If the desired height is greater than the monitor height then set it to the max monitor height.
+    if (rh >= (b - t)) {
+      rh := (b - t)
+    }
+
+    ;-- If the desired width is greater than the monitor width then set it to the max monitor width.
+    if (rw >= (r - l)) {
+      rw := (r - l)
+    }
+
     ;-- Check if the active window is within the current monitor.
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
-      ;-- If window size is equal to screen size, place it full screen on same monitor.
-      if (rw = r - l && rh - 40 = b - t)
-      {
-        ;-- Resize window to desired size.
-        WinMove l - ofl, t - oft, rw + ofl + ofr, rh - 40 + oft + ofb, hWnd
-        break
-      }
-      else
-      {
-        ;-- Calculate the center of the current monitor with desired size.
-        centerX := Ceil((l + r) / 2)
-        centerY := Ceil((t + b) / 2)
+      ;-- Calculate the center of the current monitor with desired size.
+      centerX := Ceil((l + r) / 2)
+      centerY := Ceil((t + b) / 2)
 
-        ;-- Move the active window to the center of the current monitor with desired size.
-        WinMove Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw, rh, hWnd
+      ;-- Move the active window to the center of the current monitor with desired size.
+      WinMove Ceil(centerX - (rw + ofl + ofr) / 2), Ceil(centerY - (rh + oft + ofb) / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
 
-        break
-      }
+      break
     }
   }
 }
@@ -119,7 +119,7 @@ FirstThird()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate the width of one third of the monitor.
       OneThirdWidth := Ceil((r - l) / 3)
@@ -151,7 +151,7 @@ CenterThird()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate the width of one third of the monitor.
       OneThirdWidth := Ceil((r - l) / 3)
@@ -186,7 +186,7 @@ LastThird()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if active window is within current monitor
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate width of one third of monitor
       OneThirdWidth := Ceil((r - l) / 3)
@@ -221,7 +221,7 @@ TopLeftSixth()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate the width of one third of the monitor.
       OneThirdWidth := Ceil((r - l) / 3)
@@ -253,7 +253,7 @@ BottomLeftSixth()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if the active window is within the current monitor.
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate the width of one third of the monitor.
       OneThirdWidth := Ceil((r - l) / 3)
@@ -285,7 +285,7 @@ TopRightSixth()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if active window is within current monitor
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate width of one third of monitor
       OneThirdWidth := Ceil((r - l) / 3)
@@ -320,7 +320,7 @@ BottomRightSixth()
     WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
 
     ;-- Check if active window is within current monitor
-    if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate width of one third of monitor
       OneThirdWidth := Ceil((r - l) / 3)
@@ -339,7 +339,7 @@ BottomRightSixth()
 
 CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b)
 {
-  if(x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
+  if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
   {
     return true
   }
