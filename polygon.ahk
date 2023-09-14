@@ -3,7 +3,8 @@
 #DllLoad Dwmapi.dll
 #DllLoad User32.dll
 
-global VERSION := "0.1.0"
+global APP_VERSION := "0.1.0"
+global APP_NAME := "Polygon"
 
 ;-- Context Menu
 tray := A_TrayMenu
@@ -21,10 +22,10 @@ Restart(*)
 
 ShowHelp(*)
 {
-  HelpGui := Gui(, "Polygon")
+  HelpGui := Gui(, APP_NAME)
   HelpList := HelpGui.Add("ListView", "w400 h400", ["Command", "Shortcut"])
   HelpList.Insert(1, , "Center", "CTRL+WIN+C")
-  HelpList.Insert(2, , "Center With 1920 x 1080", "CTRL+WIN+Q")
+  HelpList.Insert(2, , "Center With 1920x1080", "CTRL+WIN+Q")
   HelpList.ModifyCol()
   HelpList.Opt("+Grid")
   HelpGui.Show()
@@ -37,7 +38,7 @@ Terminate(*)
 
 ShowVersion(*)
 {
-  MsgBox "Version " . VERSION, "Polygon", "iconi"
+  MsgBox "Version " . APP_VERSION, APP_NAME, "iconi"
 }
 
 ;-- Center (CTRL+WIN+c)
