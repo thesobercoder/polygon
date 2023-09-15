@@ -1,7 +1,7 @@
 name: Build and Release Polygon
 
 permissions:
-  packages: write
+  contents: write
 
 on:
   push:
