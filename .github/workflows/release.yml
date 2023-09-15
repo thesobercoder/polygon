@@ -1,5 +1,8 @@
 name: Build and Release Polygon
 
+permissions:
+  packages: write
+
 on:
   push:
     tags:
