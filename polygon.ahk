@@ -47,7 +47,7 @@ ShowVersion(*)
 ^#c:: Center()
 
 ;-- Center with 1920x1080 (CTRL+WIN+q)
-^#q:: Center16By9()
+^#q:: Center1920x1080()
 
 ;-- Center Half (CTRL+WIN+w)
 ^#w:: CenterHalf()
@@ -115,7 +115,7 @@ Center()
   }
 }
 
-Center16By9()
+Center1920x1080()
 {
   ;-- Get the active window's handle.
   hWnd := WinExist("A")
@@ -135,16 +135,12 @@ Center16By9()
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
 
     ;-- Set desired window dimension
-    rh := 1080
     rw := 1920
+    rh := 1080
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
-      ;-- Calculate the center of the current monitor with desired size.
-      centerX := Ceil((l + r) / 2)
-      centerY := Ceil((t + b) / 2)
-
       ;-- Check if the desired dimenions are more than the monitor dimensions
       if (rh >= (b - t) || rw >= (r - l))
       {
@@ -152,6 +148,10 @@ Center16By9()
       }
       else
       {
+        ;-- Calculate the center of the current monitor with desired size.
+        centerX := Ceil((l + r) / 2)
+        centerY := Ceil((t + b) / 2)
+
         ;-- Move the active window to the center of the current monitor with desired size.
         WinMove Ceil(centerX - (rw) / 2), Ceil(centerY - (rh) / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
       }
@@ -216,7 +216,6 @@ CenterTwoThird()
   {
     ;-- Get the dimensions of the current monitor.
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
 
     ;-- Check if the active window is within the current monitor.
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
