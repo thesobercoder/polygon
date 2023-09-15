@@ -13,21 +13,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Ahk2Exe
-        uses: nekocodeX/GitHub-Action-Ahk2Exe@main
+        uses: nukdokplex/autohotkey-build@v0.1
         with:
+          version: v2.0.8
+          x64: true
+          x86: true
+          x64_suffix: "-x64"
+          x86_suffix: "-x86"
           in: polygon.ahk
-          out: polygon-${{ env.TAG_NAME }}.exe
-          icon: polygon.png
+          icon: polygon.ico
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: polygon-${{ env.TAG_NAME }}.exe
+          files: |
+            polygon-x64.exe
+            polygon-x86.exe
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-  DraftReleaseNotes:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: release-drafter/release-drafter@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
