@@ -12,7 +12,7 @@
 		<MediaTemplate EmbedCab="yes" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="PersonalFolder">
-				<Directory Id="INSTALLFOLDER" Name="Polygon" />
+				<Directory Id="INSTALLFOLDER" Name="Polygon" VaryBasedOnAllUsers="yes" />
 				<Directory Id="StartupFolder" Name="Startup" /></Directory>
 		</Directory>
 		<Feature Id="ProductFeature" Title="Polygon" Level="1">
