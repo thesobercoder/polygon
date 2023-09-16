@@ -29,21 +29,20 @@ jobs:
       - name: Rename with version and generate checksums
         shell: pwsh
         run: |
-          $tag = "${{ github.ref }}".Replace('refs/tags/', '')
-          $checksumFile = "./build/polygon-" + $tag + "-checksum.txt"
+          $tag = "${{ github.ref }}".Replace('refs/tags/', '');
+          $checksumFile = "./build/polygon-checksum-" + $tag + ".txt";
           Get-ChildItem -Path ./build -Filter *.exe | ForEach-Object {
-            $hash = Get-FileHash -Path $_.FullName -Algorithm SHA256
-            "$($_.Name): $($hash.Hash)" | Out-File -Append -FilePath $checksumFile
-            $newName = $_.BaseName + "-" + $tag + $_.Extension
-            Rename-Item -Path $_.FullName -NewName $newName
+            $hash = Get-FileHash -Path $_.FullName -Algorithm SHA256;
+            "$($_.Name): $($hash.Hash)" | Out-File -Append -FilePath $checksumFile;
+            $newName = $_.BaseName + "-" + $tag + $_.Extension;
+            Rename-Item -Path $_.FullName -NewName $newName;
           }
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ./build/polygon-*-x64.exe
-            ./build/polygon-*-x86.exe
-            ./build/polygon-*-checksum.txt
+            ./build/polygon-*.exe
+            ./build/polygon-checksum-*.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
