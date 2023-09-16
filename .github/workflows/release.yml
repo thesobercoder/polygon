@@ -26,23 +26,22 @@ jobs:
           x64_suffix: "-x64"
           x86_suffix: "-x86"
           icon: polygon.ico
-      - name: Rename with version and generate checksums
+      - name: Generate checksums
         shell: pwsh
         run: |
-          $tag = "${{ github.ref }}".Replace('refs/tags/', '');
-          $checksumFile = "./build/polygon-checksum-" + $tag + ".txt";
-          Get-ChildItem -Path ./build -Filter *.exe | ForEach-Object {
-            $hash = Get-FileHash -Path $_.FullName -Algorithm SHA256;
-            "$($_.Name): $($hash.Hash)" | Out-File -Append -FilePath $checksumFile;
-            $newName = $_.BaseName + "-" + $tag + $_.Extension;
-            Rename-Item -Path $_.FullName -NewName $newName;
-          }
+          $checksumFile = "./build/polygon-checksum.txt";
+          $file_x64 = "./build/polygon-x64.exe";
+          $file_x86 = "./build/polygon-x86.exe";
+          $hash_x64 = Get-FileHash -Path $file_x64 -Algorithm SHA256;
+          $hash_x86 = Get-FileHash -Path $file_x86 -Algorithm SHA256;
+          "$($file_x64): $($hash_x64.Hash)" | Out-File -Append -FilePath $checksumFile;
+          "$($file_x86): $($hash_x86.Hash)" | Out-File -Append -FilePath $checksumFile;
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ./build/polygon-*.exe
-            ./build/polygon-checksum-*.txt
+            ./build/polygon-x*.exe
+            ./build/polygon-checksum.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
