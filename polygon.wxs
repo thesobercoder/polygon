@@ -8,6 +8,7 @@
     Language="1033"
   >
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
+    <MediaTemplate EmbedCab="yes" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="PersonalFolder">
 				<Directory Id="INSTALLFOLDER" Name="Polygon" />
@@ -20,7 +21,7 @@
 		<DirectoryRef Id="INSTALLFOLDER">
 			<Component
         Id="PolygonExecutable32"
-        Guid="fc2a9291-f3ac-4f60-81c2-4e74904d3a46"
+        Guid="*"
       >
 				<File
           Id="PolygonExe32"
@@ -43,7 +44,7 @@
 			</Component>
 			<Component
         Id="PolygonExecutable64"
-        Guid="a43b7d32-9377-414a-b3f5-c24de1b91112"
+        Guid="*"
       >
 				<File
           Id="PolygonExe64"
