@@ -39,7 +39,7 @@
       </Component>
       <Component
         Id="PolygonRegistry32"
-        Guid="NEW_GUID_HERE"
+        Guid="ecb2a543-06a8-4f39-af16-6cb9906cb582"
       >
         <RegistryValue
           Root="HKCU"
@@ -70,7 +70,7 @@
       </Component>
       <Component
         Id="PolygonRegistry64"
-        Guid="ANOTHER_NEW_GUID_HERE"
+        Guid="3a5253da-a812-4bb9-9e9a-fa027fe7c8f1"
       >
         <RegistryValue
           Root="HKCU"
