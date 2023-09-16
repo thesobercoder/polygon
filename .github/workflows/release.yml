@@ -37,14 +37,16 @@ jobs:
       - name: Build MSI
         shell: pwsh
         run: |
+          $wixFolder = "C:\Program Files (x86)\WiX Toolset v3.11\bin";
+          $candleToolPath = Join-Path $wixFolder -ChildPath candle.exe
+          $lightToolPath = Join-Path $wixFolder -ChildPath light.exe
+
           $wxsFileName = "polygon.wxs"
           $wixobjFileName = "./build/polygon.wixobj"
           $msiFileName = "./build/polygon.msi"
 
-          candle.exe "polygon.wxs" -out $wixobjFileName;
-          light.exe $wixobjFileName -out $msiFileName;
-
-          Write-Host "Build MSI finished" -ForegroundColor Green;
+          & "$candleToolPath" "polygon.wxs" -out $wixobjFileName;
+          & "$lightToolPath" $wixobjFileName -out $msiFileName;
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
