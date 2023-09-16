@@ -11,14 +11,8 @@ You need to have [AutoHotkey v2](https://github.com/AutoHotkey/AutoHotkey) insta
 
 ## Installation
 
-> [!IMPORTANT]
-> This guide assumes that you have AutoHotkey executable available in your path.
-
-To automatically start Polygon at Windows logon -
-
-- Create a new directory under your home `C:\Users\<username>` directory named `.config`.
-- Copy the `polygon.ahk` file to this newly created `.config` directory.
-- Copy the `polygon.cmd` file in the `shell:startup` directory.
+- Download the compiled executable from the latest [release](https://github.com/thesobercoder/polygon/releases/latest).
+- Copy the `polygon-*.exe` that you downloaded based on your architecture to the `shell:startup` directory.
 
 If you followed everything correctly, Polygon should start with Windows logon after the next reboot.
 
@@ -26,20 +20,20 @@ If you followed everything correctly, Polygon should start with Windows logon af
 
 Here are the shortcuts available in Polygon.
 
-| Shortcut | Layout |
-|---|---|
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center 1920x1080 |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>F</kbd> | Center Third |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>G</kbd> | Last Third |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Z</kbd> | Top Left Sixth |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>X</kbd> | Bottom Left Sixth |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>V</kbd> | Top Right Sixth |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth |
+| Shortcut                                    | Layout              |
+| ------------------------------------------- | ------------------- |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center 1920x1080    |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third    |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third         |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>F</kbd> | Center Third        |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>G</kbd> | Last Third          |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Z</kbd> | Top Left Sixth      |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>X</kbd> | Bottom Left Sixth   |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>V</kbd> | Top Right Sixth     |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth |
 
 ## Known Issues
