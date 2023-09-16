@@ -64,7 +64,7 @@ The repository is structured pretty flat to keep things simple and find all nece
 
 Before you create a Pull Request, please check whether your commits comply with the commit conventions used in this repository.
 
-When you create a commit I kindly ask you to follow the convention `category(scope or module): message` in your commit message while using one of the following categories:
+When you create a commit I kindly ask you to follow the convention `category(scope): message` in your commit message while using one of the following categories:
 
 - `feat`: all changes that introduce completely new code or new features
 - `fix`: changes that fix a bug (ideally you will additionally reference an issue if present)
