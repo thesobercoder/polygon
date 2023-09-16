@@ -34,12 +34,34 @@ jobs:
           $hash_x64 = Get-FileHash -Path "./build/polygon-x64.exe" -Algorithm SHA256;
           "polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
           "polygon-x64.exe: $($hash_x64.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
+      - name: Build MSI
+        shell: pwsh
+        run: |
+          $source = "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip";
+          $destination = Join-Path $PSScriptRoot -ChildPath "wix.zip";
+          $wixFolder = Join-Path $PSScriptRoot -ChildPath "wix/";
+          $candleToolPath = Join-Path $wixFolder -ChildPath candle.exe;
+          $lightToolPath = Join-Path $wixFolder -ChildPath light.exe;
+          $wxsFileName = "polygon.wxs"
+          $wixobjFileName = Join-Path $PSScriptRoot -ChildPath "build" -ChildPath "polygon.wixobj"
+          $msiFileName = Join-Path $PSScriptRoot -ChildPath "build" -ChildPath "polygon.msi"
+
+          Invoke-WebRequest -Uri $source -OutFile $destination;
+          Write-Host "Download finished" -ForegroundColor Green;
+
+          Expand-Archive -LiteralPath $destination -DestinationPath $wixFolder;
+          Write-Host "Extraction finished" -ForegroundColor Green;
+
+          & "$candleToolPath" $wxsFileName -out $wixobjFileName;
+          & "$lightToolPath" $wixobjFileName -out $msiFileName;
+          Write-Host "Build MSI finished" -ForegroundColor Green;
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
             ./build/polygon-x*.exe
+            ./build/polygon.msi
             ./build/polygon-checksum.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
