@@ -21,7 +21,7 @@
 		<DirectoryRef Id="INSTALLFOLDER">
 			<Component
         Id="PolygonExecutable32"
-        Guid="*"
+        Guid="c9487e13-6c35-4ca1-86d8-73726776a98e"
       >
 				<File
           Id="PolygonExe32"
@@ -31,7 +31,7 @@
           Checksum="yes"
         />
         <Shortcut
-          Id="Polygon"
+          Id="Polygon32"
           Name="Polygon"
           Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
           Target="[TARGETDIR]\Polygon.exe"
@@ -44,7 +44,7 @@
 			</Component>
 			<Component
         Id="PolygonExecutable64"
-        Guid="*"
+        Guid="970e70f6-b5f1-4119-a2c4-b7fd8d363a99"
       >
 				<File
           Id="PolygonExe64"
@@ -54,7 +54,7 @@
           Checksum="yes"
         />
         <Shortcut
-          Id="Polygon"
+          Id="Polygon64"
           Name="Polygon"
           Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
           Target="[TARGETDIR]\Polygon.exe"
