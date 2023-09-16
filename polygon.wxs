@@ -85,9 +85,11 @@
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<ComponentRef Id="PolygonExecutable32" />
 			<ComponentRef Id="PolygonExecutable64" />
+      <Component Id="RemoveFolderComponent" Guid="YOUR_GUID_HERE">
+        <RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
+    </Component>
 		</ComponentGroup>
 		<Icon Id="icon.ico" SourceFile=".\polygon.ico" />
 		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
-		<RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
 	</Product>
 </Wix>
