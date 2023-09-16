@@ -26,9 +26,9 @@
       >
         <File
           Id="PolygonExe32"
-          Source=".\build\Polygon32.exe"
+          Source=".\build\polygon-x86-v0.1.0.exe"
           Name="Polygon.exe"
-          KeyPath="yes"
+            KeyPath="yes"
           Checksum="yes"
         />
         <Condition>
@@ -41,7 +41,7 @@
       >
         <File
           Id="PolygonExe64"
-          Source=".\build\Polygon64.exe"
+          Source=".\build\polygon-x64-v0.1.0.exe"
           Name="Polygon.exe"
           KeyPath="yes"
           Checksum="yes"
