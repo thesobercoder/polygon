@@ -5,6 +5,7 @@
     Version="0.1.0"
     Manufacturer="thesobercoder"
     UpgradeCode="fc6d3e57-0b38-4e0b-bed7-2ee9466f4791"
+    UrlInfoAbout="https://github.com/thesobercoder/polygon"
   >
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
 
