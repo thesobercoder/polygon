@@ -18,6 +18,7 @@ jobs:
       - name: Compile AHK script
         uses: nukdokplex/autohotkey-build@v0.1
         with:
+          version: v2.0.8
           x64: true
           x86: true
           compression: upx
