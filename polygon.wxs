@@ -20,6 +20,7 @@
     </Directory>
 		<Feature Id="ProductFeature" Title="Polygon" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="UninstallComponents" />
 		</Feature>
 		<DirectoryRef Id="INSTALLFOLDER">
       <Component
