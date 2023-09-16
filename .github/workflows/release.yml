@@ -29,9 +29,9 @@ jobs:
       - name: Generate checksums
         shell: pwsh
         run: |
-          $checksumFile = "./build/polygon-checksum.txt";
-          $file_x64 = "./build/polygon-x64.exe";
-          $file_x86 = "./build/polygon-x86.exe";
+          $checksumFile = ".\build\polygon-checksum.txt";
+          $file_x64 = ".\build\polygon-x64.exe";
+          $file_x86 = ".\build\polygon-x86.exe";
           $hash_x64 = Get-FileHash -Path $file_x64 -Algorithm SHA256;
           $hash_x86 = Get-FileHash -Path $file_x86 -Algorithm SHA256;
           "$($file_x64): $($hash_x64.Hash)" | Out-File -Append -FilePath $checksumFile;
