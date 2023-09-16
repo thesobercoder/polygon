@@ -1,0 +1,71 @@
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product
+    Id="*"
+    Name="Polygon"
+    Version="0.1.0"
+    Manufacturer="thesobercoder"
+    UpgradeCode="fc6d3e57-0b38-4e0b-bed7-2ee9466f4791"
+  >
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="PersonalFolder">
+        <Directory Id="INSTALLFOLDER" Name="Polygon" />
+      </Directory>
+    </Directory>
+
+    <Feature Id="ProductFeature" Title="Polygon" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component
+        Id="PolygonExecutable32"
+        Guid="fc2a9291-f3ac-4f60-81c2-4e74904d3a46"
+      >
+        <File
+          Id="PolygonExe32"
+          Source=".\build\Polygon32.exe"
+          Name="Polygon.exe"
+          KeyPath="yes"
+          Checksum="yes"
+        />
+        <Condition>
+          <![CDATA[NOT VersionNT64]]>
+        </Condition>
+      </Component>
+      <Component
+        Id="PolygonExecutable64"
+        Guid="a43b7d32-9377-414a-b3f5-c24de1b91112"
+      >
+        <File
+          Id="PolygonExe64"
+          Source=".\build\Polygon64.exe"
+          Name="Polygon.exe"
+          KeyPath="yes"
+          Checksum="yes"
+        />
+        <Condition>
+          <![CDATA[VersionNT64]]>
+        </Condition>
+      </Component>
+    </DirectoryRef>
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <ComponentRef Id="PolygonExecutable32" />
+      <ComponentRef Id="PolygonExecutable64" />
+    </ComponentGroup>
+
+    <Icon Id="icon.ico" SourceFile=".\polygon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+    <Shortcut
+      Id="Polygon"
+      Name="Polygon"
+      Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
+      Target="[TARGETDIR]\Polygon.exe"
+      WorkingDirectory="[TARGETDIR]"
+      Directory="shell:startup"
+    />
+  </Product>
+</Wix>
