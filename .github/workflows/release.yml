@@ -43,8 +43,8 @@ jobs:
           $candleToolPath = Join-Path $wixFolder -ChildPath candle.exe;
           $lightToolPath = Join-Path $wixFolder -ChildPath light.exe;
           $wxsFileName = "polygon.wxs"
-          $wixobjFileName = Join-Path $PSScriptRoot -ChildPath "build" -ChildPath "polygon.wixobj"
-          $msiFileName = Join-Path $PSScriptRoot -ChildPath "build" -ChildPath "polygon.msi"
+          $wixobjFileName = Join-Path $PSScriptRoot -ChildPath "build\polygon.wixobj"
+          $msiFileName = Join-Path $PSScriptRoot -ChildPath "build\polygon.msi"
 
           Invoke-WebRequest -Uri $source -OutFile $destination;
           Write-Host "Download finished" -ForegroundColor Green;
