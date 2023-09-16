@@ -73,3 +73,7 @@ When you create a commit I kindly ask you to follow the convention `category(sco
 - `build`: all changes regarding the build of the software, changes to dependencies or the addition of new dependencies
 - `ci`: all changes regarding the configuration of continuous integration (i.e. github actions, ci system)
 - `chore`: all changes to the repository that do not fit into any of the above categories
+
+## License
+
+Licensed under the [MIT license](https://github.com/thesobercoder/polygon/blob/main/LICENSE).
