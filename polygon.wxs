@@ -81,7 +81,6 @@
         <![CDATA[VersionNT64]]>
       </Condition>
 			</Component>
-			<RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
 		</DirectoryRef>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<ComponentRef Id="PolygonExecutable32" />
@@ -89,5 +88,6 @@
 		</ComponentGroup>
 		<Icon Id="icon.ico" SourceFile=".\polygon.ico" />
 		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
+		<RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
 	</Product>
 </Wix>
