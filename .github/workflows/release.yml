@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
   BuildAndRelease:
@@ -15,22 +15,34 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Ahk2Exe
+      - name: Compile AHK script
         uses: nukdokplex/autohotkey-build@v0.1
         with:
-          version: v2.0.8
           x64: true
           x86: true
+          compression: upx
           in: ./
           x64_suffix: "-x64"
           x86_suffix: "-x86"
           icon: polygon.ico
-      - name: Release
+      - name: Rename with version and generate checksums
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref }}".Replace('refs/tags/', '')
+          $checksumFile = "./build/polygon-" + $tag + "-checksum.txt"
+          Get-ChildItem -Path ./build -Filter *.exe | ForEach-Object {
+            $hash = Get-FileHash -Path $_.FullName -Algorithm SHA256
+            "$($_.Name): $($hash.Hash)" | Out-File -Append -FilePath $checksumFile
+            $newName = $_.BaseName + "-" + $tag + $_.Extension
+            Rename-Item -Path $_.FullName -NewName $newName
+          }
+      - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            ./build/polygon-x64.exe
-            ./build/polygon-x86.exe
+            ./build/polygon-*-x64.exe
+            ./build/polygon-*-x86.exe
+            ./build/polygon-*-checksum.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
