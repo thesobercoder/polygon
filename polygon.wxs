@@ -12,13 +12,13 @@
 		<MediaTemplate EmbedCab="yes" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="PersonalFolder">
-				<Directory Id="INSTALLFOLDER" Name="Polygon" VaryBasedOnAllUsers="yes" />
+				<Directory Id="INSTALLFOLDER" Name="Polygon" />
 				<Directory Id="StartupFolder" Name="Startup" /></Directory>
 		</Directory>
 		<Feature Id="ProductFeature" Title="Polygon" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
-		<DirectoryRef Id="INSTALLFOLDER">
+		<DirectoryRef Id="INSTALLFOLDER" VaryBasedOnAllUsers="yes">
 			<Component
         Id="PolygonExecutable32"
         Guid="c9487e13-6c35-4ca1-86d8-73726776a98e"
