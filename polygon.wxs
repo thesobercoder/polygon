@@ -1,4 +1,5 @@
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix
+	xmlns="http://schemas.microsoft.com/wix/2006/wi">
 	<Product
     Id="*"
     Name="Polygon"
@@ -8,63 +9,79 @@
     Language="1033"
   >
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
-    <MediaTemplate EmbedCab="yes" />
+		<MediaTemplate EmbedCab="yes" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="PersonalFolder">
 				<Directory Id="INSTALLFOLDER" Name="Polygon" />
-        <Directory Id="StartupFolder" Name="Startup" />
-			</Directory>
+				<Directory Id="StartupFolder" Name="Startup" /></Directory>
 		</Directory>
 		<Feature Id="ProductFeature" Title="Polygon" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
 		<DirectoryRef Id="INSTALLFOLDER">
 			<Component
-        Id="PolygonExecutable32"
-        Guid="c9487e13-6c35-4ca1-86d8-73726776a98e"
-      >
-				<File
-          Id="PolygonExe32"
-          Source=".\build\polygon-x86.exe"
-          Name="Polygon.exe"
-          KeyPath="yes"
-          Checksum="yes"
-        />
-        <Shortcut
-          Id="Polygon32"
-          Name="Polygon"
-          Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
-          Target="[TARGETDIR]\Polygon.exe"
-          WorkingDirectory="INSTALLFOLDER"
-          Directory="StartupFolder"
-        />
-				<Condition>
-					<![CDATA[NOT VersionNT64]]>
-				</Condition>
+      Id="PolygonExecutable32"
+      Guid="c9487e13-6c35-4ca1-86d8-73726776a98e"
+    >
+			<File
+        Id="PolygonExe32"
+        Source=".\build\polygon-x86.exe"
+        Name="Polygon32.exe"
+        KeyPath="no"
+        Checksum="yes"
+      />
+			<RegistryValue
+        Root="HKCU"
+        Key="Software\Polygon\Polygon"
+        Name="installed"
+        Type="integer"
+        Value="1"
+        KeyPath="yes"
+      />
+			<Shortcut
+        Id="Polygon32"
+        Name="Polygon"
+        Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
+        Target="[TARGETDIR]\Polygon32.exe"
+        WorkingDirectory="INSTALLFOLDER"
+        Directory="StartupFolder"
+      />
+			<Condition>
+				<![CDATA[NOT VersionNT64]]>
+			</Condition>
 			</Component>
 			<Component
         Id="PolygonExecutable64"
         Guid="970e70f6-b5f1-4119-a2c4-b7fd8d363a99"
       >
-				<File
-          Id="PolygonExe64"
-          Source=".\build\polygon-x64.exe"
-          Name="Polygon.exe"
-          KeyPath="yes"
-          Checksum="yes"
+			<File
+        Id="PolygonExe64"
+        Source=".\build\polygon-x64.exe"
+        Name="Polygon64.exe"
+        KeyPath="no"
+        Checksum="yes"
         />
-        <Shortcut
-          Id="Polygon64"
-          Name="Polygon"
-          Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
-          Target="[TARGETDIR]\Polygon.exe"
-          WorkingDirectory="INSTALLFOLDER"
-          Directory="StartupFolder"
-        />
-				<Condition>
-					<![CDATA[VersionNT64]]>
-				</Condition>
+			<RegistryValue
+        Root="HKCU"
+        Key="Software\Polygon\Polygon"
+        Name="installed"
+        Type="integer"
+        Value="1"
+        KeyPath="yes"
+      />
+			<Shortcut
+        Id="Polygon64"
+        Name="Polygon"
+        Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
+        Target="[TARGETDIR]\Polygon64.exe"
+        WorkingDirectory="INSTALLFOLDER"
+        Directory="StartupFolder"
+      />
+      <Condition>
+        <![CDATA[VersionNT64]]>
+      </Condition>
 			</Component>
+			<RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
 		</DirectoryRef>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<ComponentRef Id="PolygonExecutable32" />
