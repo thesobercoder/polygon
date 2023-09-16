@@ -28,6 +28,14 @@
           KeyPath="yes"
           Checksum="yes"
         />
+        <Shortcut
+          Id="Polygon"
+          Name="Polygon"
+          Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
+          Target="[TARGETDIR]\Polygon.exe"
+          WorkingDirectory="[TARGETDIR]"
+          Directory="shell:startup"
+        />
 				<Condition>
 					<![CDATA[NOT VersionNT64]]>
 				</Condition>
@@ -43,6 +51,14 @@
           KeyPath="yes"
           Checksum="yes"
         />
+        <Shortcut
+          Id="Polygon"
+          Name="Polygon"
+          Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
+          Target="[TARGETDIR]\Polygon.exe"
+          WorkingDirectory="[TARGETDIR]"
+          Directory="shell:startup"
+        />
 				<Condition>
 					<![CDATA[VersionNT64]]>
 				</Condition>
@@ -54,13 +70,5 @@
 		</ComponentGroup>
 		<Icon Id="icon.ico" SourceFile=".\polygon.ico" />
 		<Property Id="ARPPRODUCTICON" Value="icon.ico" />
-		<Shortcut
-      Id="Polygon"
-      Name="Polygon"
-      Description="A Mac Rectangle inspired window manager for Windows 10/11 powered by AutoHotkey."
-      Target="[TARGETDIR]\Polygon.exe"
-      WorkingDirectory="[TARGETDIR]"
-      Directory="shell:startup"
-    />
 	</Product>
 </Wix>
