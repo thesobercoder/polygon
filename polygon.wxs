@@ -8,17 +8,20 @@
     UpgradeCode="fc6d3e57-0b38-4e0b-bed7-2ee9466f4791"
     Language="1033"
   >
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
 		<MediaTemplate EmbedCab="yes" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="PersonalFolder">
-				<Directory Id="INSTALLFOLDER" Name="Polygon" />
-				<Directory Id="StartupFolder" Name="Startup" /></Directory>
-		</Directory>
+      <Directory Id="ProgramFilesFolder">
+          <Directory Id="INSTALLFOLDER" Name="Polygon" />
+      </Directory>
+      <Directory Id="ProgramMenuFolder">
+          <Directory Id="StartupFolder" Name="Startup" />
+      </Directory>
+    </Directory>
 		<Feature Id="ProductFeature" Title="Polygon" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
 		</Feature>
-		<DirectoryRef Id="INSTALLFOLDER" VaryBasedOnAllUsers="yes">
+		<DirectoryRef Id="INSTALLFOLDER">
 			<Component
         Id="PolygonExecutable32"
         Guid="c9487e13-6c35-4ca1-86d8-73726776a98e"
