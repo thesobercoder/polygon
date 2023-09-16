@@ -85,7 +85,7 @@
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<ComponentRef Id="PolygonExecutable32" />
 			<ComponentRef Id="PolygonExecutable64" />
-      <Component Id="RemoveFolderComponent" Guid="YOUR_GUID_HERE">
+      <Component Id="RemoveFolderComponent" Guid="af9d0fb9-a05b-42ca-a5b0-6bf7e47de6d5">
         <RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
     </Component>
 		</ComponentGroup>
