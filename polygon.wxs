@@ -91,7 +91,7 @@
       <ComponentRef Id="PolygonExecutable64" />
       <ComponentRef Id="PolygonRegistry64" />
 		</ComponentGroup>
-    <ComponentGroup Id="UninstallComponents">
+    <ComponentGroup Id="UninstallComponents" Directory="INSTALLFOLDER">
       <Component Id="RemoveFolderComponent" Guid="af9d0fb9-a05b-42ca-a5b0-6bf7e47de6d5">
         <RemoveFolder Id="INSTALLFOLDER" On="uninstall"/>
         <RegistryValue
