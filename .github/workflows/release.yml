@@ -30,10 +30,10 @@ jobs:
         shell: pwsh
         run: |
           $checksumFile = "./build/polygon-checksum.txt";
-          $hash_x64 = Get-FileHash -Path "./build/polygon-x64.exe" -Algorithm SHA256;
           $hash_x86 = Get-FileHash -Path "./build/polygon-x86.exe" -Algorithm SHA256;
-          "polygon-x86.exe: $($hash_x86.Hash)" | Out-File -Append -FilePath $checksumFile;
-          "polygon-x64.exe: $($hash_x64.Hash)" | Out-File -Append -FilePath $checksumFile;
+          $hash_x64 = Get-FileHash -Path "./build/polygon-x64.exe" -Algorithm SHA256;
+          "polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
+          "polygon-x64.exe: $($hash_x64.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
