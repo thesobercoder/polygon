@@ -20,7 +20,6 @@
     <!-- Features -->
     <Feature Id="ProductFeature" Title="Polygon" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
-      <!-- <ComponentGroupRef Id="UninstallComponents" /> -->
 		</Feature>
 
     <!-- Components for installation -->
@@ -39,17 +38,11 @@
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
 
+       <!-- Uninstallation -->
       <Component Id="RemoveFolderComponent" Guid="81dc5882-d185-4551-89a3-08e63d761431">
         <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />
       </Component>
     </ComponentGroup>
-
-    <!-- Components for uninstallation -->
-    <!-- <ComponentGroup Id="UninstallComponents">
-      <Component Id="RemoveFolderComponent" Guid="81dc5882-d185-4551-89a3-08e63d761431" Directory="INSTALLFOLDER">
-        <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />
-      </Component>
-    </ComponentGroup> -->
 
     <!-- Product icon -->
 		<Icon Id="icon.ico" SourceFile=".\polygon.ico" />
