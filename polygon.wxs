@@ -7,15 +7,18 @@
     Manufacturer="thesobercoder"
     UpgradeCode="fc6d3e57-0b38-4e0b-bed7-2ee9466f4791"
     Language="1033"
+    InstallScope="perUser"
   >
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
+		<Package InstallerVersion="200" Compressed="yes" />
 		<MediaTemplate EmbedCab="yes" />
 		<Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="Profile" Name="Users">
+        <Directory Id="USERNAME" Name="[LogonUser]" LongName="[LogonUser]">
           <Directory Id="INSTALLFOLDER" Name="Polygon" />
+        </Directory>
       </Directory>
       <Directory Id="ProgramMenuFolder">
-          <Directory Id="StartupFolder" Name="Startup" />
+        <Directory Id="StartupFolder" Name="Startup" />
       </Directory>
     </Directory>
 		<Feature Id="ProductFeature" Title="Polygon" Level="1">
