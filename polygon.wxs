@@ -23,18 +23,10 @@
 
     <!-- Features -->
     <Feature Id="ProductFeature" Title="Polygon" Level="1">
-			<ComponentGroupRef Id="ProductComponentsMachine">
-        <Condition><![CDATA[ALLUSERS]]></Condition>
-      </ComponentGroupRef>
-      <ComponentGroupRef Id="ProductComponentsUser">
-        <Condition><![CDATA[NOT ALLUSERS]]></Condition>
-      </ComponentGroupRef>
-      <ComponentGroupRef Id="RemoveFolderComponentMachine">
-        <Condition><![CDATA[ALLUSERS]]></Condition>
-      </ComponentGroupRef>
-      <ComponentGroupRef Id="RemoveFolderComponentUser">
-        <Condition><![CDATA[NOT ALLUSERS]]></Condition>
-      </ComponentGroupRef>
+			<ComponentGroupRef Id="ProductComponentsMachine" />
+      <ComponentGroupRef Id="ProductComponentsUser" />
+      <ComponentGroupRef Id="RemoveFolderComponentMachine" />
+      <ComponentGroupRef Id="RemoveFolderComponentUser" />
 		</Feature>
 
     <!-- Components for per-machine installation -->
@@ -44,6 +36,7 @@
         <File Id="PolygonExecutable32MachineFile" Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes">
           <Shortcut Id="StartupPolygonMachine32" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" />
         </File>
+         <Condition><![CDATA[ALLUSERS]]></Condition>
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
 
@@ -52,6 +45,7 @@
         <File Id="PolygonExecutable64MachineFile" Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes">
           <Shortcut Id="StartupPolygonMachine64" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" />
         </File>
+         <Condition><![CDATA[ALLUSERS]]></Condition>
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
     </ComponentGroup>
@@ -83,12 +77,14 @@
       <Component Id="RemoveFolderComponentMachine" Guid="81dc5882-d185-4551-89a3-08e63d761431" Directory="INSTALLFOLDER">
         <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />
         <RegistryValue Root="HKLM" Key="Software\Polygon\Polygon" Name="installed" Type="string" Value="0" KeyPath="yes" />
+        <Condition><![CDATA[ALLUSERS]]></Condition>
       </Component>
 
       <!-- Component for per-user uninstallation -->
       <Component Id="RemoveFolderComponentUser" Guid="abcfe492-de27-4f24-9cb7-bebf1e55987e" Directory="USERINSTALLFOLDER">
         <RemoveFolder Id="USERINSTALLFOLDER" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Polygon\Polygon" Name="installed" Type="string" Value="0" KeyPath="yes" />
+        <Condition><![CDATA[NOT ALLUSERS]]></Condition>
       </Component>
     </ComponentGroup>
 
