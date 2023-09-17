@@ -28,10 +28,6 @@
       <!-- 32-bit components -->
       <Component Id="PolygonExecutable32" Guid="6c84730e-5d7a-4b00-9283-14c3ebb248b0">
         <File Id="PolygonExecutable32File" Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes" />
-        <Condition><![CDATA[NOT VersionNT64]]></Condition>
-      </Component>
-
-      <Component Id="PolygonShortcut32" Guid="a0f7c740-52c4-4d18-af3d-0c799fbbfed8" KeyPath="yes">
         <Shortcut Id="StartupPolygon32" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
@@ -39,10 +35,6 @@
       <!-- 64-bit components -->
       <Component Id="PolygonExecutable64" Guid="484fdf28-8bcb-495f-9c3d-877096b976cd">
         <File Id="PolygonExecutable64File" Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes" />
-        <Condition><![CDATA[VersionNT64]]></Condition>
-      </Component>
-
-      <Component Id="PolygonShortcut64" Guid="8d3113a6-538d-47ce-93ce-da2fd445af36" KeyPath="yes">
         <Shortcut Id="StartupPolygon64" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
