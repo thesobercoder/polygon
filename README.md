@@ -74,6 +74,19 @@ When you create a commit I kindly ask you to follow the convention `category(sco
 - `ci`: all changes regarding the configuration of continuous integration (i.e. github actions, ci system)
 - `chore`: all changes to the repository that do not fit into any of the above categories
 
+### Release
+
+Please follow the following release checklist and convention.
+
+- [ ] The new version has been updated in the `polygon.ahk` file.
+- [ ] The new version has been updated in the `polygon.wxs` file.
+
+Use the following release note body for each release.
+
+```md
+Please refer to [CHANGELOG.md](https://github.com/thesobercoder/polygon/blob/main/CHANGELOG.md) for details.
+```
+
 ## License
 
 Licensed under the [MIT license](https://github.com/thesobercoder/polygon/blob/main/LICENSE).
