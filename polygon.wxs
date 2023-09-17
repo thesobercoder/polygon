@@ -32,7 +32,7 @@
       </Component>
 
       <Component Id="PolygonShortcut32" Guid="a0f7c740-52c4-4d18-af3d-0c799fbbfed8">
-        <Shortcut Id="StartupPolygon32" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+        <Shortcut Id="StartupPolygon32" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" KeyPath="yes" />
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
 
@@ -43,7 +43,7 @@
       </Component>
 
       <Component Id="PolygonShortcut64" Guid="8d3113a6-538d-47ce-93ce-da2fd445af36">
-        <Shortcut Id="StartupPolygon64" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+        <Shortcut Id="StartupPolygon64" Directory="StartupFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" KeyPath="yes" />
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
     </ComponentGroup>
