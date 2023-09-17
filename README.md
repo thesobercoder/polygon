@@ -78,8 +78,9 @@ When you create a commit I kindly ask you to follow the convention `category(sco
 
 Please follow the following release checklist and convention.
 
-- [ ] The new version has been updated in the `polygon.ahk` file.
-- [ ] The new version has been updated in the `polygon.wxs` file.
+- :white_check_mark: The changes for the new version have been added to the `CHANGELOG.md` file.
+- :white_check_mark: The new version has been updated in the `polygon.ahk` file.
+- :white_check_mark: The new version has been updated in the `polygon.wxs` file.
 
 Use the following release note body for each release.
 
