@@ -4,17 +4,18 @@
     <Package InstallerVersion="200" Compressed="yes" />
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- Directory structure for per-machine installation -->
     <Directory Id="TARGETDIR" Name="SourceDir">
+      <!-- Directory structure for per-machine installation -->
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="Polygon" />
       </Directory>
+
+      <!-- Directory structure for per-user installation -->
+      <Directory Id="LocalAppDataFolder" Name="LocalAppData">
+        <Directory Id="USERINSTALLFOLDER" Name="Polygon" />
+      </Directory>
     </Directory>
 
-    <!-- Directory structure for per-user installation -->
-    <Directory Id="LocalAppDataFolder" Name="LocalAppData">
-      <Directory Id="USERINSTALLFOLDER" Name="Polygon" />
-    </Directory>
 
     <!-- Features -->
     <Feature Id="ProductFeature" Title="Polygon" Level="1">
@@ -80,14 +81,14 @@
     <!-- Components for uninstallation -->
     <ComponentGroup Id="UninstallComponents">
       <!-- Component for per-machine uninstallation -->
-      <Component Id="RemoveFolderComponentMachine" Guid="81dc5882-d185-4551-89a3-08e63d761431">
+      <Component Id="RemoveFolderComponentMachine" Guid="81dc5882-d185-4551-89a3-08e63d761431" Directory="INSTALLFOLDER">
         <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />
         <RegistryValue Root="HKLM" Key="Software\Polygon\Polygon" Name="installed" Type="string" Value="0" KeyPath="yes" />
         <Condition><![CDATA[NOT USER_INSTALL]]></Condition>
       </Component>
 
       <!-- Component for per-user uninstallation -->
-      <Component Id="RemoveFolderComponentUser" Guid="abcfe492-de27-4f24-9cb7-bebf1e55987e">
+      <Component Id="RemoveFolderComponentUser" Guid="abcfe492-de27-4f24-9cb7-bebf1e55987e" Directory="USERINSTALLFOLDER">
         <RemoveFolder Id="USERINSTALLFOLDER" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Polygon\Polygon" Name="installed" Type="string" Value="0" KeyPath="yes" />
         <Condition><![CDATA[USER_INSTALL]]></Condition>
