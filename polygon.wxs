@@ -3,6 +3,7 @@
   <Product Id="*" Name="Polygon" Version="0.1.0" Manufacturer="thesobercoder" UpgradeCode="fc6d3e57-0b38-4e0b-bed7-2ee9466f4791" Language="1033">
     <Package InstallerVersion="200" Compressed="yes" />
     <MediaTemplate EmbedCab="yes" />
+    <MajorUpgrade DowngradeErrorMessage="A later version of Polygon is already installed. Setup will now exit." />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <!-- Directory structure for per-machine installation -->
@@ -26,7 +27,7 @@
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <!-- 32-bit components -->
       <Component Id="PolygonExecutable32" Guid="6c84730e-5d7a-4b00-9283-14c3ebb248b0">
-        <File Id="PolygonExecutable32File" Source=".\build\polygon-x86.exe" Name="Polygon32.exe" />
+        <File Id="PolygonExecutable32File" Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes" />
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
 
@@ -37,7 +38,7 @@
 
       <!-- 64-bit components -->
       <Component Id="PolygonExecutable64" Guid="484fdf28-8bcb-495f-9c3d-877096b976cd">
-        <File Id="PolygonExecutable64File" Source=".\build\polygon-x64.exe" Name="Polygon64.exe" />
+        <File Id="PolygonExecutable64File" Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes" />
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
 
