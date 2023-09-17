@@ -7,10 +7,19 @@ A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager
 
 ## Installation
 
-- Download the compiled executable from the latest [release](https://github.com/thesobercoder/polygon/releases/latest).
-- Copy the `polygon-*.exe` that you downloaded based on your architecture to the `shell:startup` directory.
+### Installer
 
-If you followed everything correctly, Polygon should start with Windows logon after the next reboot.
+You can grab the latest Polygon installer from this [link](https://github.com/thesobercoder/polygon/releases/latest/download/polygon.msi). The installer will place a shortcut to your user startup folder to ensure that Polygon start at Windows logon.
+
+### Manual
+
+If you rather want to install Polygon manually, please follow the steps outlined below.
+
+- Download the compiled executable based on your OS architecture from the latest [release](https://github.com/thesobercoder/polygon/releases/latest).
+- Open the user startup folder by running the `shell:startup` command in the run (<kbd>WIN</kbd>+<kbd>R</kbd>) window.
+- Copy the `polygon-x[64|86].exe` that you downloaded to the `shell:startup` directory that you opened in the previous step.
+
+If you followed everything correctly, Polygon should start at Windows logon.
 
 ## Usage
 
