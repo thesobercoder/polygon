@@ -19,7 +19,7 @@
     <!-- Features -->
     <Feature Id="ProductFeature" Title="Polygon" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="UninstallComponents" />
+      <!-- <ComponentGroupRef Id="UninstallComponents" /> -->
 		</Feature>
 
     <!-- Components for per-machine installation -->
