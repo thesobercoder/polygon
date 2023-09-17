@@ -27,25 +27,25 @@
     <!-- Components for per-machine installation -->
     <ComponentGroup Id="ProductComponentsMachine" Directory="INSTALLFOLDER">
       <!-- 32-bit components -->
-      <Component Id="PolygonExecutable32" Guid="6c84730e-5d7a-4b00-9283-14c3ebb248b0">
-        <File Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes">
-          <Shortcut Id="startmenuPolygonMachine" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+      <Component Id="PolygonExecutable32Machine" Guid="6c84730e-5d7a-4b00-9283-14c3ebb248b0">
+        <File Id="PolygonExecutable32MachineFile" Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuPolygonMachine" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
         </File>
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
-      <Component Id="PolygonRegistry32" Guid="d5fbdb95-2e0b-4855-ae18-cc63a4a898c6">
+      <Component Id="PolygonRegistry32Machine" Guid="d5fbdb95-2e0b-4855-ae18-cc63a4a898c6">
         <RegistryValue Root="HKCU" Key="Software\Polygon\Polygon" Name="installed" Type="integer" Value="1" KeyPath="yes" />
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
 
       <!-- 64-bit components -->
-      <Component Id="PolygonExecutable64" Guid="484fdf28-8bcb-495f-9c3d-877096b976cd">
-        <File Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes">
-          <Shortcut Id="startmenuPolygonMachine64" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+      <Component Id="PolygonExecutable64Machine" Guid="484fdf28-8bcb-495f-9c3d-877096b976cd">
+        <File Id="PolygonExecutable64MachineFile" Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuPolygonMachine64" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='INSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
         </File>
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
-      <Component Id="PolygonRegistry64" Guid="bfdb09c0-b016-4af1-b928-88842c84ea0f">
+      <Component Id="PolygonRegistry64Machine" Guid="bfdb09c0-b016-4af1-b928-88842c84ea0f">
         <RegistryValue Root="HKCU" Key="Software\Polygon\Polygon" Name="installed" Type="integer" Value="1" KeyPath="yes" />
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
@@ -55,8 +55,8 @@
     <ComponentGroup Id="ProductComponentsUser" Directory="USERINSTALLFOLDER">
       <!-- 32-bit components -->
       <Component Id="PolygonExecutable32User" Guid="f2ef23fd-52f8-4506-a503-c45754315e31">
-        <File Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes">
-          <Shortcut Id="startmenuPolygonUser" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='USERINSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+        <File Id="PolygonExecutable32UserFile" Source=".\build\polygon-x86.exe" Name="Polygon32.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuPolygonUser32" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='USERINSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
         </File>
         <Condition><![CDATA[NOT VersionNT64]]></Condition>
       </Component>
@@ -67,8 +67,8 @@
 
       <!-- 64-bit components -->
       <Component Id="PolygonExecutable64User" Guid="7fd5a879-44f6-4558-80e9-286054d54fa8">
-        <File Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes">
-          <Shortcut Id="startmenuPolygonUser64" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='USERINSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
+        <File Id="PolygonExecutable64UserFile" Source=".\build\polygon-x64.exe" Name="Polygon64.exe" KeyPath="yes">
+          <Shortcut Id="StartMenuPolygonUser64" Directory="ProgramMenuFolder" Name="Polygon" WorkingDirectory='USERINSTALLFOLDER' Icon="icon.ico" IconIndex="0" Advertise="yes" />
         </File>
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
