@@ -28,10 +28,10 @@ Toast(Message)
   myGui.BackColor := "000000"
   myGui.SetFont("cFFFFFF S18", "Verdana")
 
-  myGui.add("Text", "center x0 w270 h28 y90", Message)
+  myGui.add("Text", "Center X0 Y90 W278 H211", Message)
 
   myGui.Title := "Output"
-  myGui.Show("H211 W278 NoActivate")
+  myGui.Show("Center H211 W278 NoActivate")
 
   WinSetRegion("0-0 H211 W278 R30-30", "Output")
   WinSetExStyle(32, "Output")
