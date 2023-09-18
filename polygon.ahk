@@ -8,6 +8,9 @@ global APP_NAME := "Polygon"
 global APP_URL := "https://github.com/thesobercoder/polygon"
 global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
 
+;--Tooltip
+A_IconTip := "Polygon"
+
 ;-- Context Menu
 tray := A_TrayMenu
 tray.Delete()
