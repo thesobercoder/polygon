@@ -21,6 +21,43 @@ tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
 tray.Default := "Version"
 
+Toast(Message)
+{
+  myGui := Gui()
+  myGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled")
+  myGui.BackColor := "000000"
+  myGui.SetFont("cFFFFFF S18", "Verdana")
+
+  myGui.add("Text", "center x0 w270 h28 y90", Message)
+
+  myGui.Title := "Output"
+  myGui.Show("H211 W278 NoActivate")
+
+  WinSetRegion("0-0 H211 W278 R30-30", "Output")
+  WinSetExStyle(32, "Output")
+
+  Loop 60
+  {
+    if (A_Index = 1)
+    {
+      WinSetTransparent(120, "Output")
+      Sleep(1000)
+    }
+    Else if (A_Index = 60)
+    {
+      myGui.Destroy()
+      Break
+    }
+    Else
+    {
+      TransFade := 120 - A_Index * 2
+      WinSetTransparent(TransFade, "Output")
+      Sleep(1)
+    }
+  }
+  return
+}
+
 SubmitFeedback(*)
 {
   Run APP_FEEDBACK_URL
@@ -193,6 +230,9 @@ Center()
       break
     }
   }
+
+  ;-- Show layout toast
+  Toast("Center")
 }
 
 Center1920x1080()
@@ -239,6 +279,9 @@ Center1920x1080()
       break
     }
   }
+
+  ;-- Show layout toast
+  Toast("Center 1920x1080")
 }
 
 CenterHalf()
