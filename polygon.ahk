@@ -21,26 +21,36 @@ tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
 tray.Default := "Version"
 
-Toast(Message)
+Toast(Message, r, l, t, b)
 {
+  ;-- Calculate the center of the current monitor
+  centerX := Ceil((l + r) / 2)
+  centerY := (b - t) - 300
+
+  title := "Polygon 08ab0337-daeb-4b9c-b01d-11fbc97e1dcb"
+
+  hWnd := WinExist(title)
+  if (hWnd > 0)
+    return
+
   myGui := Gui()
   myGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled")
   myGui.BackColor := "000000"
   myGui.SetFont("cFFFFFF S18", "Verdana")
 
-  myGui.add("Text", "Center X0 Y90 W278 H211", Message)
+  myGui.add("Text", "Center X0 Y90 W278 H210", Message)
 
-  myGui.Title := "Output"
-  myGui.Show("Center H211 W278 NoActivate")
+  myGui.Title := title
+  myGui.Show("X" (centerX - 139) " Y" centerY " H210 W278 NoActivate")
 
-  WinSetRegion("0-0 H211 W278 R30-30", "Output")
-  WinSetExStyle(32, "Output")
+  WinSetRegion("0-0 H210 W278 R30-30", title)
+  WinSetExStyle(32, title)
 
   Loop 60
   {
     if (A_Index = 1)
     {
-      WinSetTransparent(120, "Output")
+      WinSetTransparent(120, title)
       Sleep(1000)
     }
     Else if (A_Index = 60)
@@ -51,11 +61,10 @@ Toast(Message)
     Else
     {
       TransFade := 120 - A_Index * 2
-      WinSetTransparent(TransFade, "Output")
+      WinSetTransparent(TransFade, title)
       Sleep(1)
     }
   }
-  return
 }
 
 SubmitFeedback(*)
@@ -156,6 +165,9 @@ LeftHalf()
       ;-- Set the window position to the left half of the monitor
       WinMove l - ofl, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Left Half", r, l, t, b)
+
       ;-- Exit the loop since we found the correct monitor
       break
     }
@@ -193,6 +205,9 @@ RightHalf()
       ;-- Set the window position to the right half of the monitor
       WinMove RightX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Right Half", r, l, t, b)
+
       ;-- Exit the loop since we found the correct monitor
       break
     }
@@ -227,12 +242,14 @@ Center()
 
       ;-- Move the active window to the center of the current monitor
       WinMove centerX - w / 2 + (ofl + ofr), centerY - h / 2 + (oft + ofb), w, h, hWnd
+
+      ;-- Show layout toast
+      Toast("Center", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
       break
     }
   }
-
-  ;-- Show layout toast
-  Toast("Center")
 }
 
 Center1920x1080()
@@ -276,12 +293,13 @@ Center1920x1080()
         WinMove Ceil(centerX - (rw) / 2), Ceil(centerY - (rh) / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
       }
 
+      ;-- Show layout toast
+      Toast("Center HD", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
       break
     }
   }
-
-  ;-- Show layout toast
-  Toast("Center 1920x1080")
 }
 
 CenterHalf()
@@ -314,6 +332,9 @@ CenterHalf()
 
       ;-- Set the window position to the center half of the monitor
       WinMove CenterX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("Center Half", r, l, t, b)
 
       ;-- Exit the loop since we found the correct monitor
       break
@@ -352,6 +373,9 @@ CenterTwoThird()
       ;-- Set window position to center two third width
       WinMove CenterX, t - oft, TwoThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Center Two Third", r, l, t, b)
+
       ;-- Exit loop since we found correct monitor
       break
     }
@@ -385,6 +409,9 @@ FirstThird()
 
       ;-- Set the window position to the left one third of the monitor
       WinMove l - ofl, t - oft, OneThirdWidth + ofr + ofl, (b - t) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("First Third", r, l, t, b)
 
       ;-- Exit the loop since we found the correct monitor
       break
@@ -423,6 +450,9 @@ CenterThird()
       ;-- Set the window position to the center one third of the monitor
       WinMove CenterX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Center Third", r, l, t, b)
+
       ;-- Exit the loop since we found the correct monitor
       break
     }
@@ -460,6 +490,9 @@ LastThird()
       ;-- Set window position to right one third of monitor
       WinMove RightX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Last Third", r, l, t, b)
+
       ;-- Exit loop since we found correct monitor
       break
     }
@@ -494,6 +527,9 @@ TopLeftSixth()
       ;-- Set the window position to the left one third of the monitor and top half of it
       WinMove l - ofl, t - oft, OneThirdWidth + ofl + ofb, Ceil((b - t) / 2) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Top Left Sixth", r, l, t, b)
+
       ;-- Exit the loop since we found the correct monitor
       break
     }
@@ -527,6 +563,9 @@ BottomLeftSixth()
 
       ;-- Set the window position to left one third of monitor and bottom half of it
       WinMove l - ofl, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("Bottom Left Sixth", r, l, t, b)
 
       ;-- Exit loop since we found correct monitor
       break
@@ -565,6 +604,9 @@ TopRightSixth()
       ;-- Set window position to right one third of monitor and top half of it.
       WinMove RightX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Top Right Sixth", r, l, t, b)
+
       ;-- Exit loop since we found correct monitor
       break
     }
@@ -601,6 +643,9 @@ BottomRightSixth()
 
       ;-- Set window position to right one third of monitor and bottom half of it
       WinMove RightX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("Bottom Right Sixth", r, l, t, b)
 
       ;-- Exit loop since we found correct monitor
       break
@@ -639,6 +684,9 @@ TopCenterSixth()
       ;-- Set the window position to top center one sixth of the monitor
       WinMove CenterX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
 
+      ;-- Show layout toast
+      Toast("Top Center Sixth", r, l, t, b)
+
       ;-- Exit the loop since we found the correct monitor
       break
     }
@@ -675,6 +723,9 @@ BottomCenterSixth()
 
       ;-- Set the window position to bottom center one sixth of the monitor
       WinMove CenterX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("Bottom Center Sixth", r, l, t, b)
 
       ;-- Exit the loop since we found the correct monitor
       break
