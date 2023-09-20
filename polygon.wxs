@@ -38,6 +38,11 @@
         <Condition><![CDATA[VersionNT64]]></Condition>
       </Component>
 
+      <!-- Config components -->
+      <Component Id="PolygonConfig" Guid="b1f011b5-5135-4992-ae60-c0bd3dec2890">
+        <File Id="PolygonConfigFile" Source=".\polygon.ini" Name="polygon.ini" KeyPath="yes" />
+      </Component>
+
        <!-- Uninstallation -->
       <Component Id="RemoveFolderComponent" Guid="81dc5882-d185-4551-89a3-08e63d761431">
         <RemoveFolder Id="INSTALLFOLDER" On="uninstall" />

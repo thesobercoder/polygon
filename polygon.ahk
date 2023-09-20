@@ -8,6 +8,13 @@ global APP_NAME := "Polygon"
 global APP_URL := "https://github.com/thesobercoder/polygon"
 global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
 
+;-- INI settings
+IniFile := "polygon.ini"
+Section := "Shortcut"
+
+CenterShortcut := IniRead(IniFile, Section, "Center", "^#c")
+CenterHDShortcut := IniRead(IniFile, Section, "CenterHD", "^#q")
+
 ;--Tooltip
 A_IconTip := APP_NAME
 
@@ -92,11 +99,9 @@ ShowVersion(*)
   MsgBox "Version " . APP_VERSION, APP_NAME, "iconi"
 }
 
-;-- Center (CTRL+WIN+c)
-^#c:: Center()
-
-;-- Center with 1920x1080 (CTRL+WIN+q)
-^#q:: Center1920x1080()
+;-- Map Hotkeys
+Hotkey CenterShortcut, Center
+Hotkey CenterHDShortcut, CenterHD
 
 ;-- Center Half (CTRL+WIN+w)
 ^#w:: CenterHalf()
@@ -214,7 +219,7 @@ RightHalf()
   }
 }
 
-Center()
+Center(*)
 {
   ;-- Get the active window's handle
   hWnd := WinExist("A")
@@ -252,7 +257,7 @@ Center()
   }
 }
 
-Center1920x1080()
+CenterHD(*)
 {
   ;-- Get the active window's handle
   hWnd := WinExist("A")

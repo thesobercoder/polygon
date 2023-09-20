@@ -52,6 +52,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
+            ./polygon.ini
             ./build/polygon-x*.exe
             ./build/polygon.msi
             ./build/polygon-checksum.txt
