@@ -9,7 +9,7 @@ global APP_URL := "https://github.com/thesobercoder/polygon"
 global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
 
 ;--Tooltip
-A_IconTip := "Polygon"
+A_IconTip := APP_NAME
 
 ;-- Context Menu
 tray := A_TrayMenu
@@ -53,12 +53,12 @@ Toast(Message, r, l, t, b)
       WinSetTransparent(120, title)
       Sleep(1000)
     }
-    Else if (A_Index = 60)
+    else if (A_Index = 60)
     {
       toastGui.Destroy()
       break
     }
-    Else
+    else
     {
       TransFade := 120 - A_Index * 2
       WinSetTransparent(TransFade, title)
