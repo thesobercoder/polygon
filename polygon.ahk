@@ -25,7 +25,7 @@ Toast(Message, r, l, t, b)
 {
   ;-- Calculate the center of the current monitor
   centerX := Ceil((l + r) / 2)
-  centerY := (b - t) - 300
+  centerY := Ceil((b + t) / 2)
 
   title := "Polygon 08ab0337-daeb-4b9c-b01d-11fbc97e1dcb"
 
@@ -33,15 +33,15 @@ Toast(Message, r, l, t, b)
   if (hWnd > 0)
     return
 
-  myGui := Gui()
-  myGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled")
-  myGui.BackColor := "000000"
-  myGui.SetFont("cFFFFFF S18", "Verdana")
+  toastGui := Gui()
+  toastGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled")
+  toastGui.BackColor := "000000"
+  toastGui.SetFont("cFFFFFF S18", "Verdana")
 
-  myGui.add("Text", "Center X0 Y90 W278 H210", Message)
+  toastGui.add("Text", "Center X0 Y90 W278 H210", Message)
 
-  myGui.Title := title
-  myGui.Show("X" (centerX - 139) " Y" centerY " H210 W278 NoActivate")
+  toastGui.Title := title
+  toastGui.Show("X" (centerX - 139) " Y" (centerY - 55) " H210 W278 NA")
 
   WinSetRegion("0-0 H210 W278 R30-30", title)
   WinSetExStyle(32, title)
@@ -55,8 +55,8 @@ Toast(Message, r, l, t, b)
     }
     Else if (A_Index = 60)
     {
-      myGui.Destroy()
-      Break
+      toastGui.Destroy()
+      break
     }
     Else
     {
