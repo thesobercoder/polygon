@@ -732,13 +732,13 @@ RightHalf(*)
 CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom)
 {
   ; Calculate the coordinates of the corners of the window
-  win_left := winX + winOffsetLeft
-  win_right := winX + winW - winOffsetRight
-  win_top := winY + winOffsetTop
-  win_bottom := winY + winH - winOffsetBottom
+  winLeft := winX + winOffsetLeft
+  winRight := winX + winW - winOffsetRight
+  winTop := winY + winOffsetTop
+  winBottom := winY + winH - winOffsetBottom
 
   ; Calculate the area of intersection between the window and the monitor
-  intersectionArea := (min(win_right, monRight) - max(win_left, monLeft)) * (min(win_bottom, monBottom) - max(win_top, monTop))
+  intersectionArea := (min(winRight, monRight) - max(winLeft, monLeft)) * (min(winBottom, monBottom) - max(winTop, monTop))
 
   ; Calculate the total area of the window
   windowArea := winW * winH
