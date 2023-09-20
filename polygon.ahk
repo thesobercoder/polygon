@@ -3,22 +3,30 @@
 #DllLoad Dwmapi.dll
 #DllLoad User32.dll
 
+;-- Globals
 global APP_VERSION := "0.1.0"
 global APP_NAME := "Polygon"
 global APP_URL := "https://github.com/thesobercoder/polygon"
 global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
-
-;-- INI settings
-IniFile := "polygon.ini"
-ShortcutSection := "Shortcut"
-ToastSection := "Toast"
-
-;-- Shortcut settings
-CenterShortcut := IniRead(IniFile, ShortcutSection, "Center", "^#c")
-CenterHDShortcut := IniRead(IniFile, ShortcutSection, "CenterHD", "^#q")
-
-;-- Toast settings
-IsToastEnabled := IniRead(IniFile, ToastSection, "Show", "1") == "1" ? true : false
+global APP_INI_FILE := "polygon.ini"
+global APP_INI_SECTION_SHORTCUT := "Shortcut"
+global APP_INI_SECTION_TOAST := "Toast"
+global APP_SETTING_ISTOASTENABLED := IniRead(APP_INI_FILE, APP_INI_SECTION_TOAST, "Show", "1") == "1" ? true : false
+global APP_SHORTCUT_CENTER := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "Center", "^#c")
+global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHD", "^#q")
+global APP_SHORTCUT_CENTERHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHalf", "^#w")
+global APP_SHORTCUT_CENTERTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterTwoThird", "^#r")
+global APP_SHORTCUT_FIRSTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstThird", "^#d")
+global APP_SHORTCUT_CENTERTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterThird", "^#f")
+global APP_SHORTCUT_LASTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastThird", "^#g")
+global APP_SHORTCUT_TOPLEFTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopLeftSixth", "^#z")
+global APP_SHORTCUT_BOTTOMLEFTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeftSixth", "^#x")
+global APP_SHORTCUT_TOPRIGHTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRightSixth", "^#v")
+global APP_SHORTCUT_BOTTOMRIGHTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRightSixth", "^#b")
+global APP_SHORTCUT_TOPCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopCenterSixth", "^#n")
+global APP_SHORTCUT_BOTTOMCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomCenterSixth", "^#m")
+global APP_SHORTCUT_LEFTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LeftHalf", "^#[")
+global APP_SHORTCUT_RIGHTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "RightHalf", "^#]")
 
 ;--Tooltip
 A_IconTip := APP_NAME
@@ -36,7 +44,7 @@ tray.Default := "Version"
 Toast(Message, r, l, t, b)
 {
   ;-- Return if toast is not enabled
-  if (!IsToastEnabled)
+  if (!APP_SETTING_ISTOASTENABLED)
     return
 
   ;-- Calculate the center of the current monitor
@@ -109,124 +117,21 @@ ShowVersion(*)
 }
 
 ;-- Map Hotkeys
-Hotkey CenterShortcut, Center
-Hotkey CenterHDShortcut, CenterHD
-
-;-- Center Half (CTRL+WIN+w)
-^#w:: CenterHalf()
-
-;-- Center Two Third (CTRL+WIN+r)
-^#r:: CenterTwoThird()
-
-;-- First Third (CTRL+WIN+d)
-^#d:: FirstThird()
-
-;-- Center Third (CTRL+WIN+f)
-^#f:: CenterThird()
-
-;-- Last Third (CTRL+WIN+f)
-^#g:: LastThird()
-
-;-- Top Left Sixth (CTRL+WIN+z)
-^#z:: TopLeftSixth()
-
-;-- Bottom Left Sixth (CTRL+WIN+z)
-^#x:: BottomLeftSixth()
-
-;-- Top Right Sixth (CTRL+WIN+v)
-^#v:: TopRightSixth()
-
-;-- Bottom Right Sixth (CTRL+WIN+b)
-^#b:: BottomRightSixth()
-
-;-- Top Center Sixth (CTRL+WIN+n)
-^#n:: TopCenterSixth()
-
-;-- Bottom Center Sixth (CTRL+WIN+m)
-^#m:: BottomCenterSixth()
-
-;-- Left Half (CTRL+WIN+Left Bracket)
-^#[:: LeftHalf()
-
-;-- Left Half (SHIFT+WIN+Right Bracket)
-^#]:: RightHalf()
-
-LeftHalf()
-{
-  ;-- Get the handle of the active window
-  hWnd := WinExist("A")
-  if (hWnd <= 0)
-    return
-
-  ;-- Get the number of monitors
-  MonitorCount := MonitorGetCount()
-
-  ;-- Get the dimensions of the current window
-  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
-
-  ;-- Loop through each monitor to find which one contains the active window
-  Loop MonitorCount
-  {
-    ;-- Get the dimensions of the current monitor
-    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Check if the active window is within the current monitor
-    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
-    {
-      ;-- Calculate the width of half of the monitor
-      HalfWidth := Ceil((r - l) / 2)
-
-      ;-- Set the window position to the left half of the monitor
-      WinMove l - ofl, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
-
-      ;-- Show layout toast
-      Toast("Left Half", r, l, t, b)
-
-      ;-- Exit the loop since we found the correct monitor
-      break
-    }
-  }
-}
-
-RightHalf()
-{
-  ;-- Get the handle of the active window
-  hWnd := WinExist("A")
-  if (hWnd <= 0)
-    return
-
-  ;-- Get the number of monitors
-  MonitorCount := MonitorGetCount()
-
-  ;-- Get the dimensions of the current window
-  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
-
-  ;-- Loop through each monitor to find which one contains the active window
-  Loop MonitorCount
-  {
-    ;-- Get the dimensions of the current monitor
-    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
-    ;-- Check if the active window is within the current monitor
-    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
-    {
-      ;-- Calculate the width of half of the monitor
-      HalfWidth := Ceil((r - l) / 2)
-
-      ;-- Calculate horizontal position for right aligning
-      RightX := (r - ofr) - HalfWidth
-
-      ;-- Set the window position to the right half of the monitor
-      WinMove RightX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
-
-      ;-- Show layout toast
-      Toast("Right Half", r, l, t, b)
-
-      ;-- Exit the loop since we found the correct monitor
-      break
-    }
-  }
-}
+Hotkey APP_SHORTCUT_CENTER, Center
+Hotkey APP_SHORTCUT_CENTERHD, CenterHD
+Hotkey APP_SHORTCUT_CENTERHALF, CenterHalf
+Hotkey APP_SHORTCUT_CENTERTWOTHIRD, CenterTwoThird
+Hotkey APP_SHORTCUT_FIRSTTHIRD, FirstThird
+Hotkey APP_SHORTCUT_CENTERTHIRD, CenterThird
+Hotkey APP_SHORTCUT_LASTTHIRD, LastThird
+Hotkey APP_SHORTCUT_TOPLEFTSIXTH, TopLeftSixth
+Hotkey APP_SHORTCUT_BOTTOMLEFTSIXTH, BottomLeftSixth
+Hotkey APP_SHORTCUT_TOPRIGHTSIXTH, TopRightSixth
+Hotkey APP_SHORTCUT_BOTTOMRIGHTSIXTH, BottomRightSixth
+Hotkey APP_SHORTCUT_TOPCENTERSIXTH, TopCenterSixth
+Hotkey APP_SHORTCUT_BOTTOMCENTERSIXTH, BottomCenterSixth
+Hotkey APP_SHORTCUT_LEFTHALF, LeftHalf
+Hotkey APP_SHORTCUT_RIGHTHALF, RightHalf
 
 Center(*)
 {
@@ -316,7 +221,7 @@ CenterHD(*)
   }
 }
 
-CenterHalf()
+CenterHalf(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -356,7 +261,7 @@ CenterHalf()
   }
 }
 
-CenterTwoThird()
+CenterTwoThird(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -396,7 +301,7 @@ CenterTwoThird()
   }
 }
 
-FirstThird()
+FirstThird(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -433,7 +338,7 @@ FirstThird()
   }
 }
 
-CenterThird()
+CenterThird(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -473,7 +378,7 @@ CenterThird()
   }
 }
 
-LastThird()
+LastThird(*)
 {
   ;-- Get handle of active window
   hWnd := WinExist("A")
@@ -513,7 +418,7 @@ LastThird()
   }
 }
 
-TopLeftSixth()
+TopLeftSixth(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -550,7 +455,7 @@ TopLeftSixth()
   }
 }
 
-BottomLeftSixth()
+BottomLeftSixth(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -587,7 +492,7 @@ BottomLeftSixth()
   }
 }
 
-TopRightSixth()
+TopRightSixth(*)
 {
   ;-- Get handle of active window
   hWnd := WinExist("A")
@@ -627,7 +532,7 @@ TopRightSixth()
   }
 }
 
-BottomRightSixth()
+BottomRightSixth(*)
 {
   ;-- Get handle of active window
   hWnd := WinExist("A")
@@ -667,7 +572,7 @@ BottomRightSixth()
   }
 }
 
-TopCenterSixth()
+TopCenterSixth(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -707,7 +612,7 @@ TopCenterSixth()
   }
 }
 
-BottomCenterSixth()
+BottomCenterSixth(*)
 {
   ;-- Get the handle of the active window
   hWnd := WinExist("A")
@@ -740,6 +645,83 @@ BottomCenterSixth()
 
       ;-- Show layout toast
       Toast("Bottom Center Sixth", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
+      break
+    }
+  }
+}
+
+LeftHalf(*)
+{
+  ;-- Get the handle of the active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
+  ;-- Get the number of monitors
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+  ;-- Loop through each monitor to find which one contains the active window
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Check if the active window is within the current monitor
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width of half of the monitor
+      HalfWidth := Ceil((r - l) / 2)
+
+      ;-- Set the window position to the left half of the monitor
+      WinMove l - ofl, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("Left Half", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
+      break
+    }
+  }
+}
+
+RightHalf(*)
+{
+  ;-- Get the handle of the active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
+  ;-- Get the number of monitors
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+  ;-- Loop through each monitor to find which one contains the active window
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Check if the active window is within the current monitor
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width of half of the monitor
+      HalfWidth := Ceil((r - l) / 2)
+
+      ;-- Calculate horizontal position for right aligning
+      RightX := (r - ofr) - HalfWidth
+
+      ;-- Set the window position to the right half of the monitor
+      WinMove RightX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd
+
+      ;-- Show layout toast
+      Toast("Right Half", r, l, t, b)
 
       ;-- Exit the loop since we found the correct monitor
       break
