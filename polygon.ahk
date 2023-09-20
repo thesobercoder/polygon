@@ -729,12 +729,24 @@ RightHalf(*)
   }
 }
 
-CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b)
+CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom)
 {
-  if (x + ofl >= l && x + w - ofr <= r && y + oft >= t && y + h - ofb <= b)
-  {
+  ; Calculate the coordinates of the corners of the window
+  win_left := winX + winOffsetLeft
+  win_right := winX + winW - winOffsetRight
+  win_top := winY + winOffsetTop
+  win_bottom := winY + winH - winOffsetBottom
+
+  ; Calculate the area of intersection between the window and the monitor
+  intersectionArea := (min(win_right, monRight) - max(win_left, monLeft)) * (min(win_bottom, monBottom) - max(win_top, monTop))
+
+  ; Calculate the total area of the window
+  windowArea := winW * winH
+
+  ; Check if more than 50% of the window is within the monitor
+  if (intersectionArea / windowArea > 0.5)
     return true
-  }
+
   return false
 }
 
