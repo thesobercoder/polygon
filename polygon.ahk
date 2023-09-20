@@ -27,7 +27,7 @@ Toast(Message, r, l, t, b)
   centerX := Ceil((l + r) / 2)
   centerY := Ceil((b + t) / 2)
 
-  title := "Polygon 08ab0337-daeb-4b9c-b01d-11fbc97e1dcb"
+  title := APP_NAME . " 08ab0337-daeb-4b9c-b01d-11fbc97e1dcb"
 
   hWnd := WinExist(title)
   if (hWnd > 0)
