@@ -35,13 +35,13 @@ jobs:
           "polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
           "polygon-x64.exe: $($hash_x64.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
       - name: Zip polygon-x64
-          shell: pwsh
-          run: |
-            Compress-Archive -Path "./polygon.ini","./build/polygon-x64.exe" -DestinationPath "./build/polygon-x64.zip"
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "./polygon.ini","./build/polygon-x64.exe" -DestinationPath "./build/polygon-x64.zip"
       - name: Zip polygon-x32
-          shell: pwsh
-          run: |
-            Compress-Archive -Path "./polygon.ini","./build/polygon-x32.exe" -DestinationPath "./build/polygon-x32.zip"
+        shell: pwsh
+        run: |
+          Compress-Archive -Path "./polygon.ini","./build/polygon-x32.exe" -DestinationPath "./build/polygon-x32.zip"
       - name: Build MSI
         shell: pwsh
         run: |
