@@ -10,10 +10,15 @@ global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
 
 ;-- INI settings
 IniFile := "polygon.ini"
-Section := "Shortcut"
+ShortcutSection := "Shortcut"
+ToastSection := "Toast"
 
-CenterShortcut := IniRead(IniFile, Section, "Center", "^#c")
-CenterHDShortcut := IniRead(IniFile, Section, "CenterHD", "^#q")
+;-- Shortcut settings
+CenterShortcut := IniRead(IniFile, ShortcutSection, "Center", "^#c")
+CenterHDShortcut := IniRead(IniFile, ShortcutSection, "CenterHD", "^#q")
+
+;-- Toast settings
+IsToastEnabled := IniRead(IniFile, ToastSection, "Show", "1") == "1" ? true : false
 
 ;--Tooltip
 A_IconTip := APP_NAME
@@ -30,6 +35,10 @@ tray.Default := "Version"
 
 Toast(Message, r, l, t, b)
 {
+  ;-- Return if toast is not enabled
+  if (!IsToastEnabled)
+    return
+
   ;-- Calculate the center of the current monitor
   centerX := Ceil((l + r) / 2)
   centerY := Ceil((b + t) / 2)
