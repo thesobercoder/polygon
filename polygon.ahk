@@ -744,7 +744,7 @@ CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, 
   windowArea := winW * winH
 
   ; Check if more than 50% of the window is within the monitor
-  if (intersectionArea / windowArea > 0.5)
+  if (Ceil(intersectionArea / windowArea) > 0.5)
     return true
 
   return false
