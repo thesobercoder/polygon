@@ -1,3 +1,11 @@
+## Unreleased
+
+### Features
+
+- Add toast message on layout change
+- Add INI file based shortcut configuration
+- The monitor detection mechanism now only checks if more than 50% of the window is inside the monitor to take effect.
+
 ## v0.1.0 (2023-09-16)
 
 ### Features
