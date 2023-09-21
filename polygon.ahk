@@ -744,13 +744,13 @@ CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, 
   windowArea := winW * winH
 
   ; Check if more than 50% of the window is within the monitor
-  if (Ceil(intersectionArea / windowArea) > 0.5)
+  if (Round(intersectionArea / windowArea, 1) > 0.5)
     return true
 
   return false
 }
 
-WinGetPosEx(hWindow, &X := "", &Y := "", &Width := "", &Height := "", &Offset_Left := "", &Offset_Top := "", &Offset_Right := "", &Offset_Bottom := "")
+WinGetPosEx(hWindow, &X := 0, &Y := 0, &Width := 0, &Height := 0, &Offset_Left := 0, &Offset_Top := 0, &Offset_Right := 0, &Offset_Bottom := 0)
 {
   Static RECTPlus, DWMWA_EXTENDED_FRAME_BOUNDS := 9
 
