@@ -34,6 +34,7 @@ jobs:
         shell: pwsh
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
+          ls "${github.workspace}\build\";
           $absolutePathToPolygonX86Exe = "${github.workspace}\build\polygon-x86.exe";
           $absolutePathToPolygonX64Exe = "${github.workspace}\build\polygon-x64.exe";
           $checksumFile = "${github.workspace}\build\polygon-checksum.txt";
