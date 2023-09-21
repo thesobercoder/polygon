@@ -28,7 +28,7 @@ Here are the shortcuts available in Polygon.
 | Shortcut                                    | Layout              |
 | ------------------------------------------- | ------------------- |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center 1920x1080    |
+| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center HD           |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |
 | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |
@@ -66,6 +66,8 @@ Contributions are most welcome to fix bugs or add new features.
 - You need to have the `EditorConfig` extension installed by searching with the `EditorConfig.EditorConfig` extension ID.
 - You need to have the `EditorConfig for VS Code` extension installed by searching with the `EditorConfig.EditorConfig` extension ID.
 - You need to have the `Prettier - Code formatter` extension installed by searching with the `esbenp.prettier-vscode` extension ID.
+- You need to have the `AutoHotkey v2 Language Support` extension installed by searching with the `thqby.vscode-autohotkey2-lsp` extension ID.
+- If AutoHotkey is located in a different location other than `C:\Program Files\AutoHotkey\v2\AutoHotkey.exe`, then set the `AutoHotkey2.InterpreterPath` setting to point to the correct location.
 
 ### Structure
 
@@ -91,7 +93,6 @@ Please follow the following release checklist and convention.
 
 - :white_check_mark: The changes for the new version have been added to the `CHANGELOG.md` file.
 - :white_check_mark: The new version has been updated in the `polygon.ahk` file.
-- :white_check_mark: The new version has been updated in the `polygon.wxs` file.
 
 Use the following release note body for each release.
 

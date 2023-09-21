@@ -156,11 +156,11 @@ Center(*)
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
       ;-- Calculate the center of the current monitor
-      centerX := Ceil((l + r) / 2)
-      centerY := Ceil((t + b) / 2)
+      centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
+      centerY := Ceil(((t + b) - (ofb + oft)) / 2)
 
       ;-- Move the active window to the center of the current monitor
-      WinMove centerX - w / 2 + (ofl + ofr), centerY - h / 2 + (oft + ofb), w, h, hWnd
+      WinMove centerX - w / 2, centerY - h / 2, w + ofl + ofr, h + oft + ofb, hWnd
 
       ;-- Show layout toast
       Toast("Center", r, l, t, b)
@@ -191,26 +191,18 @@ CenterHD(*)
     MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
 
     ;-- Set desired window dimension
-    rw := 1920
-    rh := 1080
+    rw := Min(1920, ((r + ofr) - (l + ofl)))
+    rh := Min(1080, ((b + ofb) - (t + oft)))
 
     ;-- Check if the active window is within the current monitor
     if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
     {
-      ;-- Check if the desired dimenions are more than the monitor dimensions
-      if (rh >= (b - t) || rw >= (r - l))
-      {
-        WinMaximize hWnd
-      }
-      else
-      {
-        ;-- Calculate the center of the current monitor with desired size
-        centerX := Ceil((l + r) / 2)
-        centerY := Ceil((t + b) / 2)
+      ;-- Calculate the center of the current monitor with desired size
+      centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
+      centerY := Ceil(((t + b) - (ofb + oft)) / 2)
 
-        ;-- Move the active window to the center of the current monitor with desired size
-        WinMove Ceil(centerX - (rw) / 2), Ceil(centerY - (rh) / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
-      }
+      ;-- Move the active window to the center of the current monitor with desired size
+      WinMove Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd
 
       ;-- Show layout toast
       Toast("Center HD", r, l, t, b)
