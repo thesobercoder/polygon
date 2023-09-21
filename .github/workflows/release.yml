@@ -57,7 +57,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           $cwd = (Get-Location).Path;
-          $versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $env:TAG_NAME).Matches[0].Value
+          $versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $env:GITHUB_REF).Matches[0].Value
           $wixFolder = "C:\Program Files (x86)\WiX Toolset v3.11\bin";
           $candleToolPath = Join-Path $wixFolder -ChildPath "candle.exe";
           $lightToolPath = Join-Path $wixFolder -ChildPath "light.exe";
