@@ -14,54 +14,62 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        if: startsWith(github.ref, 'refs/tags/v*')
+        with:
+          fetch-depth: 0
       - name: Compile AHK script
         uses: nukdokplex/autohotkey-build@v0.1
+        if: startsWith(github.ref, 'refs/tags/v*')
         with:
           version: v2.0.9
           x64: true
           x86: true
           compression: upx
-          in: ./
+          in: .\
           x64_suffix: "-x64"
           x86_suffix: "-x86"
           icon: polygon.ico
       - name: Generate checksums
         shell: pwsh
+        if: startsWith(github.ref, 'refs/tags/v*')
         run: |
-          $checksumFile = "./build/polygon-checksum.txt";
-          $hash_x86 = Get-FileHash -Path "./build/polygon-x86.exe" -Algorithm SHA256;
-          $hash_x64 = Get-FileHash -Path "./build/polygon-x64.exe" -Algorithm SHA256;
+          $checksumFile = ".\build\polygon-checksum.txt";
+          $hash_x86 = Get-FileHash -Path ".\build\polygon-x86.exe" -Algorithm SHA256;
+          $hash_x64 = Get-FileHash -Path ".\build\polygon-x64.exe" -Algorithm SHA256;
           "polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
           "polygon-x64.exe: $($hash_x64.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
-      - name: Zip polygon-x64
+      - name: Zip Polygon x64
         shell: pwsh
+        if: startsWith(github.ref, 'refs/tags/v*')
         run: |
-          Compress-Archive -Path "./polygon.ini","./build/polygon-x64.exe" -DestinationPath "./build/polygon-x64.zip"
-      - name: Zip polygon-x32
+          Compress-Archive -Path ".\polygon.ini",".\build\polygon-x64.exe" -DestinationPath ".\build\polygon-x64.zip";
+      - name: Zip Polygon x32
         shell: pwsh
+        if: startsWith(github.ref, 'refs/tags/v*')
         run: |
-          Compress-Archive -Path "./polygon.ini","./build/polygon-x32.exe" -DestinationPath "./build/polygon-x32.zip"
+          Compress-Archive -Path ".\polygon.ini",".\build\polygon-x32.exe" -DestinationPath ".\build\polygon-x32.zip";
       - name: Build MSI
         shell: pwsh
+        if: startsWith(github.ref, 'refs/tags/v*')
         run: |
+          $versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $env:TAG_NAME).Matches[0].Value
           $wixFolder = "C:\Program Files (x86)\WiX Toolset v3.11\bin";
-          $candleToolPath = Join-Path $wixFolder -ChildPath candle.exe
-          $lightToolPath = Join-Path $wixFolder -ChildPath light.exe
+          $candleToolPath = Join-Path $wixFolder -ChildPath "candle.exe";
+          $lightToolPath = Join-Path $wixFolder -ChildPath "light.exe";
 
-          $wxsFileName = "polygon.wxs"
-          $wixobjFileName = "./build/polygon.wixobj"
-          $msiFileName = "./build/polygon.msi"
+          & "$candleToolPath" ".\polygon.wxs" -out ".\build\polygon-x86.wixobj" -dVersion="$versionNumber" -arch x86;
+          & "$candleToolPath" ".\polygon.wxs" -out ".\build\polygon-x64.wixobj" -dVersion="$versionNumber" -arch x64;
 
-          & "$candleToolPath" "polygon.wxs" -out $wixobjFileName;
-          & "$lightToolPath" $wixobjFileName -out $msiFileName;
+          & "$lightToolPath" ".\build\polygon-x86.wixobj" -ext WixUIExtension -out ".\build\polygon-x86.msi";
+          & "$lightToolPath" ".\build\polygon-x64.wixobj" -ext WixUIExtension -out ".\build\polygon-x64.msi";
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/v*')
         with:
           files: |
-            ./build/polygon-x*.zip
-            ./build/polygon.msi
-            ./build/polygon-checksum.txt
+            .\build\polygon-x*.zip
+            .\build\polygon-x*.msi
+            .\build\polygon-checksum.txt
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
