@@ -34,10 +34,11 @@ jobs:
         shell: pwsh
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          ls "${github.workspace}\build\";
-          $absolutePathToPolygonX86Exe = "${github.workspace}\build\polygon-x86.exe";
-          $absolutePathToPolygonX64Exe = "${github.workspace}\build\polygon-x64.exe";
-          $checksumFile = "${github.workspace}\build\polygon-checksum.txt";
+          $cwd = (Get-Location).Path;
+          ls "$cwd\build\";
+          $absolutePathToPolygonX86Exe = "$cwd\build\polygon-x86.exe";
+          $absolutePathToPolygonX64Exe = "$cwd\build\polygon-x64.exe";
+          $checksumFile = "$cwd\build\polygon-checksum.txt";
           $hash_x86 = Get-FileHash -Path $absolutePathToPolygonX86Exe -Algorithm SHA256;
           $hash_x64 = Get-FileHash -Path $absolutePathToPolygonX64Exe -Algorithm SHA256;
           "polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
@@ -46,8 +47,9 @@ jobs:
         shell: pwsh
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
-          $absolutePathToPolygonX64Exe = "${github.workspace}\build\polygon-x64.exe";
-          $absolutePathToPolygonIni = "${github.workspace}\polygon.ini";
+          $cwd = (Get-Location).Path;
+          $absolutePathToPolygonX64Exe = "$cwd\build\polygon-x64.exe";
+          $absolutePathToPolygonIni = "$cwd\polygon.ini";
           Compress-Archive -Path $absolutePathToPolygonIni,$absolutePathToPolygonX64Exe -DestinationPath ".\build\polygon-x64.zip";
       - name: Zip Polygon x32
         shell: pwsh
