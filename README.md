@@ -55,19 +55,17 @@ Have a bug or a feature request, please open a new issue.
 
 ## Contributing
 
-Contributions are most welcome to fix bugs or add new features.
+Contributions are most welcome to fix bugs or to add new features.
 
 ### Environment
 
 - You need to have [AutoHotkey v2](https://github.com/AutoHotkey/AutoHotkey) installed.
 - I recommend using Visual Studio Code or other VS Code based editors like Cursor.
 - You need to have the `AutoHotkey v2 Language Support` extension installed by searching with the `thqby.vscode-autohotkey2-lsp` extension ID.
-- You also need to make sure that `AutoHotkey v2 Language Support` is able to find the AutoHotkey executable.
+- If AutoHotkey is located in a different location other than `C:\Program Files\AutoHotkey\v2\AutoHotkey.exe`, then set the `AutoHotkey2.InterpreterPath` setting to point to the correct location.
 - You need to have the `EditorConfig` extension installed by searching with the `EditorConfig.EditorConfig` extension ID.
 - You need to have the `EditorConfig for VS Code` extension installed by searching with the `EditorConfig.EditorConfig` extension ID.
 - You need to have the `Prettier - Code formatter` extension installed by searching with the `esbenp.prettier-vscode` extension ID.
-- You need to have the `AutoHotkey v2 Language Support` extension installed by searching with the `thqby.vscode-autohotkey2-lsp` extension ID.
-- If AutoHotkey is located in a different location other than `C:\Program Files\AutoHotkey\v2\AutoHotkey.exe`, then set the `AutoHotkey2.InterpreterPath` setting to point to the correct location.
 
 ### Structure
 
