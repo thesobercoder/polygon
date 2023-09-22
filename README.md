@@ -2,7 +2,7 @@
 
 A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager for Windows 10/11 powered by AutoHotkey.
 
-![Release](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![Release](https://github.com/thesobercoder/polygon/actions/workflows/release.yml/badge.svg)
 
 > [!NOTE]
 > Polygon is still a work in progress and aims to have 100% feature compatibility with Rectangle.
