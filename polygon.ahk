@@ -27,6 +27,10 @@ global APP_SHORTCUT_TOPCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHOR
 global APP_SHORTCUT_BOTTOMCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomCenterSixth", "^#m")
 global APP_SHORTCUT_LEFTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LeftHalf", "^#[")
 global APP_SHORTCUT_RIGHTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "RightHalf", "^#]")
+global APP_SHORTCUT_TOPLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopLeft", "^#u")
+global APP_SHORTCUT_TOPRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRight", "^#i")
+global APP_SHORTCUT_BOTTOMLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeft", "^#j")
+global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRight", "^#k")
 
 ;--Tooltip
 A_IconTip := APP_NAME
@@ -132,6 +136,10 @@ Hotkey(APP_SHORTCUT_TOPCENTERSIXTH, TopCenterSixth)
 Hotkey(APP_SHORTCUT_BOTTOMCENTERSIXTH, BottomCenterSixth)
 Hotkey(APP_SHORTCUT_LEFTHALF, LeftHalf)
 Hotkey(APP_SHORTCUT_RIGHTHALF, RightHalf)
+Hotkey(APP_SHORTCUT_TOPLEFT, TopLeft)
+Hotkey(APP_SHORTCUT_TOPRIGHT, TopRight)
+Hotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
+Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
 
 Center(*)
 {
@@ -714,6 +722,163 @@ RightHalf(*)
 
       ;-- Show layout toast
       Toast("Right Half", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
+      break
+    }
+  }
+}
+
+TopLeft(*)
+{
+  ;-- Get the handle of the active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
+  ;-- Get the number of monitors
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+  ;-- Loop through each monitor to find which one contains the active window
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Check if the active window is within the current monitor
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width as half of the monitor
+      HalfWidth := Ceil((r - l) / 2)
+
+      ;-- Set the window position to the left half of the monitor and top half of it
+      WinMove(l - ofl, t - oft, HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+
+      ;-- Show layout toast
+      Toast("Top Left", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
+      break
+    }
+  }
+}
+
+TopRight(*)
+{
+  ;-- Get the handle of the active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
+  ;-- Get the number of monitors
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+  ;-- Loop through each monitor to find which one contains the active window
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Check if the active window is within the current monitor
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width as half of the monitor
+      HalfWidth := Ceil((r - l) / 2)
+
+      ;-- Calculate horizontal position for right aligning
+      RightX := (r - ofr) - HalfWidth
+
+      ;-- Set the window position to start from the middle of the monitor and extend to the very right edge
+      WinMove(RightX, t - oft, r - l - HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+
+      ;-- Show layout toast
+      Toast("Top Right", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
+      break
+    }
+  }
+}
+
+BottomLeft(*)
+{
+  ;-- Get the handle of the active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
+  ;-- Get the number of monitors
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+  ;-- Loop through each monitor to find which one contains the active window
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Check if the active window is within the current monitor
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width of half of the monitor
+      HalfWidth := Ceil((r - l) / 2)
+
+      ;-- Calculate the height of half of the monitor
+      HalfHeight := Ceil((b - t) / 2)
+
+      ;-- Set the window position to left one third of monitor and bottom half of it
+      WinMove(l - ofl, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+
+      ;-- Show layout toast
+      Toast("Bottom Left", r, l, t, b)
+
+      ;-- Exit the loop since we found the correct monitor
+      break
+    }
+  }
+}
+
+BottomRight(*)
+{
+  ;-- Get the handle of the active window
+  hWnd := WinExist("A")
+  if (hWnd <= 0)
+    return
+
+  ;-- Get the number of monitors
+  MonitorCount := MonitorGetCount()
+
+  ;-- Get the dimensions of the current window
+  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
+
+  ;-- Loop through each monitor to find which one contains the active window
+  Loop MonitorCount
+  {
+    ;-- Get the dimensions of the current monitor
+    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+
+    ;-- Check if the active window is within the current monitor
+    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
+    {
+      ;-- Calculate the width as half of the monitor
+      HalfWidth := Ceil((r - l) / 2)
+
+      ;-- Calculate horizontal position for right aligning
+      RightX := (r - ofr) - HalfWidth
+
+      ;-- Set the window position to the right half of the monitor and bottom half of it
+      WinMove(RightX, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+
+      ;-- Show layout toast
+      Toast("Bottom Right", r, l, t, b)
 
       ;-- Exit the loop since we found the correct monitor
       break

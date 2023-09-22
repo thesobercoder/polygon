@@ -48,10 +48,10 @@ Here are the shortcuts available in Polygon.
 | :construction:     |                                             | Bottom Half         |
 | :construction:     |                                             | First Two Thirds    |
 | :construction:     |                                             | Last Two Thirds     |
-| :construction:     |                                             | Top Left            |
-| :construction:     |                                             | Top Right           |
-| :construction:     |                                             | Bottom Left         |
-| :construction:     |                                             | Bottom Right        |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>U</kbd> | Top Left            |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>I</kbd> | Top Right           |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>J</kbd> | Bottom Left         |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>K</kbd> | Bottom Right        |
 | :construction:     |                                             | First Fourth        |
 | :construction:     |                                             | Second Fourth       |
 | :construction:     |                                             | Third Fourth        |
