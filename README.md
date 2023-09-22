@@ -44,20 +44,20 @@ Here are the shortcuts available in Polygon.
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth |
-| construction:      |                                             | Top Half            |
-| construction:      |                                             | Bottom Half         |
-| construction:      |                                             | First Two Thirds    |
-| construction:      |                                             | Last Two Thirds     |
-| construction:      |                                             | Top Left            |
-| construction:      |                                             | Top Right           |
-| construction:      |                                             | Bottom Left         |
-| construction:      |                                             | Bottom Right        |
-| construction:      |                                             | First Fourth        |
-| construction:      |                                             | Second Fourth       |
-| construction:      |                                             | Third Fourth        |
-| construction:      |                                             | Last Fourth         |
-| construction:      |                                             | Next Display        |
-| construction:      |                                             | Previous Display    |
+| :construction:     |                                             | Top Half            |
+| :construction:     |                                             | Bottom Half         |
+| :construction:     |                                             | First Two Thirds    |
+| :construction:     |                                             | Last Two Thirds     |
+| :construction:     |                                             | Top Left            |
+| :construction:     |                                             | Top Right           |
+| :construction:     |                                             | Bottom Left         |
+| :construction:     |                                             | Bottom Right        |
+| :construction:     |                                             | First Fourth        |
+| :construction:     |                                             | Second Fourth       |
+| :construction:     |                                             | Third Fourth        |
+| :construction:     |                                             | Last Fourth         |
+| :construction:     |                                             | Next Display        |
+| :construction:     |                                             | Previous Display    |
 
 ## Bugs and feature requests
 
