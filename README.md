@@ -99,8 +99,8 @@ When you create a commit I kindly ask you to follow the convention `category(sco
 
 Please follow the following release checklist and convention.
 
-- :white_check_mark: The changes for the new version have been added to the `CHANGELOG.md` file.
-- :white_check_mark: The new version has been updated in the `polygon.ahk` file.
+- :exclamation: The changes for the new version have been added to the `CHANGELOG.md` file.
+- :exclamation: The new version has been updated in the `polygon.ahk` file.
 
 Use the following release note body for each release.
 
