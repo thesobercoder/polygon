@@ -2,6 +2,8 @@
 
 A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager for Windows 10/11 powered by AutoHotkey.
 
+![Release](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
 > [!NOTE]
 > Polygon is still a work in progress and aims to have 100% feature compatibility with Rectangle.
 
@@ -25,29 +27,37 @@ If you followed everything correctly, Polygon should start at Windows logon.
 
 Here are the shortcuts available in Polygon.
 
-| Shortcut                                    | Layout              |
-| ------------------------------------------- | ------------------- |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center HD           |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third    |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third         |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>F</kbd> | Center Third        |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>G</kbd> | Last Third          |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Z</kbd> | Top Left Sixth      |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>X</kbd> | Bottom Left Sixth   |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>V</kbd> | Top Right Sixth     |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    |
-| <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth |
-
-## Known Issues
-
-Here are some known issues. Contributions are welcome.
-
-- Some windows have an invisible margin and will leave a gap when resized.
+| Status             | Shortcut                                    | Layout              |
+| ------------------ | ------------------------------------------- | ------------------- |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center HD           |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third    |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third         |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>F</kbd> | Center Third        |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>G</kbd> | Last Third          |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Z</kbd> | Top Left Sixth      |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>X</kbd> | Bottom Left Sixth   |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>V</kbd> | Top Right Sixth     |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth |
+| construction:      |                                             | Top Half            |
+| construction:      |                                             | Bottom Half         |
+| construction:      |                                             | First Two Thirds    |
+| construction:      |                                             | Last Two Thirds     |
+| construction:      |                                             | Top Left            |
+| construction:      |                                             | Top Right           |
+| construction:      |                                             | Bottom Left         |
+| construction:      |                                             | Bottom Right        |
+| construction:      |                                             | First Fourth        |
+| construction:      |                                             | Second Fourth       |
+| construction:      |                                             | Third Fourth        |
+| construction:      |                                             | Last Fourth         |
+| construction:      |                                             | Next Display        |
+| construction:      |                                             | Previous Display    |
 
 ## Bugs and feature requests
 
