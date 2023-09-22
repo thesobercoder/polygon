@@ -11,7 +11,7 @@ A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager
 
 ### Installer
 
-You can grab the latest Polygon installer from this [link](https://github.com/thesobercoder/polygon/releases/latest/download/polygon.msi). The installer will place a shortcut to your user startup folder to ensure that Polygon start at Windows logon.
+You can grab the latest Polygon installer from the latest [release](https://github.com/thesobercoder/polygon/releases/latest). The installer will place a shortcut to your user startup folder to ensure that Polygon start at Windows logon.
 
 ### Manual
 
