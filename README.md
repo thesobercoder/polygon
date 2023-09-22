@@ -7,6 +7,10 @@ A [Mac Rectangle](https://github.com/rxhanson/Rectangle) inspired window manager
 > [!NOTE]
 > Polygon is still a work in progress and aims to have 100% feature compatibility with Rectangle.
 
+## System Requirements
+
+Polygon supports Windows 10/11.
+
 ## Installation
 
 ### Installer
@@ -17,9 +21,11 @@ You can grab the latest Polygon installer from the latest [release](https://gith
 
 If you rather want to install Polygon manually, please follow the steps outlined below.
 
-- Download the compiled executable based on your OS architecture from the latest [release](https://github.com/thesobercoder/polygon/releases/latest).
+- Download the compiled executable zip file based on your OS architecture from the latest [release](https://github.com/thesobercoder/polygon/releases/latest).
+- Extract the `polygon-x[64|86].zip` into a location of your choice.
+- Right click the executable and unblock it if Windows complain about security.
 - Open the user startup folder by running the `shell:startup` command in the run (<kbd>WIN</kbd>+<kbd>R</kbd>) window.
-- Copy the `polygon-x[64|86].exe` that you downloaded to the `shell:startup` directory that you opened in the previous step.
+- Copy the `polygon-x[64|86].exe` and the `polygon.ini` that you downloaded from the previous step and copy them to the `shell:startup` directory.
 
 If you followed everything correctly, Polygon should start at Windows logon.
 
