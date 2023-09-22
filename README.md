@@ -101,6 +101,7 @@ Please follow the following release checklist and convention.
 
 - :exclamation: The changes for the new version have been added to the `CHANGELOG.md` file.
 - :exclamation: The new version has been updated in the `polygon.ahk` file.
+- :exclamation: When cutting a release, please use tags with semver like `v*.*.*` format.
 
 Use the following release note body for each release.
 
