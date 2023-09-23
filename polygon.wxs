@@ -73,10 +73,12 @@
       <UIRef Id="WixUI_FeatureTree" />
     </UI>
 
-    <!-- Product icon -->
-    <Icon Id="icon.ico" SourceFile=".\polygon.ico" />
+    <!-- Product -->
+    <Icon Id="icon.ico" SourceFile="logo.ico" />
     <Property Id="ARPPRODUCTICON" Value="icon.ico" />
     <Property Id="ARPHELPLINK" Value="https://github.com/thesobercoder/polygon" />
     <WixVariable Id="WixUILicenseRtf" Value="polygon.rtf" />
+    <WixVariable Id="WixUIBannerBmp" Value="banner.bmp"/>
+    <WixVariable Id="WixUIDialogBmp" Value="dialog.bmp"/>
   </Product>
 </Wix>
