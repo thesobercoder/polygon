@@ -1,29 +1,23 @@
-## Unreleased
+## v0.1.0 (2023-09-23)
 
 ### Features
 
-#### Layouts -
-
-- Added Center
-- Added Center 1920 x 1080
-- Added Center Half
-- Added Center Two Third
-- Added First Third
-- Added Center Third
-- Added Last Third
-- Added Top Left Sixth
-- Added Bottom Left Sixth
-- Added Top Right Sixth
-- Added Bottom Right Sixth
-- Added Top Center Sixth
-- Added Bottom Center Sixth
-- Added Top Left
-- Added Top Right
-- Added Bottom Left
-- Added Bottom Right
-
-#### Settings -
-
-- Added toast message on layout change
-- Added INI file based shortcut configuration
-- The monitor detection mechanism now only checks if more than 50% of the window is inside the monitor to take effect.
+- Add Center
+- Add Center HD
+- Add Center Half
+- Add Left Half
+- Add Right Half
+- Add Center Two Third
+- Add First Third
+- Add Center Third
+- Add Last Third
+- Add Top Left Sixth
+- Add Bottom Left Sixth
+- Add Top Right Sixth
+- Add Bottom Right Sixth
+- Add Top Center Sixth
+- Add Bottom Center Sixth
+- Add Top Left
+- Add Top Right
+- Add Bottom Left
+- Add Bottom Right

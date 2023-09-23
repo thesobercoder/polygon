@@ -65,6 +65,9 @@ Here are the shortcuts available in Polygon.
 | :construction:     |                                             | Next Display        |
 | :construction:     |                                             | Previous Display    |
 
+> [!NOTE]
+> Polygon also includes a `polygon.ini` file which allows you to configure different shortcuts for each layout. Please refer to the AutoHotkey v2 [List of Keys](https://www.autohotkey.com/docs/v2/KeyList.htm) documentation to choose shortcuts of your preference.
+
 ## Bugs and feature requests
 
 Have a bug or a feature request, please open a new issue.
