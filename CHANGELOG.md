@@ -3,7 +3,7 @@
 ### Features
 
 - Add automated version check at startup
-- Add tray menu for version manual checking
+- Add tray menu for manual version checking
 
 ## [v0.1.0](https://github.com/thesobercoder/polygon/releases/v0.1.0) (2023-09-24)
 
