@@ -1,4 +1,11 @@
-## v0.1.0 (2023-09-24)
+## Unreleased
+
+### Features
+
+- Add automated version check at startup
+- Add tray menu for version manual checking
+
+## [v0.1.0](https://github.com/thesobercoder/polygon/releases/v0.1.0) (2023-09-24)
 
 ### Features
 

@@ -5,9 +5,13 @@
 
 ;-- Globals
 global APP_VERSION := "0.1.0"
+global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
-global APP_URL := "https://github.com/thesobercoder/polygon"
-global APP_FEEDBACK_URL := "https://github.com/thesobercoder/polygon/issues/new"
+global APP_REPO_OWNER := "thesobercoder"
+global APP_REPO_NAME := "polygon"
+global APP_URL := "https://github.com/" . APP_REPO_OWNER . "/" . APP_REPO_NAME
+global APP_FEEDBACK_URL := APP_URL . "/issues/new"
+global APP_UPDATE_URL := APP_URL . "/releases/latest"
 global APP_INI_FILE := "polygon.ini"
 global APP_INI_SECTION_SHORTCUT := "Shortcut"
 global APP_INI_SECTION_TOAST := "Toast"
@@ -35,15 +39,48 @@ global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCU
 ;--Tooltip
 A_IconTip := APP_NAME
 
+;-- Register global error logging
+OnError(LogError)
+
+;-- On startup check for version update
+CheckForUpdate()
+
 ;-- Context Menu
 tray := A_TrayMenu
 tray.Delete()
 tray.Add("Help", ShowHelp)
 tray.Add("Version", ShowVersion)
+tray.Add("Check for Updates", CheckForUpdate)
 tray.Add("Feedback", SubmitFeedback)
 tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
 tray.Default := "Version"
+
+LogError(exception, mode)
+{
+  ; Get the user's application data folder
+  PolygonDataFolder := A_AppData . "\Polygon"
+  PolygonLogPath := PolygonDataFolder . "\errorlog.txt"
+
+  ; Create the folder if it doesn't exist
+  if (!DirExist(PolygonDataFolder))
+  {
+    DirCreate(PolygonDataFolder)
+  }
+
+  ; Display a message to the user
+  result := MsgBox('Polygon encountered an error. The error has been logged in the "errorlog.txt" file. Open folder location?', APP_NAME, "YesNo Iconx")
+  if (result := "Yes")
+  {
+    Run(PolygonDataFolder)
+  }
+
+  ; Append the error message to the log file
+  FileAppend("Error on line " . exception.Line . ": " . exception.Message . "`n", PolygonLogPath)
+
+  return true
+}
+
 
 Toast(Message, r, l, t, b)
 {
@@ -95,6 +132,74 @@ Toast(Message, r, l, t, b)
   }
 }
 
+ParseVersionString(version)
+{
+  regex := "v(\d+)\.(\d+)\.(\d+)"
+  if (RegExMatch(version, regex, &parsedVersion))
+  {
+    if (parsedVersion.Count > 0)
+    {
+      ;-- Extract the version here
+      major := parsedVersion[1]
+      minor := parsedVersion[2]
+      patch := parsedVersion[3]
+
+      return Number(major) * 10000 + Number(minor) * 100 + Number(patch)
+    }
+  }
+  return 0
+}
+
+CheckForUpdate(args*)
+{
+  version := GetLatestGitHubRelease(APP_REPO_OWNER, APP_REPO_NAME)
+
+  ; Check if the request was successful
+  if (version)
+  {
+    newVersion := ParseVersionString(version)
+    currentVersion := ParseVersionString(APP_VERSION_NAME)
+
+    ;-- Check if the latest version is greater
+    if (newVersion > currentVersion)
+    {
+      result := MsgBox("A new version " . newVersion . " is available. Do you want to update?", APP_NAME, "YesNo Iconi")
+      if (result == "Yes")
+      {
+        Run(APP_UPDATE_URL)
+        return
+      }
+    }
+  }
+
+  if (args && args.Length > 0 && args[1] == "Check for Updates")
+  {
+    MsgBox("You already have the latest version.", APP_NAME, "Iconi")
+  }
+}
+
+GetLatestGitHubRelease(owner, repo)
+{
+  req := ComObject("Msxml2.XMLHTTP")
+  req.open("GET", "https://api.github.com/repos/" . owner . "/" . repo . "/releases/latest", false)
+  req.send()
+  if req.status != 200
+  {
+    MsgBox("Error checking for update. Please try after some time.", APP_NAME, "Iconx")
+    return
+  }
+
+  res := JSONParse(req.responseText)
+  return res.tag_name
+
+  JSONParse(str)
+  {
+    htmlfile := ComObject("htmlfile")
+    htmlfile.write('<meta http-equiv="X-UA-Compatible" content="IE=edge">')
+    return htmlfile.parentWindow.JSON.parse(str)
+  }
+}
+
 SubmitFeedback(*)
 {
   Run(APP_FEEDBACK_URL)
@@ -117,7 +222,7 @@ Terminate(*)
 
 ShowVersion(*)
 {
-  MsgBox("Version " . APP_VERSION, APP_NAME, "iconi")
+  MsgBox("Version " . APP_VERSION, APP_NAME, "Iconi")
 }
 
 ;-- Map Hotkeys
