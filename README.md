@@ -34,7 +34,7 @@ If you followed everything correctly, Polygon should start at Windows logon.
 Here are the shortcuts available in Polygon.
 
 > [!NOTE]
-> Some of the shortcuts Polygon uses conflicts with Window in-built shortcuts and has been mentioned below. If you want to avoid these conflicts, please use the `polygon.ini` file to configure a different shortcut of your choosing.
+> Some of the shortcuts Polygon uses conflicts with Window in-built shortcuts and has been mentioned below. If you want to avoid these conflicts, please use the `polygon.ini` file to configure a different shortcut of your choosing by referring to the AutoHotkey v2 [List of Keys](https://www.autohotkey.com/docs/v2/KeyList.htm) documentation.
 
 | Status             | Shortcut                                    | Layout              | Conflicts       |
 | ------------------ | ------------------------------------------- | ------------------- | --------------- |
@@ -67,9 +67,6 @@ Here are the shortcuts available in Polygon.
 | :construction:     |                                             | Last Fourth         |                 |
 | :construction:     |                                             | Next Display        |                 |
 | :construction:     |                                             | Previous Display    |                 |
-
-> [!NOTE]
-> Polygon also includes a `polygon.ini` file which allows you to configure different shortcuts for each layout. Please refer to the AutoHotkey v2 [List of Keys](https://www.autohotkey.com/docs/v2/KeyList.htm) documentation to choose shortcuts of your preference.
 
 ## Bugs and feature requests
 
