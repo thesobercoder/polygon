@@ -33,37 +33,40 @@ If you followed everything correctly, Polygon should start at Windows logon.
 
 Here are the shortcuts available in Polygon.
 
-| Status             | Shortcut                                    | Layout              |
-| ------------------ | ------------------------------------------- | ------------------- |
+> [!NOTE]
+> Some of the shortcuts Polygon uses conflicts with Window in-built shortcuts and has been mentioned below. If you want to avoid these conflicts, please use the `polygon.ini` file to configure a different shortcut of your choosing.
+
+| Status             | Shortcut                                    | Layout              | Conflicts       |
+| ------------------ | ------------------------------------------- | ------------------- | --------------- |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center HD           |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third    |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third         |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>F</kbd> | Center Third        |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>G</kbd> | Last Third          |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Z</kbd> | Top Left Sixth      |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>X</kbd> | Bottom Left Sixth   |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>V</kbd> | Top Right Sixth     |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth |
-| :construction:     |                                             | Top Half            |
-| :construction:     |                                             | Bottom Half         |
-| :construction:     |                                             | First Two Thirds    |
-| :construction:     |                                             | Last Two Thirds     |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>U</kbd> | Top Left            |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>I</kbd> | Top Right           |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>J</kbd> | Bottom Left         |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>K</kbd> | Bottom Right        |
-| :construction:     |                                             | First Fourth        |
-| :construction:     |                                             | Second Fourth       |
-| :construction:     |                                             | Third Fourth        |
-| :construction:     |                                             | Last Fourth         |
-| :construction:     |                                             | Next Display        |
-| :construction:     |                                             | Previous Display    |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center HD           | Quick Assist    |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>R</kbd> | Center Two Third    |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>D</kbd> | First Third         | Virtual Desktop |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>F</kbd> | Center Third        | Feedback Hub    |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>G</kbd> | Last Third          |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Z</kbd> | Top Left Sixth      |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>X</kbd> | Bottom Left Sixth   |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>V</kbd> | Top Right Sixth     |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    | Narrator        |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth | Magnifier       |
+| :construction:     |                                             | Top Half            |                 |
+| :construction:     |                                             | Bottom Half         |                 |
+| :construction:     |                                             | First Two Thirds    |                 |
+| :construction:     |                                             | Last Two Thirds     |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>U</kbd> | Top Left            |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>I</kbd> | Top Right           |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>J</kbd> | Bottom Left         |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>K</kbd> | Bottom Right        |                 |
+| :construction:     |                                             | First Fourth        |                 |
+| :construction:     |                                             | Second Fourth       |                 |
+| :construction:     |                                             | Third Fourth        |                 |
+| :construction:     |                                             | Last Fourth         |                 |
+| :construction:     |                                             | Next Display        |                 |
+| :construction:     |                                             | Previous Display    |                 |
 
 > [!NOTE]
 > Polygon also includes a `polygon.ini` file which allows you to configure different shortcuts for each layout. Please refer to the AutoHotkey v2 [List of Keys](https://www.autohotkey.com/docs/v2/KeyList.htm) documentation to choose shortcuts of your preference.
