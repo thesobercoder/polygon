@@ -81,7 +81,6 @@ LogError(exception, mode)
   return true
 }
 
-
 Toast(Message, r, l, t, b)
 {
   ;-- Return if toast is not enabled
