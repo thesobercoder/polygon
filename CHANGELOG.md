@@ -1,4 +1,4 @@
-## [v0.2.0](https://github.com/thesobercoder/polygon/releases/v0.1.0) (2023-09-27)
+## [v0.2.0](https://github.com/thesobercoder/polygon/releases/v0.2.0) (2023-09-27)
 
 ### Features
 

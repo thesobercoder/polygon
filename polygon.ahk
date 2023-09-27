@@ -4,7 +4,7 @@
 #DllLoad User32.dll
 
 ;-- Globals
-global APP_VERSION := "0.1.0"
+global APP_VERSION := "0.2.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
