@@ -1,8 +1,13 @@
 $cwd = (Get-Location).Path;
 
+# Check for environment variable GITHUB_REF.
+$latestTag = if (-not (Test-Path -Path "Variable:\GITHUB_REF")) {
+  (git describe --tags --abbrev=0);
+} else {
+  $env:GITHUB_REF
+}
+
 # Get the latest version from tag
-git pull origin main;
-$latestTag = git describe --tags --abbrev=0;
 $versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $latestTag).Matches[0].Value
 
 Write-Host "Building Polygon version $versionNumber" -ForegroundColor Green;
