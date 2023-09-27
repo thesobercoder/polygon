@@ -43,7 +43,7 @@ A_IconTip := APP_NAME
 OnError(LogError)
 
 ;-- On startup check for version update
-CheckForUpdate()
+; CheckForUpdate()
 
 ;-- Context Menu
 tray := A_TrayMenu
