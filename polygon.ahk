@@ -68,15 +68,15 @@ LogError(exception, mode)
     DirCreate(PolygonDataFolder)
   }
 
+  ; Append the error message to the log file
+  FileAppend("Error on line " . exception.Line . ": " . exception.Message . "`n", PolygonLogPath)
+
   ; Display a message to the user
   result := MsgBox('Polygon encountered an error. The error has been logged in the "errorlog.txt" file. Open folder location?', APP_NAME, "YesNo Iconx")
-  if (result := "Yes")
+  if (result == "Yes")
   {
     Run(PolygonDataFolder)
   }
-
-  ; Append the error message to the log file
-  FileAppend("Error on line " . exception.Line . ": " . exception.Message . "`n", PolygonLogPath)
 
   return true
 }
@@ -248,81 +248,37 @@ Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
 
 Center(*)
 {
-  ;-- Get the active window's handle
-  hWnd := WinExist("A")
-  if (hWnd <= 0)
-    return
-
-  ;-- Get the number of monitors
-  MonitorCount := MonitorGetCount()
-
-  ;-- Get the active window's dimensions
-  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
-
-  ;-- Loop through each monitor to find which one contains the active window
-  Loop MonitorCount
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
-    ;-- Get the dimensions of the current monitor
-    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
+    ;-- Calculate the center of the current monitor
+    centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
+    centerY := Ceil(((t + b) - (ofb + oft)) / 2)
 
-    ;-- Check if the active window is within the current monitor
-    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
-    {
-      ;-- Calculate the center of the current monitor
-      centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
-      centerY := Ceil(((t + b) - (ofb + oft)) / 2)
+    ;-- Move the active window to the center of the current monitor
+    WinMove(centerX - w / 2, centerY - h / 2, w + ofl + ofr, h + oft + ofb, hWnd)
 
-      ;-- Move the active window to the center of the current monitor
-      WinMove(centerX - w / 2, centerY - h / 2, w + ofl + ofr, h + oft + ofb, hWnd)
-
-      ;-- Show layout toast
-      Toast("Center", r, l, t, b)
-
-      ;-- Exit the loop since we found the correct monitor
-      break
-    }
+    ;-- Show layout toast
+    Toast("Center", r, l, t, b)
   }
 }
 
 CenterHD(*)
 {
-  ;-- Get the active window's handle
-  hWnd := WinExist("A")
-  if (hWnd <= 0)
-    return
-
-  ;-- Get the number of monitors
-  MonitorCount := MonitorGetCount()
-
-  ;-- Get the dimensions of the current window
-  WinGetPosEx(hWnd, &x, &y, &w, &h, &ofl, &oft, &ofr, &ofb)
-
-  ;-- Loop through each monitor to find which one contains the active window
-  Loop MonitorCount
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
-    ;-- Get the dimensions of the current monitor
-    MonitorGetWorkArea(A_Index, &l, &t, &r, &b)
-
     ;-- Set desired window dimension
     rw := Min(1920, ((r + ofr) - (l + ofl)))
     rh := Min(1080, ((b + ofb) - (t + oft)))
 
-    ;-- Check if the active window is within the current monitor
-    if (CheckWindowWithinMonitor(x, y, w, h, ofl, ofr, oft, ofb, r, l, t, b))
-    {
-      ;-- Calculate the center of the current monitor with desired size
-      centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
-      centerY := Ceil(((t + b) - (ofb + oft)) / 2)
+    ;-- Calculate the center of the current monitor with desired size
+    centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
+    centerY := Ceil(((t + b) - (ofb + oft)) / 2)
 
-      ;-- Move the active window to the center of the current monitor with desired size
-      WinMove(Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd)
+    ;-- Move the active window to the center of the current monitor with desired size
+    WinMove(Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd)
 
-      ;-- Show layout toast
-      Toast("Center HD", r, l, t, b)
-
-      ;-- Exit the loop since we found the correct monitor
-      break
-    }
+    ;-- Show layout toast
+    Toast("Center HD", r, l, t, b)
   }
 }
 
@@ -991,6 +947,35 @@ BottomRight(*)
   }
 }
 
+GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0, &monRight := 0, &monLeft := 0, &monTop := 0, &monBottom := 0)
+{
+  ;-- Get the handle of the active window
+  hWindow := WinExist("A")
+  if (hWindow > 0)
+  {
+    ;-- Get the number of monitors
+    MonitorCount := MonitorGetCount()
+
+    ;-- Get the dimensions of the current window
+    WinGetPosEx(hWindow, &winX, &winY, &winW, &winH, &winOffsetLeft, &winOffsetTop, &winOffsetRight, &winOffsetBottom)
+
+    ;-- Loop through each monitor to find which one contains the active window
+    Loop MonitorCount
+    {
+      ;-- Get the dimensions of the current monitor
+      MonitorGetWorkArea(A_Index, &monLeft, &monTop, &monRight, &monBottom)
+
+      ;-- Check if the active window is within the current monitor
+      if (CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom))
+      {
+        return true
+      }
+    }
+  }
+
+  return false
+}
+
 CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom)
 {
   ; Calculate the coordinates of the corners of the window
@@ -1012,7 +997,7 @@ CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, 
   return false
 }
 
-WinGetPosEx(hWindow, &X := 0, &Y := 0, &Width := 0, &Height := 0, &Offset_Left := 0, &Offset_Top := 0, &Offset_Right := 0, &Offset_Bottom := 0)
+WinGetPosEx(hWindow, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetTop := 0, &winOffsetRight := 0, &winOffsetBottom := 0)
 {
   Static RECTPlus, DWMWA_EXTENDED_FRAME_BOUNDS := 9
 
@@ -1026,16 +1011,16 @@ WinGetPosEx(hWindow, &X := 0, &Y := 0, &Width := 0, &Height := 0, &Offset_Left :
   DllCall("Dwmapi.dll\DwmGetWindowAttribute", PtrType, hWindow, "UInt", DWMWA_EXTENDED_FRAME_BOUNDS, PtrType, RECTPlus, "UInt", 16)
 
   ;-- Populate the output variables
-  X := Left := NumGet(RECTPlus, 0, "Int")
-  Y := Top := NumGet(RECTPlus, 4, "Int")
+  winX := Left := NumGet(RECTPlus, 0, "Int")
+  winY := Top := NumGet(RECTPlus, 4, "Int")
   Right := NumGet(RECTPlus, 8, "Int")
   Bottom := NumGet(RECTPlus, 12, "Int")
-  Width := Right - Left
-  Height := Bottom - Top
-  Offset_Left := 0
-  Offset_Top := 0
-  Offset_Right := 0
-  Offset_Bottom := 0
+  winW := Right - Left
+  winH := Bottom - Top
+  winOffsetLeft := 0
+  winOffsetTop := 0
+  winOffsetRight := 0
+  winOffsetBottom := 0
 
   ;-- Collect dimensions via GetWindowRect
   RECT := Buffer(16, 0)
@@ -1046,10 +1031,10 @@ WinGetPosEx(hWindow, &X := 0, &Y := 0, &Width := 0, &Height := 0, &Offset_Left :
   GWR_Bottom := NumGet(RECT, 12, "Int")
 
   ;-- Calculate offsets and update output variables
-  NumPut("Int", Offset_Left := Left - GWR_Left, RECTPlus, 16)
-  NumPut("Int", Offset_Top := Top - GWR_Top, RECTPlus, 20)
-  NumPut("Int", Offset_Right := GWR_Right - Right, RECTPlus, 24)
-  NumPut("Int", Offset_Bottom := GWR_Bottom - Bottom, RECTPlus, 28)
+  NumPut("Int", winOffsetLeft := Left - GWR_Left, RECTPlus, 16)
+  NumPut("Int", winOffsetTop := Top - GWR_Top, RECTPlus, 20)
+  NumPut("Int", winOffsetRight := GWR_Right - Right, RECTPlus, 24)
+  NumPut("Int", winOffsetBottom := GWR_Bottom - Bottom, RECTPlus, 28)
 
   Return &RECTPlus
 }
