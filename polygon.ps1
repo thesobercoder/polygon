@@ -1,10 +1,17 @@
 $cwd = (Get-Location).Path;
 
-# Check for environment variable GITHUB_REF.
-$latestTag = if (-not (Test-Path -Path "Variable:\GITHUB_REF")) {
-  (git describe --tags --abbrev=0);
+# Declare variable to check if running on GitHub action
+$isGitHubAction = if ($env:GITHUB_ACTIONS -eq "true") {
+  $true;
 } else {
-  $env:GITHUB_REF
+  $false;
+}
+
+# Assign tag based on environment
+$latestTag = if ($isGitHubAction) {
+  $env:GITHUB_REF;
+} else {
+  (git describe --tags --abbrev=0);
 }
 
 # Get the latest version from tag
