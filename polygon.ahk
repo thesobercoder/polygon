@@ -40,7 +40,7 @@ global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCU
 A_IconTip := APP_NAME
 
 ;-- Register global error logging
-OnError(LogError)
+; OnError(LogError)
 
 ;-- On startup check for version update
 ; CheckForUpdate()
@@ -50,12 +50,13 @@ tray := A_TrayMenu
 tray.Delete()
 tray.Add("Help", ShowHelp)
 tray.Add("Version", ShowVersion)
-tray.Add("Check for Updates", CheckForUpdate)
+; tray.Add("Check for Updates", CheckForUpdate)
 tray.Add("Feedback", SubmitFeedback)
 tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
 tray.Default := "Version"
 
+/*
 LogError(exception, mode)
 {
   ; Get the user's application data folder
@@ -80,6 +81,7 @@ LogError(exception, mode)
 
   return true
 }
+*/
 
 Toast(Message, r, l, t, b)
 {
@@ -131,6 +133,7 @@ Toast(Message, r, l, t, b)
   }
 }
 
+/*
 ParseVersionString(version)
 {
   regex := "v(\d+)\.(\d+)\.(\d+)"
@@ -198,6 +201,7 @@ GetLatestGitHubRelease(owner, repo)
     return htmlfile.parentWindow.JSON.parse(str)
   }
 }
+*/
 
 SubmitFeedback(*)
 {
