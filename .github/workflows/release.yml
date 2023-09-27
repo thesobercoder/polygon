@@ -21,7 +21,7 @@ jobs:
         uses: nukdokplex/autohotkey-build@v0.1
         if: startsWith(github.ref, 'refs/tags/v')
         with:
-          version: v2.0.9
+          version: v2.0.10
           x64: true
           x86: true
           compression: upx
