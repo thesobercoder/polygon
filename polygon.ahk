@@ -3,6 +3,12 @@
 #DllLoad Dwmapi.dll
 #DllLoad User32.dll
 
+;-- Ahk2Exe properties
+;@Ahk2Exe-SetName Polygon
+;@Ahk2Exe-SetVersion 0.2.0
+;@Ahk2Exe-SetCompanyName Soham Dasgupta
+;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
+
 ;-- Globals
 global APP_VERSION := "0.2.0"
 global APP_VERSION_NAME := "v" . APP_VERSION

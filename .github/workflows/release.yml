@@ -17,55 +17,10 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         with:
           fetch-depth: 0
-      - name: Compile AHK script
-        uses: nukdokplex/autohotkey-build@v0.1
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          version: v2.0.10
-          x64: true
-          x86: true
-          compression: upx
-          in: .\
-          x64_suffix: "-x64"
-          x86_suffix: "-x86"
-          icon: logo.ico
-      - name: Generate checksums
+      - name: Build Polygon
         shell: pwsh
         if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          $cwd = (Get-Location).Path;
-          $checksumFile = "$cwd\build\polygon-checksum.txt";
-          $hash_x86 = Get-FileHash -Path "$cwd\build\polygon-x86.exe" -Algorithm SHA256;
-          $hash_x64 = Get-FileHash -Path "$cwd\build\polygon-x64.exe" -Algorithm SHA256;
-          "polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
-          "polygon-x64.exe: $($hash_x64.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
-      - name: Zip Polygon x64
-        shell: pwsh
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          $cwd = (Get-Location).Path;
-          Compress-Archive -Path "$cwd\polygon.ini","$cwd\build\polygon-x64.exe" -DestinationPath "$cwd\build\polygon-x64.zip";
-      - name: Zip Polygon x86
-        shell: pwsh
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          $cwd = (Get-Location).Path;
-          Compress-Archive -Path "$cwd\polygon.ini","$cwd\build\polygon-x86.exe" -DestinationPath "$cwd\build\polygon-x86.zip";
-      - name: Build MSI
-        shell: pwsh
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          $cwd = (Get-Location).Path;
-          $versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $env:GITHUB_REF).Matches[0].Value
-          $wixFolder = "C:\Program Files (x86)\WiX Toolset v3.11\bin";
-          $candleToolPath = Join-Path $wixFolder -ChildPath "candle.exe";
-          $lightToolPath = Join-Path $wixFolder -ChildPath "light.exe";
-
-          & "$candleToolPath" "$cwd\polygon.wxs" -out "$cwd\build\polygon-x86.wixobj" -dVersion="$versionNumber" -arch x86;
-          & "$candleToolPath" "$cwd\polygon.wxs" -out "$cwd\build\polygon-x64.wixobj" -dVersion="$versionNumber" -arch x64;
-
-          & "$lightToolPath" "$cwd\build\polygon-x86.wixobj" -ext WixUIExtension -out "$cwd\build\polygon-x86.msi";
-          & "$lightToolPath" "$cwd\build\polygon-x64.wixobj" -ext WixUIExtension -out "$cwd\build\polygon-x64.msi";
+        run: $GITHUB_WORKSPACE/polygon.ps1;
       - name: Upload to GitHub release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/v')

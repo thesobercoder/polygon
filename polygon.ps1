@@ -9,7 +9,7 @@ Write-Host "Building Polygon version $versionNumber" -ForegroundColor Green;
 
 # Clean build folder
 Remove-Item -Path "$cwd\build" -Recurse -Force -ErrorAction SilentlyContinue;
-New-Item -Path "$cwd\build" -ItemType Directory;
+New-Item -Path "$cwd\build" -ItemType Directory -Force | Out-Null;
 
 # Download AutoHotkey
 $ahkFileNamePattern = "AutoHotkey_.*\.zip"
@@ -55,17 +55,32 @@ Expand-Archive -Path "$cwd\build\$wixFileNamePattern" -DestinationPath "$cwd\bui
 Write-Host "Downloaded the latest release from Wix3 into `"$cwd\build\wix\`"" -ForegroundColor Green;
 
 # Build polygon executables
-& "$cwd\build\ahk\Ahk2Exe.exe" /in polygon.ahk /out "$cwd\build\polygon-x64.exe" /compress 2 /icon logo.ico /base "$cwd\build\ahk\AutoHotkey64.exe";
-& "$cwd\build\ahk\Ahk2Exe.exe" /in polygon.ahk /out "$cwd\build\polygon-x86.exe" /compress 2 /icon logo.ico /base "$cwd\build\ahk\AutoHotkey32.exe";
+Start-Process -FilePath "$cwd\build\ahk\Ahk2Exe.exe" -NoNewWindow -Wait -ArgumentList "/in polygon.ahk /out ""$cwd\build\polygon-x86.exe"" /compress 2 /icon logo.ico /base ""$cwd\build\ahk\AutoHotkey32.exe"""
+Start-Process -FilePath "$cwd\build\ahk\Ahk2Exe.exe" -NoNewWindow -Wait -ArgumentList "/in polygon.ahk /out ""$cwd\build\polygon-x64.exe"" /compress 2 /icon logo.ico /base ""$cwd\build\ahk\AutoHotkey64.exe""";
 
 Write-Host "Polygon binaries built successfully into `"$cwd\build\`"" -ForegroundColor Green;
 
+# Generate checksums
+$checksumFile = "$cwd\build\polygon-checksum.txt";
+$hash_x86 = Get-FileHash -Path "$cwd\build\polygon-x86.exe" -Algorithm SHA256;
+$hash_x64 = Get-FileHash -Path "$cwd\build\polygon-x64.exe" -Algorithm SHA256;
+"polygon-x86.exe: $($hash_x86.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
+"polygon-x64.exe: $($hash_x64.Hash)".ToLower() | Out-File -Append -FilePath $checksumFile;
+
+Write-Host "Polygon binary checksums calculated successfully into `"$cwd\build\`"" -ForegroundColor Green;
+
+# Create Polygon archives
+Compress-Archive -Path "$cwd\polygon.ini","$cwd\build\polygon-x86.exe" -DestinationPath "$cwd\build\polygon-x86.zip";
+Compress-Archive -Path "$cwd\polygon.ini","$cwd\build\polygon-x64.exe" -DestinationPath "$cwd\build\polygon-x64.zip";
+
+Write-Host "Polygon archives successfully generated into `"$cwd\build\`"" -ForegroundColor Green;
+
 # Build polygon installer object file
-& "$cwd\build\wix\candle.exe" .\polygon.wxs -out "$cwd\build\polygon-x86.wixobj" -dVersion="$versionNumber" -arch x86;
-& "$cwd\build\wix\candle.exe" .\polygon.wxs -out "$cwd\build\polygon-x64.wixobj" -dVersion="$versionNumber" -arch x64;
+Start-Process -FilePath "$cwd\build\wix\candle.exe" -NoNewWindow -Wait -ArgumentList ".\polygon.wxs -out ""$cwd\build\polygon-x86.wixobj"" -dVersion=""$versionNumber"" -arch x86";
+Start-Process -FilePath "$cwd\build\wix\candle.exe" -NoNewWindow -Wait -ArgumentList ".\polygon.wxs -out ""$cwd\build\polygon-x64.wixobj"" -dVersion=""$versionNumber"" -arch x64";
 
 # Build polygon installer MSI
-& "$cwd\build\wix\light.exe" "$cwd\build\polygon-x86.wixobj" -ext WixUIExtension -out "$cwd\build\polygon-x86.msi";
-& "$cwd\build\wix\light.exe" "$cwd\build\polygon-x64.wixobj" -ext WixUIExtension -out "$cwd\build\polygon-x64.msi";
+Start-Process -FilePath "$cwd\build\wix\light.exe" -NoNewWindow -Wait -ArgumentList """$cwd\build\polygon-x86.wixobj"" -ext WixUIExtension -out ""$cwd\build\polygon-x86.msi""";
+Start-Process -FilePath "$cwd\build\wix\light.exe" -NoNewWindow -Wait -ArgumentList """$cwd\build\polygon-x64.wixobj"" -ext WixUIExtension -out ""$cwd\build\polygon-x64.msi""";
 
 Write-Host "Polygon installers built successfully into `"$cwd\build\`"" -ForegroundColor Green;
