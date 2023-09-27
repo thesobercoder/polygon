@@ -15,7 +15,7 @@ $latestTag = if ($isGitHubActions) {
 }
 
 # Get the latest version from tag
-$versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $latestTag).Matches[0].Value
+$versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $latestTag).Matches[0].Value;
 
 Write-Host "Building Polygon version $versionNumber" -ForegroundColor Green;
 
@@ -24,27 +24,27 @@ Remove-Item -Path "$cwd\build" -Recurse -Force -ErrorAction SilentlyContinue;
 New-Item -Path "$cwd\build" -ItemType Directory -Force | Out-Null;
 
 # Download AutoHotkey
-$ahkFileNamePattern = "AutoHotkey_.*\.zip"
+$ahkFileNamePattern = "AutoHotkey_.*\.zip";
 $ahkLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/AutoHotkey/AutoHotkey/releases/latest";
-$ahkDownloadURL = ($ahkLatestRelease.assets | Where-Object { $_.name -match "$ahkFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url
+$ahkDownloadURL = ($ahkLatestRelease.assets | Where-Object { $_.name -match "$ahkFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url;
 Invoke-WebRequest -Uri $ahkDownloadURL -OutFile "$cwd\build\autohotkey.zip";
 Expand-Archive -Path "$cwd\build\autohotkey.zip" -DestinationPath "$cwd\build\ahk";
 
 Write-Host "Downloaded the latest release from AutoHotkey into `"$cwd\build\ahk\`"" -ForegroundColor Green;
 
 # Download Ahk2Exe
-$ahk2ExeFileNamePattern = "Ahk2Exe.*\.zip"
+$ahk2ExeFileNamePattern = "Ahk2Exe.*\.zip";
 $ahk2ExeLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/AutoHotkey/Ahk2Exe/releases/latest";
-$ahk2ExeDownloadURL = ($ahk2ExeLatestRelease.assets | Where-Object { $_.name -match "$ahk2ExeFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url
+$ahk2ExeDownloadURL = ($ahk2ExeLatestRelease.assets | Where-Object { $_.name -match "$ahk2ExeFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url;
 Invoke-WebRequest -Uri $ahk2ExeDownloadURL -OutFile "$cwd\build\Ahk2exe.zip";
 Expand-Archive -Path "$cwd\build\Ahk2exe.zip" -DestinationPath "$cwd\build\ahk";
 
 Write-Host "Downloaded the latest release from Ahk2Exe into `"$cwd\build\ahk\`"" -ForegroundColor Green;
 
 # Download upx
-$upxFileNamePattern = "upx-.*\-win64.zip"
+$upxFileNamePattern = "upx-.*\-win64.zip";
 $upxLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/upx/upx/releases/latest";
-$upxDownloadURL = ($upxLatestRelease.assets | Where-Object { $_.name -match "$upxFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url
+$upxDownloadURL = ($upxLatestRelease.assets | Where-Object { $_.name -match "$upxFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url;
 Invoke-WebRequest -Uri $upxDownloadURL -OutFile "$cwd\build\upx.zip";
 Expand-Archive -Path "$cwd\build\upx.zip" -DestinationPath "$cwd\build\upx" -Force;
 $sourceFolders = Get-ChildItem -Path "$cwd\build\upx\" -Directory -Filter "upx-*";
@@ -58,16 +58,16 @@ foreach ($folder in $sourceFolders) {
 Write-Host "Downloaded the latest release from upx into `"$cwd\build\upx\`"" -ForegroundColor Green;
 
 # Download Wix3
-$wixFileNamePattern = "wix311-binaries.zip"
+$wixFileNamePattern = "wix311-binaries.zip";
 $wixLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/wixtoolset/wix3/releases/latest";
-$wixDownloadURL = ($wixLatestRelease.assets | Where-Object { $_.name -match "$wixFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url
+$wixDownloadURL = ($wixLatestRelease.assets | Where-Object { $_.name -match "$wixFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url;
 Invoke-WebRequest -Uri $wixDownloadURL -OutFile "$cwd\build\$wixFileNamePattern";
 Expand-Archive -Path "$cwd\build\$wixFileNamePattern" -DestinationPath "$cwd\build\wix\";
 
 Write-Host "Downloaded the latest release from Wix3 into `"$cwd\build\wix\`"" -ForegroundColor Green;
 
 # Build polygon executables
-Start-Process -FilePath "$cwd\build\ahk\Ahk2Exe.exe" -NoNewWindow -Wait -ArgumentList "/in polygon.ahk /out ""$cwd\build\polygon-x86.exe"" /compress 2 /icon logo.ico /base ""$cwd\build\ahk\AutoHotkey32.exe"""
+Start-Process -FilePath "$cwd\build\ahk\Ahk2Exe.exe" -NoNewWindow -Wait -ArgumentList "/in polygon.ahk /out ""$cwd\build\polygon-x86.exe"" /compress 2 /icon logo.ico /base ""$cwd\build\ahk\AutoHotkey32.exe""";
 Start-Process -FilePath "$cwd\build\ahk\Ahk2Exe.exe" -NoNewWindow -Wait -ArgumentList "/in polygon.ahk /out ""$cwd\build\polygon-x64.exe"" /compress 2 /icon logo.ico /base ""$cwd\build\ahk\AutoHotkey64.exe""";
 
 Write-Host "Polygon binaries built successfully into `"$cwd\build\`"" -ForegroundColor Green;
