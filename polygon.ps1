@@ -1,7 +1,7 @@
 $cwd = (Get-Location).Path;
 
 # Get the latest version from tag
-git pull;
+git pull origin main;
 $latestTag = git describe --tags --abbrev=0;
 $versionNumber = (Select-String -Pattern "\d+\.\d+\.\d+" -InputObject $latestTag).Matches[0].Value
 
