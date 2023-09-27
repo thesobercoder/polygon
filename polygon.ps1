@@ -29,6 +29,22 @@ Expand-Archive -Path "$cwd\build\Ahk2exe.zip" -DestinationPath "$cwd\build\ahk";
 
 Write-Host "Downloaded the latest release from Ahk2Exe into `"$cwd\build\ahk\`"" -ForegroundColor Green;
 
+# Download upx
+$upxFileNamePattern = "upx-.*\-win64.zip"
+$upxLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/upx/upx/releases/latest";
+$upxDownloadURL = ($upxLatestRelease.assets | Where-Object { $_.name -match "$upxFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url
+Invoke-WebRequest -Uri $upxDownloadURL -OutFile "$cwd\build\upx.zip";
+Expand-Archive -Path "$cwd\build\upx.zip" -DestinationPath "$cwd\build\upx" -Force;
+$sourceFolders = Get-ChildItem -Path "$cwd\build\upx\" -Directory -Filter "upx-*";
+foreach ($folder in $sourceFolders) {
+    $exeFiles = Get-ChildItem -Path $folder.FullName -Filter "*.exe";
+    foreach ($file in $exeFiles) {
+        Move-Item -Path $file.FullName -Destination "$cwd\build\ahk\" -Force;
+    }
+}
+
+Write-Host "Downloaded the latest release from upx into `"$cwd\build\upx\`"" -ForegroundColor Green;
+
 # Download Wix3
 $wixFileNamePattern = "wix311-binaries.zip"
 $wixLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/wixtoolset/wix3/releases/latest";
@@ -38,14 +54,17 @@ Expand-Archive -Path "$cwd\build\$wixFileNamePattern" -DestinationPath "$cwd\bui
 
 Write-Host "Downloaded the latest release from Wix3 into `"$cwd\build\wix\`"" -ForegroundColor Green;
 
-& "$cwd\build\ahk\Ahk2Exe.exe" /in polygon.ahk /out "$cwd\build\polygon-x64.exe" /icon logo.ico /base "$cwd\build\ahk\AutoHotkey64.exe";
-& "$cwd\build\ahk\Ahk2Exe.exe" /in polygon.ahk /out "$cwd\build\polygon-x86.exe" /icon logo.ico /base "$cwd\build\ahk\AutoHotkey32.exe";
+# Build polygon executables
+& "$cwd\build\ahk\Ahk2Exe.exe" /in polygon.ahk /out "$cwd\build\polygon-x64.exe" /compress 2 /icon logo.ico /base "$cwd\build\ahk\AutoHotkey64.exe";
+& "$cwd\build\ahk\Ahk2Exe.exe" /in polygon.ahk /out "$cwd\build\polygon-x86.exe" /compress 2 /icon logo.ico /base "$cwd\build\ahk\AutoHotkey32.exe";
 
 Write-Host "Polygon binaries built successfully into `"$cwd\build\`"" -ForegroundColor Green;
 
+# Build polygon installer object file
 & "$cwd\build\wix\candle.exe" .\polygon.wxs -out "$cwd\build\polygon-x86.wixobj" -dVersion="$versionNumber" -arch x86;
 & "$cwd\build\wix\candle.exe" .\polygon.wxs -out "$cwd\build\polygon-x64.wixobj" -dVersion="$versionNumber" -arch x64;
 
+# Build polygon installer MSI
 & "$cwd\build\wix\light.exe" "$cwd\build\polygon-x86.wixobj" -ext WixUIExtension -out "$cwd\build\polygon-x86.msi";
 & "$cwd\build\wix\light.exe" "$cwd\build\polygon-x64.wixobj" -ext WixUIExtension -out "$cwd\build\polygon-x64.msi";
 
