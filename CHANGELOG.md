@@ -1,10 +1,10 @@
-## [v0.2.0](https://github.com/thesobercoder/polygon/releases/v0.2.0) (2023-09-27)
+## [v0.2.0](https://github.com/thesobercoder/polygon/compare/v0.1.0...v0.2.0) (2023-09-27)
 
 ### Features
 
 - Centralize window dimension and monitor detection functions
 
-## [v0.1.0](https://github.com/thesobercoder/polygon/releases/v0.1.0) (2023-09-25)
+## v0.1.0 (2023-09-25)
 
 ### Features
 
