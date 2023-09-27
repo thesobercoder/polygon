@@ -651,7 +651,7 @@ WinGetPosEx(hWindow, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetL
 
   ;-- Collect dimensions via GetWindowRect
   RECT := Buffer(16, 0)
-  DllCall("GetWindowRect", PtrType, hWindow, PtrType, RECT)
+  DllCall("User32.dll\GetWindowRect", PtrType, hWindow, PtrType, RECT)
   GWR_Left := NumGet(RECT, 0, "Int")
   GWR_Top := NumGet(RECT, 4, "Int")
   GWR_Right := NumGet(RECT, 8, "Int")
