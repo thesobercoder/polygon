@@ -1,14 +1,14 @@
 $cwd = (Get-Location).Path;
 
 # Declare variable to check if running on GitHub action
-$isGitHubAction = if ($env:GITHUB_ACTIONS -eq "true") {
+$isGitHubActions = if ($env:GITHUB_ACTIONS -eq "true") {
   $true;
 } else {
   $false;
 }
 
 # Assign tag based on environment
-$latestTag = if ($isGitHubAction) {
+$latestTag = if ($isGitHubActions) {
   $env:GITHUB_REF;
 } else {
   (git describe --tags --abbrev=0);
