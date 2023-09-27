@@ -34,6 +34,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           $cwd = (Get-Location).Path;
+          ls "$cwd\build\";
           $checksumFile = "$cwd\build\polygon-checksum.txt";
           $hash_x86 = Get-FileHash -Path "$cwd\build\polygon-x86.exe" -Algorithm SHA256;
           $hash_x64 = Get-FileHash -Path "$cwd\build\polygon-x64.exe" -Algorithm SHA256;
