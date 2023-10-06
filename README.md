@@ -39,7 +39,7 @@ Here are the shortcuts available in Polygon.
 | Status             | Shortcut                                    | Layout              | Conflicts       |
 | ------------------ | ------------------------------------------- | ------------------- | --------------- |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>`</kbd> | Center HD           |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>/</kbd> | Center HD           |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |                 |
