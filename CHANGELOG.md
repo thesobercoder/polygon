@@ -1,3 +1,15 @@
+## [v0.3.0](https://github.com/thesobercoder/polygon/compare/v0.2.0...v0.3.0) (2023-10-06)
+
+### Features
+
+- Add Top Half
+- Add Bottom Half
+
+### Shortcuts
+
+- Changed Center HD shortcut from <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>q</kbd> to <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>/</kbd>
+- Changed Center HD shortcut from <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>q</kbd> to <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>/</kbd>
+
 ## [v0.2.0](https://github.com/thesobercoder/polygon/compare/v0.1.0...v0.2.0) (2023-09-27)
 
 ### Features

@@ -5,12 +5,12 @@
 
 ;-- Ahk2Exe properties
 ;@Ahk2Exe-SetName Polygon
-;@Ahk2Exe-SetVersion 0.2.0
+;@Ahk2Exe-SetVersion 0.3.0
 ;@Ahk2Exe-SetCompanyName Soham Dasgupta
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.2.0"
+global APP_VERSION := "0.3.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
@@ -23,7 +23,7 @@ global APP_INI_SECTION_SHORTCUT := "Shortcut"
 global APP_INI_SECTION_TOAST := "Toast"
 global APP_SETTING_ISTOASTENABLED := IniRead(APP_INI_FILE, APP_INI_SECTION_TOAST, "Show", "1") == "1" ? true : false
 global APP_SHORTCUT_CENTER := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "Center", "^#c")
-global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHD", "^#q")
+global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHD", "^#/")
 global APP_SHORTCUT_CENTERHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHalf", "^#w")
 global APP_SHORTCUT_CENTERTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterTwoThird", "^#r")
 global APP_SHORTCUT_FIRSTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstThird", "^#d")
@@ -41,16 +41,14 @@ global APP_SHORTCUT_TOPLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "
 global APP_SHORTCUT_TOPRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRight", "^#i")
 global APP_SHORTCUT_BOTTOMLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeft", "^#j")
 global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRight", "^#k")
-
+global APP_SHORTCUT_TOPHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopHalf", "^#-")
+global APP_SHORTCUT_BOTTOMHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomHalf", "^#=")
 ;--Tooltip
 A_IconTip := APP_NAME
-
 ;-- Register global error logging
 OnError(LogError)
-
 ;-- On startup check for version update
 CheckForUpdate()
-
 ;-- Context Menu
 tray := A_TrayMenu
 tray.Delete()
@@ -61,61 +59,45 @@ tray.Add("Feedback", SubmitFeedback)
 tray.Add("Restart", Restart)
 tray.Add("Exit", Terminate)
 tray.Default := "Version"
-
-LogError(exception, mode)
-{
+LogError(exception, mode) {
   ; Get the user's application data folder
   PolygonDataFolder := A_AppData . "\Polygon"
   PolygonLogPath := PolygonDataFolder . "\errorlog.txt"
-
   ; Create the folder if it doesn't exist
   if (!DirExist(PolygonDataFolder))
   {
     DirCreate(PolygonDataFolder)
   }
-
   ; Append the error message to the log file
   FileAppend("Error on line " . exception.Line . ": " . exception.Message . "`n", PolygonLogPath)
-
   ; Display a message to the user
   result := MsgBox('Polygon encountered an error. The error has been logged in the "errorlog.txt" file. Open folder location?', APP_NAME, "YesNo Iconx")
   if (result == "Yes")
   {
     Run(PolygonDataFolder)
   }
-
   return true
 }
-
-Toast(Message, r, l, t, b)
-{
+Toast(Message, r, l, t, b) {
   ;-- Return if toast is not enabled
   if (!APP_SETTING_ISTOASTENABLED)
     return
-
   ;-- Calculate the center of the current monitor
   centerX := Ceil((l + r) / 2)
   centerY := Ceil((b + t) / 2)
-
   title := APP_NAME . " 08ab0337-daeb-4b9c-b01d-11fbc97e1dcb"
-
   hWnd := WinExist(title)
   if (hWnd > 0)
     return
-
   toastGui := Gui()
   toastGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled")
   toastGui.BackColor := "000000"
   toastGui.SetFont("cFFFFFF S18", "Verdana")
-
   toastGui.add("Text", "Center X0 Y90 W278 H210", Message)
-
   toastGui.Title := title
   toastGui.Show("X" (centerX - 139) " Y" (centerY - 55) " H210 W278 NA")
-
   WinSetRegion("0-0 H210 W278 R30-30", title)
   WinSetExStyle(32, title)
-
   Loop 60
   {
     if (A_Index = 1)
@@ -136,9 +118,7 @@ Toast(Message, r, l, t, b)
     }
   }
 }
-
-ParseVersionString(version)
-{
+ParseVersionString(version) {
   regex := "v(\d+)\.(\d+)\.(\d+)"
   if (RegExMatch(version, regex, &parsedVersion))
   {
@@ -148,23 +128,18 @@ ParseVersionString(version)
       major := parsedVersion[1]
       minor := parsedVersion[2]
       patch := parsedVersion[3]
-
       return Number(major) * 10000 + Number(minor) * 100 + Number(patch)
     }
   }
   return 0
 }
-
-CheckForUpdate(args*)
-{
+CheckForUpdate(args*) {
   version := GetLatestGitHubRelease(APP_REPO_OWNER, APP_REPO_NAME)
-
   ; Check if the request was successful
   if (version)
   {
     newVersion := ParseVersionString(version)
     currentVersion := ParseVersionString(APP_VERSION_NAME)
-
     ;-- Check if the latest version is greater
     if (newVersion > currentVersion)
     {
@@ -176,15 +151,12 @@ CheckForUpdate(args*)
       }
     }
   }
-
   if (args && args.Length > 0 && args[1] == "Check for Updates")
   {
     MsgBox("You already have the latest version.", APP_NAME, "Iconi")
   }
 }
-
-GetLatestGitHubRelease(owner, repo)
-{
+GetLatestGitHubRelease(owner, repo) {
   req := ComObject("Msxml2.XMLHTTP")
   req.open("GET", "https://api.github.com/repos/" . owner . "/" . repo . "/releases/latest", false)
   req.send()
@@ -193,10 +165,8 @@ GetLatestGitHubRelease(owner, repo)
     MsgBox("Error checking for update. Please try after some time.", APP_NAME, "Iconx")
     return
   }
-
   res := JSONParse(req.responseText)
   return res.tag_name
-
   JSONParse(str)
   {
     htmlfile := ComObject("HTMLFile")
@@ -204,32 +174,21 @@ GetLatestGitHubRelease(owner, repo)
     return htmlfile.parentWindow.JSON.parse(str)
   }
 }
-
-SubmitFeedback(*)
-{
+SubmitFeedback(*) {
   Run(APP_FEEDBACK_URL)
 }
-
-Restart(*)
-{
+Restart(*) {
   Reload()
 }
-
-ShowHelp(*)
-{
+ShowHelp(*) {
   Run(APP_URL)
 }
-
-Terminate(*)
-{
+Terminate(*) {
   ExitApp(0)
 }
-
-ShowVersion(*)
-{
+ShowVersion(*) {
   MsgBox("Version " . APP_VERSION, APP_NAME, "Iconi")
 }
-
 ;-- Map Hotkeys
 Hotkey(APP_SHORTCUT_CENTER, Center)
 Hotkey(APP_SHORTCUT_CENTERHD, CenterHD)
@@ -250,352 +209,282 @@ Hotkey(APP_SHORTCUT_TOPLEFT, TopLeft)
 Hotkey(APP_SHORTCUT_TOPRIGHT, TopRight)
 Hotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
 Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
-
-Center(*)
-{
+Hotkey(APP_SHORTCUT_TOPHALF, TopHalf)
+Hotkey(APP_SHORTCUT_BOTTOMHALF, BottomHalf)
+Center(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the center of the current monitor
     centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
     centerY := Ceil(((t + b) - (ofb + oft)) / 2)
-
     ;-- Move the active window to the center of the current monitor
     WinMove(centerX - w / 2, centerY - h / 2, w + ofl + ofr, h + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Center", r, l, t, b)
   }
 }
-
-CenterHD(*)
-{
+CenterHD(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Set desired window dimension
     rw := Min(1920, ((r + ofr) - (l + ofl)))
     rh := Min(1080, ((b + ofb) - (t + oft)))
-
     ;-- Calculate the center of the current monitor with desired size
     centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
     centerY := Ceil(((t + b) - (ofb + oft)) / 2)
-
     ;-- Move the active window to the center of the current monitor with desired size
     WinMove(Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Center HD", r, l, t, b)
   }
 }
-
-CenterHalf(*)
-{
+CenterHalf(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(HalfWidth / 2)
-
     ;-- Set the window position to the center half of the monitor
     WinMove(CenterX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Center Half", r, l, t, b)
   }
 }
-
-CenterTwoThird(*)
-{
+CenterTwoThird(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate two third width of screen
     TwoThirdWidth := Ceil((r - l) * 2 / 3)
-
     ;-- Calculate horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(TwoThirdWidth / 2)
-
     ;-- Set window position to center two third width
     WinMove(CenterX, t - oft, TwoThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Center Two Third", r, l, t, b)
   }
 }
-
-FirstThird(*)
-{
+FirstThird(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Set the window position to the left one third of the monitor
     WinMove(l - ofl, t - oft, OneThirdWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("First Third", r, l, t, b)
   }
 }
-
-CenterThird(*)
-{
+CenterThird(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
-
     ;-- Set the window position to the center one third of the monitor
     WinMove(CenterX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Center Third", r, l, t, b)
   }
 }
-
-LastThird(*)
-{
+LastThird(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate width of one third of monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - OneThirdWidth
-
     ;-- Set window position to right one third of monitor
     WinMove(RightX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Last Third", r, l, t, b)
   }
 }
-
-TopLeftSixth(*)
-{
+TopLeftSixth(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Set the window position to the left one third of the monitor and top half of it
     WinMove(l - ofl, t - oft, OneThirdWidth + ofl + ofb, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Top Left Sixth", r, l, t, b)
   }
 }
-
-BottomLeftSixth(*)
-{
+BottomLeftSixth(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Set the window position to left one third of monitor and bottom half of it
     WinMove(l - ofl, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Bottom Left Sixth", r, l, t, b)
   }
 }
-
-TopRightSixth(*)
-{
+TopRightSixth(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate width of one third of monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - OneThirdWidth
-
     ;-- Set window position to right one third of monitor and top half of it.
     WinMove(RightX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Top Right Sixth", r, l, t, b)
   }
 }
-
-BottomRightSixth(*)
-{
+BottomRightSixth(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate width of one third of monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - OneThirdWidth
-
     ;-- Set window position to right one third of monitor and bottom half of it
     WinMove(RightX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Bottom Right Sixth", r, l, t, b)
   }
 }
-
-TopCenterSixth(*)
-{
+TopCenterSixth(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
-
     ;-- Set the window position to top center one sixth of the monitor
     WinMove(CenterX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Top Center Sixth", r, l, t, b)
   }
 }
-
-BottomCenterSixth(*)
-{
+BottomCenterSixth(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
-
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
-
     ;-- Set the window position to bottom center one sixth of the monitor
     WinMove(CenterX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Bottom Center Sixth", r, l, t, b)
   }
 }
-
-LeftHalf(*)
-{
+LeftHalf(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Set the window position to the left half of the monitor
     WinMove(l - ofl, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Left Half", r, l, t, b)
   }
 }
-
-RightHalf(*)
-{
+RightHalf(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - HalfWidth
-
     ;-- Set the window position to the right half of the monitor
     WinMove(RightX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Right Half", r, l, t, b)
   }
 }
-
-TopLeft(*)
-{
+TopLeft(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width as half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Set the window position to the left half of the monitor and top half of it
     WinMove(l - ofl, t - oft, HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Top Left", r, l, t, b)
   }
 }
-
-TopRight(*)
-{
+TopRight(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width as half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - HalfWidth
-
     ;-- Set the window position to start from the middle of the monitor and extend to the very right edge
     WinMove(RightX, t - oft, r - l - HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Top Right", r, l, t, b)
   }
 }
-
-BottomLeft(*)
-{
+BottomLeft(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width of half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Calculate the height of half of the monitor
     HalfHeight := Ceil((b - t) / 2)
-
     ;-- Set the window position to left one third of monitor and bottom half of it
-    WinMove(l - ofl, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
+    WinMove(l - ofl, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, HalfHeight + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Left", r, l, t, b)
   }
 }
-
-BottomRight(*)
-{
+BottomRight(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
     ;-- Calculate the width as half of the monitor
     HalfWidth := Ceil((r - l) / 2)
-
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - HalfWidth
-
     ;-- Set the window position to the right half of the monitor and bottom half of it
     WinMove(RightX, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
-
     ;-- Show layout toast
     Toast("Bottom Right", r, l, t, b)
   }
 }
-
-GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0, &monRight := 0, &monLeft := 0, &monTop := 0, &monBottom := 0)
-{
+TopHalf(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate the height of half of the monitor
+    HalfHeight := Ceil((b - t) / 2)
+    ;-- Set the window position to the left half of the monitor and top half of it
+    WinMove(l - ofl, t - oft, Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("Top Half", r, l, t, b)
+  }
+}
+BottomHalf(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate the height of half of the monitor
+    HalfHeight := Ceil((b - t) / 2)
+    ;-- Set the window position to the left half of the monitor and top half of it
+    WinMove(l - ofl, Ceil(b - (b - t) / 2), Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("Bottom Half", r, l, t, b)
+  }
+}
+GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0, &monRight := 0, &monLeft := 0, &monTop := 0, &monBottom := 0) {
   ;-- Get the handle of the active window
   hWindow := WinExist("A")
   if (hWindow > 0)
   {
     ;-- Get the number of monitors
     MonitorCount := MonitorGetCount()
-
     ;-- Get the dimensions of the current window
     WinGetPosEx(hWindow, &winX, &winY, &winW, &winH, &winOffsetLeft, &winOffsetRight, &winOffsetTop, &winOffsetBottom)
-
     ;-- Loop through each monitor to find which one contains the active window
     Loop MonitorCount
     {
       ;-- Get the dimensions of the current monitor
       MonitorGetWorkArea(A_Index, &monLeft, &monTop, &monRight, &monBottom)
-
       ;-- Check if the active window is within the current monitor
       if (CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom))
       {
@@ -603,46 +492,34 @@ GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &
       }
     }
   }
-
   return false
 }
-
-CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom)
-{
+CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom) {
   ; Calculate the coordinates of the corners of the window
   winLeft := winX + winOffsetLeft
   winRight := winX + winW - winOffsetRight
   winTop := winY + winOffsetTop
   winBottom := winY + winH - winOffsetBottom
-
   ; Calculate the area of intersection between the window and the monitor
   intersectionArea := (min(winRight, monRight) - max(winLeft, monLeft)) * (min(winBottom, monBottom) - max(winTop, monTop))
-
   ; Calculate the total area of the window
   windowArea := winW * winH
-
   ; Check if more than 50% of the window is within the monitor
   if (Round(intersectionArea / windowArea, 1) > 0.5)
   {
     return true
   }
-
   return false
 }
-
-WinGetPosEx(hWindow, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0)
-{
+WinGetPosEx(hWindow, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0) {
   Static RECTPlus, DWMWA_EXTENDED_FRAME_BOUNDS := 9
-
   ;-- Workaround for AutoHotkey Basic
   PtrType := (A_PtrSize = 8) ? "Ptr" : "UInt"
-
   ;-- Get the window's dimensions
   ;-- Note: Only the first 16 bytes of the RECTPlus structure are used by the
   ;-- DwmGetWindowAttribute and GetWindowRect functions.
   RECTPlus := Buffer(32, 0)
   DllCall("Dwmapi.dll\DwmGetWindowAttribute", PtrType, hWindow, "UInt", DWMWA_EXTENDED_FRAME_BOUNDS, PtrType, RECTPlus, "UInt", 16)
-
   ;-- Populate the output variables
   winX := Left := NumGet(RECTPlus, 0, "Int")
   winY := Top := NumGet(RECTPlus, 4, "Int")
@@ -654,7 +531,6 @@ WinGetPosEx(hWindow, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetL
   winOffsetRight := 0
   winOffsetTop := 0
   winOffsetBottom := 0
-
   ;-- Collect dimensions via GetWindowRect
   RECT := Buffer(16, 0)
   DllCall("User32.dll\GetWindowRect", PtrType, hWindow, PtrType, RECT)
@@ -662,12 +538,10 @@ WinGetPosEx(hWindow, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetL
   GWR_Top := NumGet(RECT, 4, "Int")
   GWR_Right := NumGet(RECT, 8, "Int")
   GWR_Bottom := NumGet(RECT, 12, "Int")
-
   ;-- Calculate offsets and update output variables
   NumPut("Int", winOffsetLeft := Left - GWR_Left, RECTPlus, 16)
   NumPut("Int", winOffsetTop := Top - GWR_Top, RECTPlus, 20)
   NumPut("Int", winOffsetRight := GWR_Right - Right, RECTPlus, 24)
   NumPut("Int", winOffsetBottom := GWR_Bottom - Bottom, RECTPlus, 28)
-
   Return &RECTPlus
 }

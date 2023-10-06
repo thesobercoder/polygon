@@ -39,7 +39,7 @@ Here are the shortcuts available in Polygon.
 | Status             | Shortcut                                    | Layout              | Conflicts       |
 | ------------------ | ------------------------------------------- | ------------------- | --------------- |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>C</kbd> | Center              |
-| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>Q</kbd> | Center HD           | Quick Assist    |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>`</kbd> | Center HD           |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>W</kbd> | Center Half         |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>[</kbd> | Left Half           |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>]</kbd> | Right Half          |                 |
@@ -53,8 +53,8 @@ Here are the shortcuts available in Polygon.
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>B</kbd> | Bottom Right Sixth  |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>N</kbd> | Top Center Sixth    | Narrator        |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>M</kbd> | Bottom Center Sixth | Magnifier       |
-| :construction:     |                                             | Top Half            |                 |
-| :construction:     |                                             | Bottom Half         |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>-</kbd> | Top Half            |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>=</kbd> | Bottom Half         |                 |
 | :construction:     |                                             | First Two Thirds    |                 |
 | :construction:     |                                             | Last Two Thirds     |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>U</kbd> | Top Left            |                 |
