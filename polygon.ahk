@@ -238,6 +238,28 @@ CenterHD(*) {
     Toast("Center HD", r, l, t, b)
   }
 }
+FirstFourth(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate the width of one fourth of the monitor
+    OneFourthWidth := Ceil((r - l) / 4)
+    ;-- Set the window position to the left one fourth of the monitor
+    WinMove(l - ofl, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("First Fourth", r, l, t, b)
+  }
+}
+LastFourth(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate the width of one fourth of the monitor
+    OneFourthWidth := Ceil((r - l) / 4)
+    ;-- Set the window position to the right one fourth of the monitor
+    WinMove(r - OneFourthWidth - ofr, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("Last Fourth", r, l, t, b)
+  }
+}
 CenterHalf(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
