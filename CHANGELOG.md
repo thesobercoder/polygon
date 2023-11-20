@@ -1,3 +1,12 @@
+## [v0.4.0](https://github.com/thesobercoder/polygon/compare/v0.3.0...v0.4.0) (2023-11-20)
+
+### Features
+
+- Add First Fourth
+- Add Second Fourth
+- Add Third Fourth
+- Add Last Fourth
+
 ## [v0.3.0](https://github.com/thesobercoder/polygon/compare/v0.2.0...v0.3.0) (2023-10-06)
 
 ### Features

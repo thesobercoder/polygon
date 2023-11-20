@@ -5,12 +5,12 @@
 
 ;-- Ahk2Exe properties
 ;@Ahk2Exe-SetName Polygon
-;@Ahk2Exe-SetVersion 0.3.0
+;@Ahk2Exe-SetVersion 0.4.0
 ;@Ahk2Exe-SetCompanyName Soham Dasgupta
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.3.0"
+global APP_VERSION := "0.4.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
@@ -43,6 +43,10 @@ global APP_SHORTCUT_BOTTOMLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT
 global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRight", "^#k")
 global APP_SHORTCUT_TOPHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopHalf", "^#-")
 global APP_SHORTCUT_BOTTOMHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomHalf", "^#=")
+global APP_SHORTCUT_FIRSTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstFourth", "^#;")
+global APP_SHORTCUT_SECONDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "SecondFourth", "^#'")
+global APP_SHORTCUT_THIRDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "ThirdFourth", "^#,")
+global APP_SHORTCUT_LASTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastFourth", "^#.")
 ;--Tooltip
 A_IconTip := APP_NAME
 ;-- Register global error logging
@@ -211,6 +215,11 @@ Hotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
 Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
 Hotkey(APP_SHORTCUT_TOPHALF, TopHalf)
 Hotkey(APP_SHORTCUT_BOTTOMHALF, BottomHalf)
+Hotkey(APP_SHORTCUT_FIRSTFOURTH, FirstFourth)
+Hotkey(APP_SHORTCUT_SECONDFOURTH, SecondFourth)
+Hotkey(APP_SHORTCUT_THIRDFOURTH, ThirdFourth)
+Hotkey(APP_SHORTCUT_LASTFOURTH, LastFourth)
+;-- Layout Functions
 Center(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
   {
@@ -236,28 +245,6 @@ CenterHD(*) {
     WinMove(Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center HD", r, l, t, b)
-  }
-}
-FirstFourth(*) {
-  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
-  {
-    ;-- Calculate the width of one fourth of the monitor
-    OneFourthWidth := Ceil((r - l) / 4)
-    ;-- Set the window position to the left one fourth of the monitor
-    WinMove(l - ofl, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
-    ;-- Show layout toast
-    Toast("First Fourth", r, l, t, b)
-  }
-}
-LastFourth(*) {
-  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
-  {
-    ;-- Calculate the width of one fourth of the monitor
-    OneFourthWidth := Ceil((r - l) / 4)
-    ;-- Set the window position to the right one fourth of the monitor
-    WinMove(r - OneFourthWidth - ofr, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
-    ;-- Show layout toast
-    Toast("Last Fourth", r, l, t, b)
   }
 }
 CenterHalf(*) {
@@ -491,6 +478,50 @@ BottomHalf(*) {
     WinMove(l - ofl, Ceil(b - (b - t) / 2), Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Half", r, l, t, b)
+  }
+}
+FirstFourth(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate the width of one fourth of the monitor
+    OneFourthWidth := Ceil((r - l) / 4)
+    ;-- Set the window position to the left one fourth of the monitor
+    WinMove(l - ofl, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("First Fourth", r, l, t, b)
+  }
+}
+SecondFourth(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ; Calculate the width of one-fourth of the monitor
+    OneFourthWidth := Ceil((r - l) / 4)
+    ; Set the window position to the left one-fourth of the monitor
+    WinMove(l - ofl + OneFourthWidth, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ; Show layout toast
+    Toast("Second Fourth", r, l, t, b)
+  }
+}
+ThirdFourth(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ; Calculate the width of one-fourth of the monitor
+    OneFourthWidth := Ceil((r - l) / 4)
+    ; Set the window position to the right one-fourth of the monitor
+    WinMove(l - ofl + 2 * OneFourthWidth, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ; Show layout toast
+    Toast("Third Fourth", r, l, t, b)
+  }
+}
+LastFourth(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate the width of one fourth of the monitor
+    OneFourthWidth := Ceil((r - l) / 4)
+    ;-- Set the window position to the right one fourth of the monitor
+    WinMove(r - OneFourthWidth - ofr, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("Last Fourth", r, l, t, b)
   }
 }
 GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0, &monRight := 0, &monLeft := 0, &monTop := 0, &monBottom := 0) {

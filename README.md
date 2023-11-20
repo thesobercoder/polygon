@@ -61,10 +61,10 @@ Here are the shortcuts available in Polygon.
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>I</kbd> | Top Right           |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>J</kbd> | Bottom Left         |                 |
 | :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>K</kbd> | Bottom Right        |                 |
-| :construction:     |                                             | First Fourth        |                 |
-| :construction:     |                                             | Second Fourth       |                 |
-| :construction:     |                                             | Third Fourth        |                 |
-| :construction:     |                                             | Last Fourth         |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>;</kbd> | First Fourth        |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>'</kbd> | Second Fourth       |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>,</kbd> | Third Fourth        |                 |
+| :white_check_mark: | <kbd>CTRL</kbd>+<kbd>WIN</kbd>+<kbd>.</kbd> | Last Fourth         |                 |
 | :construction:     |                                             | Next Display        |                 |
 | :construction:     |                                             | Previous Display    |                 |
 
