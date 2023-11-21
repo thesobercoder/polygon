@@ -5,12 +5,12 @@
 
 ;-- Ahk2Exe properties
 ;@Ahk2Exe-SetName Polygon
-;@Ahk2Exe-SetVersion 0.4.0
+;@Ahk2Exe-SetVersion 0.5.0
 ;@Ahk2Exe-SetCompanyName Soham Dasgupta
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.4.0"
+global APP_VERSION := "0.5.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
@@ -92,9 +92,9 @@ Toast(Message, r, l, t, b) {
   title := APP_NAME . " 08ab0337-daeb-4b9c-b01d-11fbc97e1dcb"
   hWnd := WinExist(title)
   if (hWnd > 0)
-    return
+    WinClose(hWnd)
   toastGui := Gui()
-  toastGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled")
+  toastGui.Opt("+ToolWindow -Caption +AlwaysOnTop +Disabled +E0x20")
   toastGui.BackColor := "000000"
   toastGui.SetFont("cFFFFFF S18", "Verdana")
   toastGui.add("Text", "Center X0 Y90 W278 H210", Message)
@@ -104,10 +104,14 @@ Toast(Message, r, l, t, b) {
   WinSetExStyle(32, title)
   Loop 60
   {
+    hWnd := WinExist(title)
+    if (hWnd < 1)
+      break
+
     if (A_Index = 1)
     {
-      WinSetTransparent(120, title)
-      Sleep(1000)
+      WinSetTransparent(120, hWnd)
+      Sleep(100)
     }
     else if (A_Index = 60)
     {
@@ -117,7 +121,7 @@ Toast(Message, r, l, t, b) {
     else
     {
       TransFade := 120 - A_Index * 2
-      WinSetTransparent(TransFade, title)
+      WinSetTransparent(TransFade, hWnd)
       Sleep(1)
     }
   }
@@ -227,7 +231,7 @@ Center(*) {
     centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
     centerY := Ceil(((t + b) - (ofb + oft)) / 2)
     ;-- Move the active window to the center of the current monitor
-    WinMove(centerX - w / 2, centerY - h / 2, w + ofl + ofr, h + oft + ofb, hWnd)
+    WinMoveEx(centerX - w / 2, centerY - h / 2, w + ofl + ofr, h + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center", r, l, t, b)
   }
@@ -242,7 +246,7 @@ CenterHD(*) {
     centerX := Ceil(((l + r) - (ofl + ofr)) / 2)
     centerY := Ceil(((t + b) - (ofb + oft)) / 2)
     ;-- Move the active window to the center of the current monitor with desired size
-    WinMove(Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd)
+    WinMoveEx(Ceil(centerX - rw / 2), Ceil(centerY - rh / 2), rw + ofl + ofr, rh + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center HD", r, l, t, b)
   }
@@ -255,7 +259,7 @@ CenterHalf(*) {
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(HalfWidth / 2)
     ;-- Set the window position to the center half of the monitor
-    WinMove(CenterX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(CenterX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center Half", r, l, t, b)
   }
@@ -268,7 +272,7 @@ CenterTwoThird(*) {
     ;-- Calculate horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(TwoThirdWidth / 2)
     ;-- Set window position to center two third width
-    WinMove(CenterX, t - oft, TwoThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(CenterX, t - oft, TwoThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center Two Third", r, l, t, b)
   }
@@ -279,7 +283,7 @@ FirstThird(*) {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
     ;-- Set the window position to the left one third of the monitor
-    WinMove(l - ofl, t - oft, OneThirdWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, t - oft, OneThirdWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("First Third", r, l, t, b)
   }
@@ -292,7 +296,7 @@ CenterThird(*) {
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
     ;-- Set the window position to the center one third of the monitor
-    WinMove(CenterX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(CenterX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center Third", r, l, t, b)
   }
@@ -305,7 +309,7 @@ LastThird(*) {
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - OneThirdWidth
     ;-- Set window position to right one third of monitor
-    WinMove(RightX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(RightX, t - oft, OneThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Last Third", r, l, t, b)
   }
@@ -316,7 +320,7 @@ TopLeftSixth(*) {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
     ;-- Set the window position to the left one third of the monitor and top half of it
-    WinMove(l - ofl, t - oft, OneThirdWidth + ofl + ofb, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, t - oft, OneThirdWidth + ofl + ofb, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Top Left Sixth", r, l, t, b)
   }
@@ -327,7 +331,7 @@ BottomLeftSixth(*) {
     ;-- Calculate the width of one third of the monitor
     OneThirdWidth := Ceil((r - l) / 3)
     ;-- Set the window position to left one third of monitor and bottom half of it
-    WinMove(l - ofl, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Left Sixth", r, l, t, b)
   }
@@ -340,7 +344,7 @@ TopRightSixth(*) {
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - OneThirdWidth
     ;-- Set window position to right one third of monitor and top half of it.
-    WinMove(RightX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(RightX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Top Right Sixth", r, l, t, b)
   }
@@ -353,7 +357,7 @@ BottomRightSixth(*) {
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - OneThirdWidth
     ;-- Set window position to right one third of monitor and bottom half of it
-    WinMove(RightX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(RightX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Right Sixth", r, l, t, b)
   }
@@ -366,7 +370,7 @@ TopCenterSixth(*) {
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
     ;-- Set the window position to top center one sixth of the monitor
-    WinMove(CenterX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(CenterX, t - oft, OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Top Center Sixth", r, l, t, b)
   }
@@ -379,7 +383,7 @@ BottomCenterSixth(*) {
     ;-- Calculate the horizontal position for centering
     CenterX := (l - ofl) + Ceil(((r - ofr) - (l - ofl)) / 2) - Ceil(OneThirdWidth / 2)
     ;-- Set the window position to bottom center one sixth of the monitor
-    WinMove(CenterX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(CenterX, Ceil(b - (b - t) / 2), OneThirdWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Center Sixth", r, l, t, b)
   }
@@ -390,7 +394,7 @@ LeftHalf(*) {
     ;-- Calculate the width of half of the monitor
     HalfWidth := Ceil((r - l) / 2)
     ;-- Set the window position to the left half of the monitor
-    WinMove(l - ofl, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Left Half", r, l, t, b)
   }
@@ -403,7 +407,7 @@ RightHalf(*) {
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - HalfWidth
     ;-- Set the window position to the right half of the monitor
-    WinMove(RightX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(RightX, t - oft, HalfWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Right Half", r, l, t, b)
   }
@@ -414,7 +418,7 @@ TopLeft(*) {
     ;-- Calculate the width as half of the monitor
     HalfWidth := Ceil((r - l) / 2)
     ;-- Set the window position to the left half of the monitor and top half of it
-    WinMove(l - ofl, t - oft, HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, t - oft, HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Top Left", r, l, t, b)
   }
@@ -427,7 +431,7 @@ TopRight(*) {
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - HalfWidth
     ;-- Set the window position to start from the middle of the monitor and extend to the very right edge
-    WinMove(RightX, t - oft, r - l - HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(RightX, t - oft, r - l - HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Top Right", r, l, t, b)
   }
@@ -440,7 +444,7 @@ BottomLeft(*) {
     ;-- Calculate the height of half of the monitor
     HalfHeight := Ceil((b - t) / 2)
     ;-- Set the window position to left one third of monitor and bottom half of it
-    WinMove(l - ofl, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, HalfHeight + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, HalfHeight + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Left", r, l, t, b)
   }
@@ -453,7 +457,7 @@ BottomRight(*) {
     ;-- Calculate horizontal position for right aligning
     RightX := (r - ofr) - HalfWidth
     ;-- Set the window position to the right half of the monitor and bottom half of it
-    WinMove(RightX, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
+    WinMoveEx(RightX, Ceil(b - (b - t) / 2), HalfWidth + ofl + ofr, Ceil((b - t) / 2) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Right", r, l, t, b)
   }
@@ -464,7 +468,7 @@ TopHalf(*) {
     ;-- Calculate the height of half of the monitor
     HalfHeight := Ceil((b - t) / 2)
     ;-- Set the window position to the left half of the monitor and top half of it
-    WinMove(l - ofl, t - oft, Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, t - oft, Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Top Half", r, l, t, b)
   }
@@ -475,7 +479,7 @@ BottomHalf(*) {
     ;-- Calculate the height of half of the monitor
     HalfHeight := Ceil((b - t) / 2)
     ;-- Set the window position to the left half of the monitor and top half of it
-    WinMove(l - ofl, Ceil(b - (b - t) / 2), Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, Ceil(b - (b - t) / 2), Ceil((r - l)) + ofl + ofr, HalfHeight + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Bottom Half", r, l, t, b)
   }
@@ -486,7 +490,7 @@ FirstFourth(*) {
     ;-- Calculate the width of one fourth of the monitor
     OneFourthWidth := Ceil((r - l) / 4)
     ;-- Set the window position to the left one fourth of the monitor
-    WinMove(l - ofl, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("First Fourth", r, l, t, b)
   }
@@ -497,7 +501,7 @@ SecondFourth(*) {
     ; Calculate the width of one-fourth of the monitor
     OneFourthWidth := Ceil((r - l) / 4)
     ; Set the window position to the left one-fourth of the monitor
-    WinMove(l - ofl + OneFourthWidth, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl + OneFourthWidth, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
     ; Show layout toast
     Toast("Second Fourth", r, l, t, b)
   }
@@ -508,7 +512,7 @@ ThirdFourth(*) {
     ; Calculate the width of one-fourth of the monitor
     OneFourthWidth := Ceil((r - l) / 4)
     ; Set the window position to the right one-fourth of the monitor
-    WinMove(l - ofl + 2 * OneFourthWidth, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(l - ofl + 2 * OneFourthWidth, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
     ; Show layout toast
     Toast("Third Fourth", r, l, t, b)
   }
@@ -519,10 +523,16 @@ LastFourth(*) {
     ;-- Calculate the width of one fourth of the monitor
     OneFourthWidth := Ceil((r - l) / 4)
     ;-- Set the window position to the right one fourth of the monitor
-    WinMove(r - OneFourthWidth - ofr, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    WinMoveEx(r - OneFourthWidth - ofr, t - oft, OneFourthWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Last Fourth", r, l, t, b)
   }
+}
+WinMoveEx(X := 0, Y := 0, Width := 0, Height := 0, hWnd := 0) {
+  ;-- Restore the window before moving
+  WinRestore(hWnd)
+  ;-- Move the window to the desired position and dimension
+  WinMove(X, Y, Width, Height, hWnd)
 }
 GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0, &monRight := 0, &monLeft := 0, &monTop := 0, &monBottom := 0) {
   ;-- Get the handle of the active window

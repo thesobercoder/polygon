@@ -1,3 +1,10 @@
+## [v0.5.0](https://github.com/thesobercoder/polygon/compare/v0.4.0...v0.5.0) (2023-11-21)
+
+### Bugs
+
+- Improve toast display on quickly switching layout
+- Restore the window first before positioning
+
 ## [v0.4.0](https://github.com/thesobercoder/polygon/compare/v0.3.0...v0.4.0) (2023-11-20)
 
 ### Features
