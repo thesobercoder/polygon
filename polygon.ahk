@@ -5,12 +5,12 @@
 
 ;-- Ahk2Exe properties
 ;@Ahk2Exe-SetName Polygon
-;@Ahk2Exe-SetVersion 0.5.0
+;@Ahk2Exe-SetVersion 0.6.0
 ;@Ahk2Exe-SetCompanyName Soham Dasgupta
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.5.0"
+global APP_VERSION := "0.6.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
@@ -198,31 +198,35 @@ ShowVersion(*) {
   MsgBox("Version " . APP_VERSION, APP_NAME, "Iconi")
 }
 ;-- Map Hotkeys
-Hotkey(APP_SHORTCUT_CENTER, Center)
-Hotkey(APP_SHORTCUT_CENTERHD, CenterHD)
-Hotkey(APP_SHORTCUT_CENTERHALF, CenterHalf)
-Hotkey(APP_SHORTCUT_CENTERTWOTHIRD, CenterTwoThird)
-Hotkey(APP_SHORTCUT_FIRSTTHIRD, FirstThird)
-Hotkey(APP_SHORTCUT_CENTERTHIRD, CenterThird)
-Hotkey(APP_SHORTCUT_LASTTHIRD, LastThird)
-Hotkey(APP_SHORTCUT_TOPLEFTSIXTH, TopLeftSixth)
-Hotkey(APP_SHORTCUT_BOTTOMLEFTSIXTH, BottomLeftSixth)
-Hotkey(APP_SHORTCUT_TOPRIGHTSIXTH, TopRightSixth)
-Hotkey(APP_SHORTCUT_BOTTOMRIGHTSIXTH, BottomRightSixth)
-Hotkey(APP_SHORTCUT_TOPCENTERSIXTH, TopCenterSixth)
-Hotkey(APP_SHORTCUT_BOTTOMCENTERSIXTH, BottomCenterSixth)
 Hotkey(APP_SHORTCUT_LEFTHALF, LeftHalf)
 Hotkey(APP_SHORTCUT_RIGHTHALF, RightHalf)
+Hotkey(APP_SHORTCUT_CENTERHALF, CenterHalf)
+Hotkey(APP_SHORTCUT_TOPHALF, TopHalf)
+Hotkey(APP_SHORTCUT_BOTTOMHALF, BottomHalf)
 Hotkey(APP_SHORTCUT_TOPLEFT, TopLeft)
 Hotkey(APP_SHORTCUT_TOPRIGHT, TopRight)
 Hotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
 Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
-Hotkey(APP_SHORTCUT_TOPHALF, TopHalf)
-Hotkey(APP_SHORTCUT_BOTTOMHALF, BottomHalf)
+
+Hotkey(APP_SHORTCUT_CENTER, Center)
+Hotkey(APP_SHORTCUT_CENTERHD, CenterHD)
+
+Hotkey(APP_SHORTCUT_FIRSTTHIRD, FirstThird)
+Hotkey(APP_SHORTCUT_CENTERTHIRD, CenterThird)
+Hotkey(APP_SHORTCUT_LASTTHIRD, LastThird)
+Hotkey(APP_SHORTCUT_CENTERTWOTHIRD, CenterTwoThird)
+
 Hotkey(APP_SHORTCUT_FIRSTFOURTH, FirstFourth)
 Hotkey(APP_SHORTCUT_SECONDFOURTH, SecondFourth)
 Hotkey(APP_SHORTCUT_THIRDFOURTH, ThirdFourth)
 Hotkey(APP_SHORTCUT_LASTFOURTH, LastFourth)
+
+Hotkey(APP_SHORTCUT_TOPLEFTSIXTH, TopLeftSixth)
+Hotkey(APP_SHORTCUT_TOPCENTERSIXTH, TopCenterSixth)
+Hotkey(APP_SHORTCUT_TOPRIGHTSIXTH, TopRightSixth)
+Hotkey(APP_SHORTCUT_BOTTOMLEFTSIXTH, BottomLeftSixth)
+Hotkey(APP_SHORTCUT_BOTTOMCENTERSIXTH, BottomCenterSixth)
+Hotkey(APP_SHORTCUT_BOTTOMRIGHTSIXTH, BottomRightSixth)
 ;-- Layout Functions
 Center(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
