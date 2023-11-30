@@ -47,6 +47,9 @@ global APP_SHORTCUT_FIRSTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCU
 global APP_SHORTCUT_SECONDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "SecondFourth", "^#'")
 global APP_SHORTCUT_THIRDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "ThirdFourth", "^#,")
 global APP_SHORTCUT_LASTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastFourth", "^#.")
+global APP_SHORTCUT_MAXIMIZE := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "Maximize", "^#\")
+global APP_SHORTCUT_ALMOST_MAXIMIZE := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "AlmostMaximize", "^#+\")
+global APP_SHORTCUT_NEXTMONITOR := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "NextMonitor", "^#.")
 ;--Tooltip
 A_IconTip := APP_NAME
 ;-- Register global error logging
@@ -208,8 +211,11 @@ Hotkey(APP_SHORTCUT_TOPRIGHT, TopRight)
 Hotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
 Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
 
+Hotkey(APP_SHORTCUT_MAXIMIZE, Maximize)
+Hotkey(APP_SHORTCUT_ALMOST_MAXIMIZE, AlmostMaximize)
 Hotkey(APP_SHORTCUT_CENTER, Center)
 Hotkey(APP_SHORTCUT_CENTERHD, CenterHD)
+Hotkey(APP_SHORTCUT_NEXTMONITOR, MoveWindowToNextMonitor)
 
 Hotkey(APP_SHORTCUT_FIRSTTHIRD, FirstThird)
 Hotkey(APP_SHORTCUT_CENTERTHIRD, CenterThird)
@@ -532,6 +538,66 @@ LastFourth(*) {
     Toast("Last Fourth", r, l, t, b)
   }
 }
+Maximize(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Set the window position to fill the monitor width and height
+    WinMoveEx(
+      l - ofl,
+      t - oft,
+      r - l + ofr + ofl,
+      b - t + ofb - oft,
+      hWnd
+    )
+    ;-- Show layout toast
+    Toast("Maximize", r, l, t, b)
+  }
+}
+AlmostMaximize(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    gutter := ofl * 8
+    ;-- Set the window position to fill the monitor width and height with a gap of 6 times the offset
+    WinMoveEx(l - ofl + gutter,
+      t - oft + gutter,
+      r - l + ofr + ofl - (gutter * 2),
+      b - t + ofb - oft - (gutter * 2),
+      hWnd
+    )
+    ;-- Show layout toast
+    Toast("AlmostMaximize", r, l, t, b)
+  }
+}
+MoveWindowToNextMonitor(*) {
+  ; Get the handle of the active window
+  hWnd := WinExist("A")
+
+  ; Determine the next monitor (wrap around if at the last monitor)
+  nextMonitor := GetNextMonitor()
+
+  ; Retrieve the position and size
+  winRect := WinGetPosEx(hWnd, &winX, &winY, &winW, &winH, &winOFL, &winOFR, &winOFT, &winOFB)
+
+  currentMonitor := -1
+  monitorCount := MonitorGetCount()
+
+  if (nextMonitor > 1) {
+    currentMonitor := nextMonitor - 1
+  } else {
+    currentMonitor := monitorCount
+  }
+
+  ; Get the position and size of the next monitor
+  NextMon := MonitorGetWorkArea(nextMonitor, &nextMonLeft, &nextMonTop, &nextMonRight, &nextMonBottom)
+  currentMon := MonitorGetWorkArea(currentMonitor, &currentMonLeft, &currentMonTop, &currentMonRight, &currentMonBottom)
+
+  ; Calculate new X and Y positions for the window on the next monitor
+  newX := nextMonLeft + (winX - currentMonLeft)
+  newY := nextMonTop + (winY - currentMonTop)
+
+  ; Move the window to the new position on the next monitor
+  WinMoveEx(newX, newY, winW, winH, hWnd)
+}
 WinMoveEx(X := 0, Y := 0, Width := 0, Height := 0, hWnd := 0) {
   ;-- Restore the window before moving
   WinRestore(hWnd)
@@ -560,6 +626,33 @@ GetWindowRectEx(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &
     }
   }
   return false
+}
+GetNextMonitor(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &winOffsetLeft := 0, &winOffsetRight := 0, &winOffsetTop := 0, &winOffsetBottom := 0, &monRight := 0, &monLeft := 0, &monTop := 0, &monBottom := 0) {
+  ;-- Get the handle of the active window
+  hWindow := WinExist("A")
+  if (hWindow > 0)
+  {
+    ;-- Get the number of monitors
+    MonitorCount := MonitorGetCount()
+    ;-- Get the dimensions of the current window
+    WinGetPosEx(hWindow, &winX, &winY, &winW, &winH, &winOffsetLeft, &winOffsetRight, &winOffsetTop, &winOffsetBottom)
+    ;-- Loop through each monitor to find which one contains the active window
+    Loop MonitorCount
+    {
+      ;-- Get the dimensions of the current monitor
+      MonitorGetWorkArea(A_Index, &monLeft, &monTop, &monRight, &monBottom)
+      ;-- Check if the active window is within the current monitor
+      if (CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom))
+      {
+        if (A_Index + 1 > MonitorCount) {
+          return MonitorGetPrimary()
+        }
+
+        return A_Index + 1
+      }
+    }
+  }
+  return -1
 }
 CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom) {
   ; Calculate the coordinates of the corners of the window
