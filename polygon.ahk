@@ -645,7 +645,7 @@ GetNextMonitor(&hWindow := 0, &winX := 0, &winY := 0, &winW := 0, &winH := 0, &w
       if (CheckWindowWithinMonitor(winX, winY, winW, winH, winOffsetLeft, winOffsetRight, winOffsetTop, winOffsetBottom, monRight, monLeft, monTop, monBottom))
       {
         if (A_Index + 1 > MonitorCount) {
-          return MonitorGetPrimary()
+          return 1
         }
 
         return A_Index + 1
