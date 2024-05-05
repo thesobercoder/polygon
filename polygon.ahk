@@ -26,6 +26,8 @@ global APP_SHORTCUT_CENTER := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "C
 global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHD", "^#/")
 global APP_SHORTCUT_CENTERHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHalf", "^#w")
 global APP_SHORTCUT_CENTERTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterTwoThird", "^#r")
+global APP_SHORTCUT_FIRSTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstTwoThird", "^#a")
+global APP_SHORTCUT_LASTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstTwoThird", "^#h")
 global APP_SHORTCUT_FIRSTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstThird", "^#d")
 global APP_SHORTCUT_CENTERTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterThird", "^#f")
 global APP_SHORTCUT_LASTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastThird", "^#g")
@@ -204,6 +206,8 @@ Hotkey(APP_SHORTCUT_CENTERHALF, CenterHalf)
 Hotkey(APP_SHORTCUT_CENTERTWOTHIRD, CenterTwoThird)
 Hotkey(APP_SHORTCUT_FIRSTTHIRD, FirstThird)
 Hotkey(APP_SHORTCUT_CENTERTHIRD, CenterThird)
+Hotkey(APP_SHORTCUT_FIRSTTWOTHIRD, FirstTwoThird)
+Hotkey(APP_SHORTCUT_LASTTWOTHIRD, LastTwoThird)
 Hotkey(APP_SHORTCUT_LASTTHIRD, LastThird)
 Hotkey(APP_SHORTCUT_TOPLEFTSIXTH, TopLeftSixth)
 Hotkey(APP_SHORTCUT_BOTTOMLEFTSIXTH, BottomLeftSixth)
@@ -275,6 +279,30 @@ CenterTwoThird(*) {
     WinMoveEx(CenterX, t - oft, TwoThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
     ;-- Show layout toast
     Toast("Center Two Third", r, l, t, b)
+  }
+}
+FirstTwoThird(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate two third width of screen
+    TwoThirdWidth := Ceil((r - l) * 2 / 3)
+    ;-- Set the window position to the left first two third of the monitor
+    WinMoveEx(l - ofl, t - oft, TwoThirdWidth + ofr + ofl, (b - t) + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("First Two Third", r, l, t, b)
+  }
+}
+LastTwoThird(*) {
+  if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
+  {
+    ;-- Calculate two third width of screen
+    TwoThirdWidth := Ceil((r - l) * 2 / 3)
+    ;-- Calculate horizontal position for right aligning
+    RightX := (r - ofr) - TwoThirdWidth
+    ;-- Set window position to right one third of monitor
+    WinMoveEx(RightX, t - oft, TwoThirdWidth + ofl + ofr, (b - t) + oft + ofb, hWnd)
+    ;-- Show layout toast
+    Toast("Last Two Third", r, l, t, b)
   }
 }
 FirstThird(*) {
