@@ -10,7 +10,7 @@
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.5.0"
+global APP_VERSION := "0.6.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
@@ -27,7 +27,7 @@ global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, 
 global APP_SHORTCUT_CENTERHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHalf", "^#w")
 global APP_SHORTCUT_CENTERTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterTwoThird", "^#r")
 global APP_SHORTCUT_FIRSTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstTwoThird", "^#a")
-global APP_SHORTCUT_LASTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstTwoThird", "^#h")
+global APP_SHORTCUT_LASTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastTwoThird", "^#h")
 global APP_SHORTCUT_FIRSTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstThird", "^#d")
 global APP_SHORTCUT_CENTERTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterThird", "^#f")
 global APP_SHORTCUT_LASTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastThird", "^#g")
