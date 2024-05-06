@@ -58,7 +58,7 @@ foreach ($folder in $sourceFolders) {
 Write-Host "Downloaded the latest release from upx into `"$cwd\build\upx\`"" -ForegroundColor Green;
 
 # Download Wix3
-$wixFileNamePattern = "wix311-binaries.zip";
+$wixFileNamePattern = "wix314-binaries.zip";
 $wixLatestRelease = Invoke-RestMethod -Uri "https://api.github.com/repos/wixtoolset/wix3/releases/latest";
 $wixDownloadURL = ($wixLatestRelease.assets | Where-Object { $_.name -match "$wixFileNamePattern" }) | Select-Object -ExpandProperty browser_download_url;
 Invoke-WebRequest -Uri $wixDownloadURL -OutFile "$cwd\build\$wixFileNamePattern";
