@@ -10,7 +10,7 @@
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.5.0"
+global APP_VERSION := "0.6.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
