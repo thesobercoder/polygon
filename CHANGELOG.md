@@ -1,3 +1,9 @@
+## [v0.7.0](https://github.com/thesobercoder/polygon/compare/v0.4.0...v0.5.0) (2024-05-06)
+
+### Bugs
+
+- Fix incorrect function reference for LastTwoThird layout.
+
 ## [v0.6.0](https://github.com/thesobercoder/polygon/compare/v0.4.0...v0.5.0) (2024-05-06)
 
 ### Features
