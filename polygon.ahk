@@ -5,7 +5,7 @@
 
 ;-- Ahk2Exe properties
 ;@Ahk2Exe-SetName Polygon
-;@Ahk2Exe-SetVersion 0.5.0
+;@Ahk2Exe-SetVersion 0.7.0
 ;@Ahk2Exe-SetCompanyName Soham Dasgupta
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
