@@ -84,6 +84,14 @@ Contributions are most welcome to fix bugs or to add new features.
 - If AutoHotkey is located in a different location other than `C:\Program Files\AutoHotkey\v2\AutoHotkey.exe`, then set the `AutoHotkey2.InterpreterPath` setting to point to the correct location.
 - You need to have the `EditorConfig for VS Code` extension installed by searching with the `EditorConfig.EditorConfig` extension ID.
 - You need to have the `Prettier - Code formatter` extension installed by searching with the `esbenp.prettier-vscode` extension ID.
+- Add the following lines to your VS Code settings.json file to enable AutoHotkey v2 language support.
+  ```json
+  {
+    "AutoHotkey2.InterpreterPath": "<path to AutoHotkey.exe>",
+    "AutoHotkey2.Warn.LocalSameAsGlobal": true,
+    "AutoHotkey2.Warn.CallWithoutParentheses": "On"
+  }
+  ```
 
 ### Structure
 
