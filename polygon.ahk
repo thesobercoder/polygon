@@ -5,12 +5,12 @@
 
 ;-- Ahk2Exe properties
 ;@Ahk2Exe-SetName Polygon
-;@Ahk2Exe-SetVersion 0.6.0
+;@Ahk2Exe-SetVersion 0.7.0
 ;@Ahk2Exe-SetCompanyName Soham Dasgupta
 ;@Ahk2Exe-SetDescription A window manager for Windows 10/11 powered by AutoHotkey
 
 ;-- Globals
-global APP_VERSION := "0.6.0"
+global APP_VERSION := "0.7.0"
 global APP_VERSION_NAME := "v" . APP_VERSION
 global APP_NAME := "Polygon"
 global APP_REPO_OWNER := "thesobercoder"
@@ -21,34 +21,34 @@ global APP_UPDATE_URL := APP_URL . "/releases/latest"
 global APP_INI_FILE := "polygon.ini"
 global APP_INI_SECTION_SHORTCUT := "Shortcut"
 global APP_INI_SECTION_TOAST := "Toast"
-global APP_SETTING_ISTOASTENABLED := IniRead(APP_INI_FILE, APP_INI_SECTION_TOAST, "Show", "1") == "1" ? true : false
-global APP_SHORTCUT_CENTER := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "Center", "^#c")
-global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHD", "^#/")
-global APP_SHORTCUT_CENTERHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHalf", "^#w")
-global APP_SHORTCUT_CENTERTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterTwoThird", "^#r")
-global APP_SHORTCUT_FIRSTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstTwoThird", "^#a")
-global APP_SHORTCUT_LASTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastTwoThird", "^#h")
-global APP_SHORTCUT_FIRSTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstThird", "^#d")
-global APP_SHORTCUT_CENTERTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterThird", "^#f")
-global APP_SHORTCUT_LASTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastThird", "^#g")
-global APP_SHORTCUT_TOPLEFTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopLeftSixth", "^#z")
-global APP_SHORTCUT_BOTTOMLEFTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeftSixth", "^#x")
-global APP_SHORTCUT_TOPRIGHTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRightSixth", "^#v")
-global APP_SHORTCUT_BOTTOMRIGHTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRightSixth", "^#b")
-global APP_SHORTCUT_TOPCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopCenterSixth", "^#n")
-global APP_SHORTCUT_BOTTOMCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomCenterSixth", "^#m")
-global APP_SHORTCUT_LEFTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LeftHalf", "^#[")
-global APP_SHORTCUT_RIGHTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "RightHalf", "^#]")
-global APP_SHORTCUT_TOPLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopLeft", "^#u")
-global APP_SHORTCUT_TOPRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRight", "^#i")
-global APP_SHORTCUT_BOTTOMLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeft", "^#j")
-global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRight", "^#k")
-global APP_SHORTCUT_TOPHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopHalf", "^#-")
-global APP_SHORTCUT_BOTTOMHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomHalf", "^#=")
-global APP_SHORTCUT_FIRSTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstFourth", "^#;")
-global APP_SHORTCUT_SECONDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "SecondFourth", "^#'")
-global APP_SHORTCUT_THIRDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "ThirdFourth", "^#,")
-global APP_SHORTCUT_LASTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastFourth", "^#.")
+global APP_SETTING_ISTOASTENABLED := IniRead(APP_INI_FILE, APP_INI_SECTION_TOAST, "Show", "0") == "1" ? true : false
+global APP_SHORTCUT_CENTER := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "Center", "")
+global APP_SHORTCUT_CENTERHD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHD", "")
+global APP_SHORTCUT_CENTERHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterHalf", "")
+global APP_SHORTCUT_CENTERTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterTwoThird", "")
+global APP_SHORTCUT_FIRSTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstTwoThird", "")
+global APP_SHORTCUT_LASTTWOTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastTwoThird", "")
+global APP_SHORTCUT_FIRSTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstThird", "")
+global APP_SHORTCUT_CENTERTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "CenterThird", "")
+global APP_SHORTCUT_LASTTHIRD := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastThird", "")
+global APP_SHORTCUT_TOPLEFTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopLeftSixth", "")
+global APP_SHORTCUT_BOTTOMLEFTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeftSixth", "")
+global APP_SHORTCUT_TOPRIGHTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRightSixth", "")
+global APP_SHORTCUT_BOTTOMRIGHTSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRightSixth", "")
+global APP_SHORTCUT_TOPCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopCenterSixth", "")
+global APP_SHORTCUT_BOTTOMCENTERSIXTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomCenterSixth", "")
+global APP_SHORTCUT_LEFTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LeftHalf", "")
+global APP_SHORTCUT_RIGHTHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "RightHalf", "")
+global APP_SHORTCUT_TOPLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopLeft", "")
+global APP_SHORTCUT_TOPRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopRight", "")
+global APP_SHORTCUT_BOTTOMLEFT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomLeft", "")
+global APP_SHORTCUT_BOTTOMRIGHT := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomRight", "")
+global APP_SHORTCUT_TOPHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "TopHalf", "")
+global APP_SHORTCUT_BOTTOMHALF := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "BottomHalf", "")
+global APP_SHORTCUT_FIRSTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "FirstFourth", "")
+global APP_SHORTCUT_SECONDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "SecondFourth", "")
+global APP_SHORTCUT_THIRDFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "ThirdFourth", "")
+global APP_SHORTCUT_LASTFOURTH := IniRead(APP_INI_FILE, APP_INI_SECTION_SHORTCUT, "LastFourth", "")
 ;--Tooltip
 A_IconTip := APP_NAME
 ;-- Register global error logging
@@ -199,34 +199,39 @@ Terminate(*) {
 ShowVersion(*) {
   MsgBox("Version " . APP_VERSION, APP_NAME, "Iconi")
 }
-;-- Map Hotkeys
-Hotkey(APP_SHORTCUT_CENTER, Center)
-Hotkey(APP_SHORTCUT_CENTERHD, CenterHD)
-Hotkey(APP_SHORTCUT_CENTERHALF, CenterHalf)
-Hotkey(APP_SHORTCUT_CENTERTWOTHIRD, CenterTwoThird)
-Hotkey(APP_SHORTCUT_FIRSTTHIRD, FirstThird)
-Hotkey(APP_SHORTCUT_CENTERTHIRD, CenterThird)
-Hotkey(APP_SHORTCUT_FIRSTTWOTHIRD, FirstTwoThird)
-Hotkey(APP_SHORTCUT_LASTTWOTHIRD, LastTwoThird)
-Hotkey(APP_SHORTCUT_LASTTHIRD, LastThird)
-Hotkey(APP_SHORTCUT_TOPLEFTSIXTH, TopLeftSixth)
-Hotkey(APP_SHORTCUT_BOTTOMLEFTSIXTH, BottomLeftSixth)
-Hotkey(APP_SHORTCUT_TOPRIGHTSIXTH, TopRightSixth)
-Hotkey(APP_SHORTCUT_BOTTOMRIGHTSIXTH, BottomRightSixth)
-Hotkey(APP_SHORTCUT_TOPCENTERSIXTH, TopCenterSixth)
-Hotkey(APP_SHORTCUT_BOTTOMCENTERSIXTH, BottomCenterSixth)
-Hotkey(APP_SHORTCUT_LEFTHALF, LeftHalf)
-Hotkey(APP_SHORTCUT_RIGHTHALF, RightHalf)
-Hotkey(APP_SHORTCUT_TOPLEFT, TopLeft)
-Hotkey(APP_SHORTCUT_TOPRIGHT, TopRight)
-Hotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
-Hotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
-Hotkey(APP_SHORTCUT_TOPHALF, TopHalf)
-Hotkey(APP_SHORTCUT_BOTTOMHALF, BottomHalf)
-Hotkey(APP_SHORTCUT_FIRSTFOURTH, FirstFourth)
-Hotkey(APP_SHORTCUT_SECONDFOURTH, SecondFourth)
-Hotkey(APP_SHORTCUT_THIRDFOURTH, ThirdFourth)
-Hotkey(APP_SHORTCUT_LASTFOURTH, LastFourth)
+SetConditionalHotkey(shortcut, func) {
+  if (shortcut && shortcut != "") {
+    Hotkey(shortcut, func)
+  }
+}
+;-- Map Hotkeys using SetConditionalHotkey function
+SetConditionalHotkey(APP_SHORTCUT_CENTER, Center)
+SetConditionalHotkey(APP_SHORTCUT_CENTERHD, CenterHD)
+SetConditionalHotkey(APP_SHORTCUT_CENTERHALF, CenterHalf)
+SetConditionalHotkey(APP_SHORTCUT_CENTERTWOTHIRD, CenterTwoThird)
+SetConditionalHotkey(APP_SHORTCUT_FIRSTTHIRD, FirstThird)
+SetConditionalHotkey(APP_SHORTCUT_CENTERTHIRD, CenterThird)
+SetConditionalHotkey(APP_SHORTCUT_FIRSTTWOTHIRD, FirstTwoThird)
+SetConditionalHotkey(APP_SHORTCUT_LASTTWOTHIRD, LastTwoThird)
+SetConditionalHotkey(APP_SHORTCUT_LASTTHIRD, LastThird)
+SetConditionalHotkey(APP_SHORTCUT_TOPLEFTSIXTH, TopLeftSixth)
+SetConditionalHotkey(APP_SHORTCUT_BOTTOMLEFTSIXTH, BottomLeftSixth)
+SetConditionalHotkey(APP_SHORTCUT_TOPRIGHTSIXTH, TopRightSixth)
+SetConditionalHotkey(APP_SHORTCUT_BOTTOMRIGHTSIXTH, BottomRightSixth)
+SetConditionalHotkey(APP_SHORTCUT_TOPCENTERSIXTH, TopCenterSixth)
+SetConditionalHotkey(APP_SHORTCUT_BOTTOMCENTERSIXTH, BottomCenterSixth)
+SetConditionalHotkey(APP_SHORTCUT_LEFTHALF, LeftHalf)
+SetConditionalHotkey(APP_SHORTCUT_RIGHTHALF, RightHalf)
+SetConditionalHotkey(APP_SHORTCUT_TOPLEFT, TopLeft)
+SetConditionalHotkey(APP_SHORTCUT_TOPRIGHT, TopRight)
+SetConditionalHotkey(APP_SHORTCUT_BOTTOMLEFT, BottomLeft)
+SetConditionalHotkey(APP_SHORTCUT_BOTTOMRIGHT, BottomRight)
+SetConditionalHotkey(APP_SHORTCUT_TOPHALF, TopHalf)
+SetConditionalHotkey(APP_SHORTCUT_BOTTOMHALF, BottomHalf)
+SetConditionalHotkey(APP_SHORTCUT_FIRSTFOURTH, FirstFourth)
+SetConditionalHotkey(APP_SHORTCUT_SECONDFOURTH, SecondFourth)
+SetConditionalHotkey(APP_SHORTCUT_THIRDFOURTH, ThirdFourth)
+SetConditionalHotkey(APP_SHORTCUT_LASTFOURTH, LastFourth)
 ;-- Layout Functions
 Center(*) {
   if (GetWindowRectEx(&hWnd, &x, &y, &w, &h, &ofl, &ofr, &oft, &ofb, &r, &l, &t, &b))
